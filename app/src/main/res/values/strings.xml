@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">ByrTv</string>
+    <string name="my_collections">我的收藏</string>
+    <string name="all_channel">全部频道</string>
+
+
+    <string name="drawer_open">打开侧滑菜单</string>
+    <string name="drawer_close">关闭侧滑菜单</string>
+
+
+    <!-- 提示语-->
+    <string name="net_wrong">网络出错了哦</string>
+</resources>
