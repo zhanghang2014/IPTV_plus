@@ -18,7 +18,7 @@ android {
         }
     }
     //为了解决部分第三方库重复打包了META-INF的问题
-    packagingOptions{
+    packagingOptions {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
     }
@@ -33,7 +33,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.0.0'
     compile 'com.android.support:support-v13:+'
     compile 'com.facebook.fresco:fresco:0.8.1'
-
+    //汉子转拼音解析包
+    compile 'com.github.stuxuhai:jpinyin:1.1'
 
     //avoscloud-sdk 为 LeanCloud基础包
     compile 'cn.leancloud.android:avoscloud-sdk:v3.+'

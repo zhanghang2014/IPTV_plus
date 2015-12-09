@@ -5,4 +5,8 @@ package com.bigheart.byrtv.ui.view;
  */
 public interface FragContactToAct {
 
+    void fragmentInitOk();
+
+    void notifyMyCollectionFrg();
+
 }

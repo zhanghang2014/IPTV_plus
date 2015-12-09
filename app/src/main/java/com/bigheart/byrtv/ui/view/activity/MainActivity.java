@@ -10,16 +10,24 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import com.avos.avoscloud.AVUser;
 import com.bigheart.byrtv.R;
+import com.bigheart.byrtv.data.sqlite.SqlChannelManager;
+import com.bigheart.byrtv.ui.module.ChannelModule;
 import com.bigheart.byrtv.ui.presenter.MainActivityPresenter;
+import com.bigheart.byrtv.ui.view.FragContactToAct;
 import com.bigheart.byrtv.ui.view.MainActivityView;
 import com.bigheart.byrtv.ui.view.fragment.AllChannelFragment;
 import com.bigheart.byrtv.ui.view.fragment.MyCollectionFragment;
 import com.bigheart.byrtv.util.ChannelSortType;
+import com.github.stuxuhai.jpinyin.PinyinFormat;
+import com.github.stuxuhai.jpinyin.PinyinHelper;
 
-public class MainActivity extends BaseActivity implements MainActivityView {
+import java.util.ArrayList;
+
+public class MainActivity extends BaseActivity implements MainActivityView, FragContactToAct {
 
 
     private final int FRAGMENT_NUM = 2, POS_MY_COLLECTION = 0, POS_ALL_CHANNEL = 1;
@@ -33,6 +41,8 @@ public class MainActivity extends BaseActivity implements MainActivityView {
     private MyCollectionFragment myCollectionFragment;
 
     private MainActivityPresenter presenter;
+
+    private int okFragCount = 0;
 
 
     @Override
@@ -84,8 +94,8 @@ public class MainActivity extends BaseActivity implements MainActivityView {
             }
         });
 
-        channelFragment = AllChannelFragment.newInstance(ChannelSortType.SORT_BY_PEOPLE_NUM);
-        myCollectionFragment = MyCollectionFragment.newInstance(ChannelSortType.SORT_BY_PEOPLE_NUM);
+        channelFragment = AllChannelFragment.newInstance(ChannelSortType.SORT_BY_PEOPLE_NUM, this);
+        myCollectionFragment = MyCollectionFragment.newInstance(ChannelSortType.SORT_BY_PEOPLE_NUM, this);
 
         initDrawerUI();
     }
@@ -96,7 +106,8 @@ public class MainActivity extends BaseActivity implements MainActivityView {
     }
 
     private void initData() {
-        presenter = new MainActivityPresenter(this, this);
+        if (presenter == null)
+            presenter = new MainActivityPresenter(this, this, myCollectionFragment, channelFragment);
         presenter.login();
     }
 
@@ -131,5 +142,22 @@ public class MainActivity extends BaseActivity implements MainActivityView {
             this.toast("login fail");
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void fragmentInitOk() {
+        okFragCount++;
+//        Log.i("MainActivity", "get ok msg");
+        if (okFragCount == 2) {
+            if (presenter == null)
+                presenter = new MainActivityPresenter(this, this, myCollectionFragment, channelFragment);
+            presenter.pullData();
+//            Log.i("MainActivity", "pullData");
+        }
+    }
+
+    @Override
+    public void notifyMyCollectionFrg() {
+        presenter.upDateMyCollectionFrg();
     }
 }

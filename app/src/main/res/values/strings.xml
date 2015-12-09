@@ -10,4 +10,5 @@
 
     <!-- 提示语-->
     <string name="net_wrong">网络出错了哦</string>
+    <string name="has_no_collection">你还未收藏任何频道哦～\n右滑点击星号即可收藏 -></string>
 </resources>

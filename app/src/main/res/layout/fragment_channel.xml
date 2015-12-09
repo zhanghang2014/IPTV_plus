@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,12 +10,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <ListView
             android:id="@+id/lv_all_channel"
             android:layout_width="match_parent"
             android:layout_height="match_parent"></ListView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="22sp"
+            android:visibility="gone"
+            tools:text="@string/has_no_collection" />
+
+
     </android.support.v4.widget.SwipeRefreshLayout>
 
 
-</FrameLayout>
+</RelativeLayout>

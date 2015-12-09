@@ -1,7 +1,10 @@
 package com.bigheart.byrtv.domain.interactor;
 
+import android.content.Context;
+
 import com.bigheart.byrtv.data.net.GetChannelTask;
 import com.bigheart.byrtv.data.net.NetWorkRsp;
+import com.bigheart.byrtv.data.sqlite.SqlChannelManager;
 import com.bigheart.byrtv.ui.module.ChannelModule;
 
 import java.util.ArrayList;
@@ -12,14 +15,14 @@ import java.util.ArrayList;
 public class GetChannelList {
     private ChannelsRsp rsp;
 
+
     public GetChannelList(ChannelsRsp channelsRsp) {
         rsp = channelsRsp;
     }
 
     public void getChannels() {
-        // TODO: 15/12/8 首先从数据库中取出数据
 
-
+        rsp.getFromSqLiteSuccess(SqlChannelManager.getInstance().queryChannel(null, null, null, null, null, null));
         //
         new GetChannelTask(new NetWorkRsp<ArrayList<ChannelModule>, Exception>() {
             @Override

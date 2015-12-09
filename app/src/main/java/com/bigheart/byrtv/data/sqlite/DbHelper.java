@@ -11,10 +11,12 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final int DbVersion = 1; //当前版本号
     public static String DbName = "iptv_plus.db";
 
-    private static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE " + SqlColumn.TABLE_NAME + " (" +
-                    SqlColumn.ID + " INTEGER PRIMARY KEY," +
-                    SqlColumn.SAYING + TEXT_TYPE + " )";
+    private static final String SQL_CREATE_CHANNEL_TABLE =
+            "CREATE TABLE " + ChannelColumn.CHANNEL_TABLE_NAME + " (" +
+                    ChannelColumn.CHANNEL_ID + " INTEGER PRIMARY KEY," +
+                    ChannelColumn.CHANNEL_NAME + " TEXT," +
+                    ChannelColumn.IS_COLLECTION + " BLOB," +
+                    ChannelColumn.IMG_URI + " TEXT" + " )";
 
 
     public DbHelper(Context context) {
@@ -23,7 +25,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        db.execSQL(SQL_CREATE_CHANNEL_TABLE);
     }
 
     @Override

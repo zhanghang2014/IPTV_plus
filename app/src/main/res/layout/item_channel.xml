@@ -23,9 +23,9 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
             android:layout_toRightOf="@+id/iv_chanel"
-            tools:text="CCTV-1 高清"
             android:textColor="@android:color/black"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            tools:text="CCTV-1 高清" />
 
         <ImageView
             android:id="@+id/iv_collection"
@@ -34,7 +34,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:background="@android:drawable/btn_star_big_on" />
+            android:background="@android:drawable/btn_star_big_off" />
 
 
         <TextView

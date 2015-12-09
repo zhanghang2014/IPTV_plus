@@ -2,11 +2,12 @@ package com.bigheart.byrtv.ui.view.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.ContentValues;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +18,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bigheart.byrtv.R;
+import com.bigheart.byrtv.data.sqlite.ChannelColumn;
+import com.bigheart.byrtv.data.sqlite.SqlChannelManager;
 import com.bigheart.byrtv.ui.module.ChannelModule;
 import com.bigheart.byrtv.ui.presenter.AllChannelPresenter;
 import com.bigheart.byrtv.ui.view.AllChannelView;
+import com.bigheart.byrtv.ui.view.FragContactToAct;
+import com.bigheart.byrtv.ui.view.activity.MainActivity;
 import com.bigheart.byrtv.util.ChannelSortType;
 
 import java.util.ArrayList;
@@ -32,7 +37,6 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
 
     private static final String ITEM_SORT_TYPE = "itemSortType";
     private final int ItemTypeCount = 2;
-    private final int MSG_START_FRESH = 0, MSG_STOP_FRESH = 1, MSG_DATA_REFRESH = 2, MSG_TOAST = 3;
 
 
     private ListView lvAllChannel;
@@ -41,11 +45,14 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
     private int sortType = ChannelSortType.SORT_BY_PEOPLE_NUM.ordinal();//列表排序类型，默认在线人数排序
     private ChannelAdapter channelAdapter;
     private ArrayList<ChannelModule> channels;
+
+    private static FragContactToAct allChannelFragContactToAct;
     private AllChannelPresenter presenter;
 
 
-    public static AllChannelFragment newInstance(ChannelSortType itemSortType) {
+    public static AllChannelFragment newInstance(ChannelSortType itemSortType, FragContactToAct contactToAct) {
         AllChannelFragment fragment = new AllChannelFragment();
+        allChannelFragContactToAct = contactToAct;
         Bundle args = new Bundle();
         args.putInt(ITEM_SORT_TYPE, itemSortType.ordinal());
         fragment.setArguments(args);
@@ -64,11 +71,13 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
         if (getArguments() != null) {
             sortType = getArguments().getInt(ITEM_SORT_TYPE);
         }
+
+//        Log.i("AllChannelFragment","onCreate");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View layoutView = inflater.inflate(R.layout.fragment_all_channel, container, false);
+        View layoutView = inflater.inflate(R.layout.fragment_channel, container, false);
 
         channelAdapter = new ChannelAdapter(getActivity());
         lvAllChannel = (ListView) layoutView.findViewById(R.id.lv_all_channel);
@@ -84,7 +93,8 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
             }
         });
 
-        presenter.init();
+        allChannelFragContactToAct.fragmentInitOk();
+//        Log.i("AllChannelFragment","onCreateView");
 
         return layoutView;
 
@@ -99,12 +109,37 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-//        try {
-//            mListener = (OnFragmentInteractionListener) activity;
-//        } catch (ClassCastException e) {
-//            throw new ClassCastException(activity.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
+        try {
+            allChannelFragContactToAct = (FragContactToAct) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement FragContactToAct");
+        }
+//        Log.i("AllChannelFragment","onAttach");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+//        mListener = null;
+//        Log.i("AllChannelFragment","onDetach");
+    }
+
+    @Override
+    public void startRefresh() {
+        refreshLayout.setRefreshing(true);
+    }
+
+    @Override
+    public void stopRefresh() {
+        refreshLayout.setRefreshing(false);
+
+    }
+
+    @Override
+    public void updateData(ArrayList<ChannelModule> channels) {
+        this.channels = channels;
+        channelAdapter.notifyDataSetChanged();
     }
 
     private class ChannelAdapter extends BaseAdapter {
@@ -135,8 +170,9 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder holder;
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            final ViewHolder holder;
+//            Log.i("AllChannelFragment channel size", channels.size() + "");
             if (convertView == null) {
                 convertView = inflater.inflate(R.layout.item_channel, null);
                 holder = new ViewHolder((TextView) convertView.findViewById(R.id.tv_channel_name),
@@ -147,8 +183,39 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-            ChannelModule tmpChannel = channels.get(position);
+            final ChannelModule tmpChannel = channels.get(position);
             holder.tvChannelName.setText(tmpChannel.getChannelName());
+
+
+            if (tmpChannel.isCollected() == true) {
+                setCollectionStartState(holder.ivCollection, false);
+            } else {
+                setCollectionStartState(holder.ivCollection, true);
+            }
+
+            holder.ivCollection.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (tmpChannel.isCollected()) {
+                        //cancel collection
+                        if (presenter.updateChannelCollectedState(tmpChannel.getSqlId(), false) != -1) {
+                            tmpChannel.setIsCollected(false);
+                            setCollectionStartState((ImageView) v, true);
+                        } else {
+                            Toast.makeText(getActivity(), "取消收藏 失败 T～T", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        //add collection
+                        if (presenter.updateChannelCollectedState(tmpChannel.getSqlId(), true) != -1) {
+                            tmpChannel.setIsCollected(true);
+                            setCollectionStartState((ImageView) v, false);
+                        } else {
+                            Toast.makeText(getActivity(), "收藏 失败 T～T", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    allChannelFragContactToAct.notifyMyCollectionFrg();
+                }
+            });
 
             return convertView;
         }
@@ -166,26 +233,21 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
         }
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-//        mListener = null;
+    private void setCollectionStartState(ImageView imageView, boolean isCollection) {
+        if (isCollection) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                imageView.setImageDrawable(getResources().getDrawable(android.R.drawable.btn_star_big_off, getActivity().getTheme()));
+            } else {
+                imageView.setImageDrawable(getResources().getDrawable(android.R.drawable.btn_star_big_off));
+            }
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                imageView.setImageDrawable(getResources().getDrawable(android.R.drawable.btn_star_big_on, getActivity().getTheme()));
+            } else {
+                imageView.setImageDrawable(getResources().getDrawable(android.R.drawable.btn_star_big_on));
+            }
+        }
     }
 
-    @Override
-    public void startRefresh() {
-        refreshLayout.setRefreshing(true);
-    }
 
-    @Override
-    public void stopRefresh() {
-        refreshLayout.setRefreshing(false);
-
-    }
-
-    @Override
-    public void updateData(ArrayList<ChannelModule> channels) {
-        this.channels = channels;
-        channelAdapter.notifyDataSetChanged();
-    }
 }
