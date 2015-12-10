@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/collection_of_channels"
+            android:icon="@android:drawable/ic_menu_gallery"
+            android:title="收藏频道" />
+        <item
+            android:id="@+id/all_of_channels"
+            android:icon="@android:drawable/ic_menu_search"
+            android:title="全部频道" />
+
+    </group>
+
+    <item android:title="设置">
+        <menu>
+            <item
+                android:id="@+id/user_setting"
+                android:icon="@android:drawable/ic_menu_set_as"
+                android:title="用户设置" />
+            <item
+                android:id="@+id/app_setting"
+                android:icon="@android:drawable/ic_menu_view"
+                android:title="软件设置" />
+        </menu>
+    </item>
+
+</menu>

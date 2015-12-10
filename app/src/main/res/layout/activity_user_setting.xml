@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar_layout" />
+
+    <FrameLayout
+        android:id="@+id/layout_user_setting"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_user_setting_background"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@drawable/default_bg"
+            android:scaleType="center"></ImageView>
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_user_setting_icon"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="135dp"
+            fresco:placeholderImage="@drawable/default_icon"
+            fresco:roundAsCircle="true" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="250dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="昵称："
+                    android:textColor="@color/default_gray_text"
+                    android:textSize="@dimen/default_text_size" />
+
+                <TextView
+                    android:id="@+id/tv_user_setting_nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:clickable="true"
+                    android:textColor="@color/default_black_text"
+                    android:textSize="@dimen/default_text_size" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="#ccc" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="性别："
+                    android:textColor="@color/default_gray_text"
+                    android:textSize="@dimen/default_text_size" />
+
+                <TextView
+                    android:id="@+id/tv_user_setting_gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:clickable="true"
+                    android:textColor="@color/default_black_text"
+                    android:textSize="@dimen/default_text_size" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="#ccc" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="友善度："
+                    android:textColor="@color/default_gray_text"
+                    android:textSize="@dimen/default_text_size" />
+
+                <TextView
+                    android:id="@+id/tv_user_setting_friend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:clickable="true"
+                    android:textColor="@color/default_black_text"
+                    android:textSize="@dimen/default_text_size" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_user_update_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="更改密码" />
+
+            <Button
+                android:id="@+id/btn_user_ver_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="验证邮箱" />
+
+            <Button
+                android:id="@+id/btn_user_setting_logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="注销用户" />
+        </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>
