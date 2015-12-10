@@ -30,30 +30,23 @@ public class UserSettingPresenter extends Presenter {
     }
 
     public String getGender() {
-        if(user!=null){
-            gender=user.getString("gender");
+        if (user != null) {
+            gender = user.getString("gender");
         }
         return gender;
     }
 
     public String getFriend() {
         if (user != null) {
-           friend= ""+user.getInt("friend");
+            friend = "" + user.getInt("friend");
         }
         return friend;
     }
 
-    public void logout(){
-        if (user!=null){
+    public void logout() {
+        if (user != null) {
             user.logOut();
         }
     }
 
-    public String updatePasswrd(String oldPWD,String newPWD,UpdatePasswordCallback callback){
-        String email="null";
-        if (user!=null){
-            user.updatePasswordInBackground(oldPWD,newPWD,callback);
-        }
-        return email;
-    }
 }

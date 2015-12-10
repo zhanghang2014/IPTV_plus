@@ -2,9 +2,98 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/root_layout_activity_edit_user_data">
 
-    <include layout="@layout/toolbar_layout"/>
+    <include layout="@layout/toolbar_layout" />
 
-    
+    <LinearLayout
+        android:id="@+id/ll_edit_user_data_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/til_edit_user_nickname"
+            android:padding="16dp"
+            app:hintTextAppearance="@style/defualt_hint_text"
+            android:hint="昵称">
+
+            <EditText
+                android:id="@+id/et_edit_user_nickname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/default_text_size"
+                android:singleLine="true"
+                />
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:id="@+id/btn_edit_user_data_nickname"
+            android:textSize="@dimen/default_text_size"
+            android:text="更改昵称"
+            android:padding="@dimen/activity_vertical_margin"/>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/til_edit_user_old_pwd"
+            android:padding="16dp"
+            app:hintTextAppearance="@style/defualt_hint_text"
+            android:hint="原始密码">
+
+            <EditText
+                android:id="@+id/et_edit_user_old_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/default_text_size"
+                android:singleLine="true"
+                />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/til_edit_user_new_pwd"
+            android:padding="16dp"
+            app:hintTextAppearance="@style/defualt_hint_text"
+            android:hint="新密码">
+
+            <EditText
+                android:id="@+id/et_edit_user_new_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/default_text_size"
+                android:singleLine="true"
+                />
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:id="@+id/btn_edit_user_data_pwd"
+            android:textSize="@dimen/default_text_size"
+            android:text="更改密码"
+            android:padding="@dimen/activity_vertical_margin"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:id="@+id/btn_edit_user_data_give_up"
+            android:textSize="@dimen/default_text_size"
+            android:text="放弃更改"
+            android:padding="@dimen/activity_vertical_margin"/>
+
+    </LinearLayout>
 </LinearLayout>

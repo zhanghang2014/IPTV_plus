@@ -6,5 +6,6 @@ package com.bigheart.byrtv.ui.view;
 public interface UserSettingView {
 
     void updateUserData();
-    void updatePWD();
+
+    void setEditEnable();
 }

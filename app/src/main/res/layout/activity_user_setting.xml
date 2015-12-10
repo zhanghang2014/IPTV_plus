@@ -4,8 +4,8 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    android:orientation="vertical">
 
     <include layout="@layout/toolbar_layout" />
 
@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="180dp"
             android:background="@drawable/default_bg"
-            android:scaleType="center"></ImageView>
+            android:scaleType="center" />
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/sdv_user_setting_icon"
@@ -51,7 +51,7 @@
 
                 <TextView
                     android:id="@+id/tv_user_setting_nickname"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:clickable="true"
@@ -81,7 +81,7 @@
 
                 <TextView
                     android:id="@+id/tv_user_setting_gender"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:clickable="true"
@@ -111,7 +111,7 @@
 
                 <TextView
                     android:id="@+id/tv_user_setting_friend"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:clickable="true"
@@ -120,11 +120,11 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/btn_user_update_pwd"
+                android:id="@+id/btn_user_update_data"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="更改密码" />
+                android:text="更改昵称密码" />
 
             <Button
                 android:id="@+id/btn_user_ver_email"

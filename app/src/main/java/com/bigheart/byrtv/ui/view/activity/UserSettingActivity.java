@@ -1,5 +1,6 @@
 package com.bigheart.byrtv.ui.view.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,7 +28,7 @@ public class UserSettingActivity extends BaseActivity implements UserSettingView
     private UserSettingPresenter presenter;
     private SimpleDraweeView icon;
     private TextView nickname, gender, friend;
-    private Button logout, updatePWD, verEmail;
+    private Button logout, updateData, verEmail;
     private FrameLayout mLayout;
     private Toolbar toolbar;
 
@@ -83,16 +84,16 @@ public class UserSettingActivity extends BaseActivity implements UserSettingView
         gender = (TextView) findViewById(R.id.tv_user_setting_gender);
         friend = (TextView) findViewById(R.id.tv_user_setting_friend);
         logout = (Button) findViewById(R.id.btn_user_setting_logout);
-        updatePWD = (Button) findViewById(R.id.btn_user_update_pwd);
         verEmail = (Button) findViewById(R.id.btn_user_ver_email);
+        updateData= (Button) findViewById(R.id.btn_user_update_data);
+        updateData.setOnClickListener(this);
 
-        updatePWD.setOnClickListener(this);
         verEmail.setOnClickListener(this);
         logout.setOnClickListener(this);
         icon.setOnClickListener(this);
         nickname.setOnClickListener(this);
-        gender.setOnClickListener(this);
         friend.setOnClickListener(this);
+        gender.setOnClickListener(this);
     }
 
     private void initData() {
@@ -109,31 +110,23 @@ public class UserSettingActivity extends BaseActivity implements UserSettingView
     }
 
     @Override
-    public void updatePWD() {
-        //TODO goto new activity
-        presenter.updatePasswrd("test", "test", new UpdatePasswordCallback() {
-            @Override
-            public void done(AVException e) {
-                if (e == null) {
-                    handler.sendEmptyMessage(UPDATE_PWD);
-                } else {
-                    Snackbar.make(mLayout, "更改密码失败", Snackbar.LENGTH_SHORT).show();
-                }
-            }
-        });
+    public void setEditEnable() {
+        //TODO:邮箱验证
     }
 
 
     @Override
     public void onClick(View view) {
+        Intent intent = new Intent(UserSettingActivity.this, EditUserDataActivity.class);
         switch (view.getId()) {
             case R.id.tv_user_setting_friend:
-                break;
-
-            case R.id.tv_user_setting_gender:
+                Snackbar.make(mLayout, "友善度过低将限制部分功能", Snackbar.LENGTH_LONG).show();
                 break;
 
             case R.id.tv_user_setting_nickname:
+            case R.id.btn_user_update_data:
+            case R.id.tv_user_setting_gender:
+                startActivity(intent);
                 break;
 
             case R.id.sdv_user_setting_icon:
@@ -144,11 +137,8 @@ public class UserSettingActivity extends BaseActivity implements UserSettingView
                 handler.sendEmptyMessage(UPDARE_DATA);
                 break;
 
-            case R.id.btn_user_update_pwd:
-                updatePWD();
-                break;
-
             case R.id.btn_user_ver_email:
+                //TODO:验证邮箱后可更改昵称等其他资料
                 Snackbar.make(mLayout, "验证邮箱", Snackbar.LENGTH_SHORT).show();
                 break;
 
