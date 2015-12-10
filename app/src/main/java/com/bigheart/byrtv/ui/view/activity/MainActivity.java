@@ -42,7 +42,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
 
     private MainActivityPresenter presenter;
 
-    private int okFragCount = 0;
+    private static int okFragCount = 0;
 
 
     @Override
@@ -51,6 +51,12 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         setContentView(R.layout.activity_main);
         initUI();
         initData();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        okFragCount = 0;
     }
 
     private void initUI() {

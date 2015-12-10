@@ -8,6 +8,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.bigheart.byrtv.R;
 import com.bigheart.byrtv.ui.module.ChannelModule;
+import com.bigheart.byrtv.ui.presenter.MyCollectionPresenter;
 import com.bigheart.byrtv.ui.view.FragContactToAct;
 import com.bigheart.byrtv.ui.view.MyCollectionView;
 import com.bigheart.byrtv.util.ChannelSortType;
@@ -35,7 +37,7 @@ public class MyCollectionFragment extends Fragment implements MyCollectionView {
 
     private ArrayList<ChannelModule> collectionChannels = new ArrayList<>();
     private CollectionAdapter collectionAdapter;
-
+    private MyCollectionPresenter presenter;
     private static FragContactToAct collectionFragContactToAct;
 
     public static MyCollectionFragment newInstance(ChannelSortType itemSortType, FragContactToAct contactToAct) {
@@ -54,6 +56,7 @@ public class MyCollectionFragment extends Fragment implements MyCollectionView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        presenter = new MyCollectionPresenter(getActivity(), this);
         if (getArguments() != null) {
             sortType = getArguments().getInt(ITEM_SORT_TYPE);
         }
@@ -73,6 +76,13 @@ public class MyCollectionFragment extends Fragment implements MyCollectionView {
             @Override
             public void onRefresh() {
                 //只刷新在线人数，不刷新频道列表
+            }
+        });
+
+        lvCollection.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                presenter.onItemClick(collectionChannels.get(position));
             }
         });
 

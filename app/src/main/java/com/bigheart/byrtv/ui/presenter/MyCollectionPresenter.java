@@ -1,8 +1,11 @@
 package com.bigheart.byrtv.ui.presenter;
 
 import android.content.Context;
+import android.content.Intent;
 
+import com.bigheart.byrtv.ui.module.ChannelModule;
 import com.bigheart.byrtv.ui.view.MyCollectionView;
+import com.bigheart.byrtv.ui.view.activity.TvLiveActivity;
 
 /**
  * Created by BigHeart on 15/12/8.
@@ -15,4 +18,17 @@ public class MyCollectionPresenter extends Presenter {
         context = c;
         view = myCollectionView;
     }
+
+    /**
+     * 处理item点击事件
+     *
+     * @param channel 被选中的 item
+     */
+    public void onItemClick(ChannelModule channel) {
+        Intent intent = new Intent(context, TvLiveActivity.class);
+        intent.putExtra(TvLiveActivity.TV_LIVE_NAME, channel.getChannelName());
+        intent.putExtra(TvLiveActivity.TV_LIVE_URI, channel.getUri());
+        context.startActivity(intent);
+    }
+
 }
