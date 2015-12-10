@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ProjectModuleManager">
-    <modules>
-<<<<<<< HEAD
-      <module fileurl="file://$PROJECT_DIR$/IptvPlus-dev.iml" filepath="$PROJECT_DIR$/IptvPlus-dev.iml" />
-=======
-      <module fileurl="file://$PROJECT_DIR$/ByrTv.iml" filepath="$PROJECT_DIR$/ByrTv.iml" />
->>>>>>> 9468d3e3956c2cda562ef020597848b2fd47dd5b
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-    </modules>
+    <modules />
   </component>
 </project>
