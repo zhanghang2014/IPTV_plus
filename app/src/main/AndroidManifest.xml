@@ -10,9 +10,9 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
-    <!-- leancloud 实时通信声明  ! -->
-    <service android:name="com.avos.avoscloud.PushService" />
 
+    <!-- leancloud 实时通信声明  !-->
+    <service android:name="com.avos.avoscloud.PushService" />
     <receiver android:name="com.avos.avoscloud.AVBroadcastReceiver">
         <intent-filter>
             <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -20,11 +20,10 @@
         </intent-filter>
     </receiver>
 
-    <!-- leancloud 实时通信声明  ! -->
     <application
-        android:name=".ByrTvApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
+        android:name=".ByrTvApplication"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">

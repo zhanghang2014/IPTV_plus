@@ -10,6 +10,7 @@
 
     <!-- 提示语-->
     <string name="net_wrong">网络出错了哦</string>
+    
     <string name="title_activity_user_settings">UserSettings</string>
 
     <!-- Strings related to Settings -->
@@ -70,4 +71,5 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="defualt">TEST</string>
+
 </resources>
