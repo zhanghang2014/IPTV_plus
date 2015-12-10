@@ -1,6 +1,7 @@
 package com.bigheart.byrtv.ui.presenter;
 
 import android.app.Application;
+import android.content.ContentValues;
 import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
@@ -8,6 +9,8 @@ import android.widget.Toast;
 
 import com.bigheart.byrtv.ByrTvApplication;
 import com.bigheart.byrtv.R;
+import com.bigheart.byrtv.data.sqlite.ChannelColumn;
+import com.bigheart.byrtv.data.sqlite.SqlChannelManager;
 import com.bigheart.byrtv.domain.interactor.ChannelsRsp;
 import com.bigheart.byrtv.domain.interactor.GetChannelList;
 import com.bigheart.byrtv.ui.module.ChannelModule;
@@ -23,50 +26,28 @@ public class AllChannelPresenter extends Presenter {
     private ArrayList<ChannelModule> channels;
     private Context context;
     private Handler handler = new Handler();
+    private boolean hadSetDataFromNet = false;
 
     public AllChannelPresenter(Context c, AllChannelView view) {
         allChannelView = view;
         context = c;
     }
 
-    @Override
-    public void init() {
-        super.init();
-        allChannelView.startRefresh();
-        new GetChannelList(new ChannelsRsp() {
-            @Override
-            public void getFromSqLiteSuccess(ArrayList<ChannelModule> channels) {
-
-            }
-
-            @Override
-            public void getFromSqLiteError(Exception e) {
-
-            }
-
-            @Override
-            public void getFromNetSuccess(final ArrayList<ChannelModule> channels) {
-//                Log.i("AllChannelPresenter", channels.size() + "");
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        allChannelView.stopRefresh();
-                        allChannelView.updateData(channels);
-                    }
-                });
-            }
-
-            @Override
-            public void getFromNetError(Exception e) {
-                // TODO: 15/12/8 handler e
-                e.printStackTrace();
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(context, R.string.net_wrong, Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        }).getChannels();
+    /**
+     * 收藏频道
+     *
+     * @param sqlId 所频道在的数据库中的 id
+     * @param state 所频道在的数据库中的 id
+     * @return 收藏失败返回 －1
+     */
+    public int updateChannelCollectedState(long sqlId, boolean state) {
+        if (sqlId != -1) {
+            ContentValues cv = new ContentValues();
+            cv.put(ChannelColumn.IS_COLLECTION, state);
+            int rst = SqlChannelManager.getInstance().upDateChannel(cv, ChannelColumn.CHANNEL_ID + " = ?", new String[]{String.valueOf(sqlId)});
+            Log.i("AllChannelPresenter ", sqlId + "");
+            return rst;
+        }
+        return -1;
     }
 }

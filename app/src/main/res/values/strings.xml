@@ -72,4 +72,7 @@
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="defualt">TEST</string>
 
+
+    <string name="has_no_collection">你还未收藏任何频道哦～\n右滑点击星号即可收藏 -></string>
+
 </resources>
