@@ -32,8 +32,6 @@ import com.bigheart.byrtv.ui.view.MainActivityView;
 import com.bigheart.byrtv.ui.view.fragment.AllChannelFragment;
 import com.bigheart.byrtv.ui.view.fragment.MyCollectionFragment;
 import com.bigheart.byrtv.util.ChannelSortType;
-import com.github.stuxuhai.jpinyin.PinyinFormat;
-import com.github.stuxuhai.jpinyin.PinyinHelper;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import java.util.ArrayList;
