@@ -22,6 +22,7 @@ import com.bigheart.byrtv.ui.view.MainActivityView;
 import com.bigheart.byrtv.ui.view.fragment.AllChannelFragment;
 import com.bigheart.byrtv.ui.view.fragment.MyCollectionFragment;
 import com.bigheart.byrtv.util.ChannelSortType;
+import com.bigheart.byrtv.util.LogUtil;
 import com.github.stuxuhai.jpinyin.PinyinFormat;
 import com.github.stuxuhai.jpinyin.PinyinHelper;
 
@@ -51,12 +52,14 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         setContentView(R.layout.activity_main);
         initUI();
         initData();
+        LogUtil.d("MainActivity", "onCreate " + okFragCount);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         okFragCount = 0;
+        LogUtil.d("MainActivity", "onDestroy " + okFragCount);
     }
 
     private void initUI() {
@@ -153,7 +156,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     @Override
     public void fragmentInitOk() {
         okFragCount++;
-//        Log.i("MainActivity", "get ok msg");
+        Log.i("MainActivity", "get ok msg " + okFragCount);
         if (okFragCount == 2) {
             if (presenter == null)
                 presenter = new MainActivityPresenter(this, this, myCollectionFragment, channelFragment);

@@ -20,6 +20,7 @@ import com.bigheart.byrtv.ui.presenter.MyCollectionPresenter;
 import com.bigheart.byrtv.ui.view.FragContactToAct;
 import com.bigheart.byrtv.ui.view.MyCollectionView;
 import com.bigheart.byrtv.util.ChannelSortType;
+import com.bigheart.byrtv.util.LogUtil;
 
 import java.util.ArrayList;
 
@@ -86,7 +87,10 @@ public class MyCollectionFragment extends Fragment implements MyCollectionView {
             }
         });
 
+//        if (refreshLayout != null) {
         collectionFragContactToAct.fragmentInitOk();
+//            LogUtil.d("refreshLayout", "ok");
+//        }
 
         return layoutView;
     }
@@ -105,7 +109,7 @@ public class MyCollectionFragment extends Fragment implements MyCollectionView {
     @Override
     public void onDetach() {
         super.onDetach();
-//        mListener = null;
+        collectionFragContactToAct = null;
     }
 
     @Override

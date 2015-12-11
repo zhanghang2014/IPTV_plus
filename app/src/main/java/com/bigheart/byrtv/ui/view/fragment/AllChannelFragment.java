@@ -129,7 +129,7 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
     @Override
     public void onDetach() {
         super.onDetach();
-//        mListener = null;
+        allChannelFragContactToAct = null;
 //        Log.i("AllChannelFragment","onDetach");
     }
 

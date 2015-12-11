@@ -277,9 +277,10 @@ public class MediaController extends FrameLayout {
     }
 
     /**
+     * modified by bigheart
      * ByrTv项目需要，屏蔽show()方法
      */
-    @SuppressWarnings("deprecated")
+    @Deprecated
     public void show() {
 //    show(sDefaultTimeout);
     }
@@ -324,12 +325,15 @@ public class MediaController extends FrameLayout {
     }
 
     /**
+     * modified by bigheart
+     * <p/>
      * Show the controller on screen. It will go away automatically after
      * 'timeout' milliseconds of inactivity.
      *
      * @param timeout The timeout in milliseconds. Use 0 to show the controller
      *                until hide() is called.
      */
+    @Deprecated
     public void show(int timeout) {
         if (!mShowing && mAnchor != null && mAnchor.getWindowToken() != null) {
             if (mPauseButton != null)
@@ -364,6 +368,11 @@ public class MediaController extends FrameLayout {
         return mShowing;
     }
 
+
+    /**
+     * modified by bigheart
+     */
+    @Deprecated
     public void hide() {
         if (mAnchor == null)
             return;

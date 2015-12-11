@@ -1,7 +1,12 @@
 <resources>
+    <!--控件上固定字符 -->
     <string name="app_name">ByrTv</string>
     <string name="my_collections">我的收藏</string>
     <string name="all_channel">全部频道</string>
+    <string name="danmu_switch">弹幕开关</string>
+    <string name="lock_screen">锁定屏幕</string>
+    <string name="launch_danmu">发射弹幕</string>
+    <!--控件上固定字符 -->
 
 
     <string name="drawer_open">打开侧滑菜单</string>
@@ -11,4 +16,5 @@
     <!-- 提示语-->
     <string name="net_wrong">网络出错了哦</string>
     <string name="has_no_collection">你还未收藏任何频道哦～\n右滑点击星号即可收藏 -></string>
+    <!-- 提示语-->
 </resources>

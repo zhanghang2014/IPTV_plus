@@ -549,7 +549,7 @@ public class MediaPlayer {
   public void pause() throws IllegalStateException {
     stayAwake(false);
     mNeedResume = false;
-    //Log.i("MiuiVideo: pause player");
+    Log.i("MiuiVideo: pause player");
     _pause();
   }
 
