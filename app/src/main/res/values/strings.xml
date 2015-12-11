@@ -15,6 +15,13 @@
 
     <!-- 提示语-->
     <string name="net_wrong">网络出错了哦</string>
+    
+    <string name="title_activity_user_settings">UserSettings</string>
+
+    <!-- 默认显示文字-->
+    <string name="defualt">TEST</string>
+
+
     <string name="has_no_collection">你还未收藏任何频道哦～\n右滑点击星号即可收藏 -></string>
     <!-- 提示语-->
 </resources>

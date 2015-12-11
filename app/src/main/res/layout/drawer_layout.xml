@@ -5,6 +5,5 @@
     android:layout_gravity="start"
     android:background="@android:color/white">
 
-
-
+<include layout="@layout/nav_head_main"/>
 </LinearLayout>
