@@ -146,12 +146,6 @@ public class TvLiveActivity extends BaseActivity implements TvLiveAvtivityView, 
         mediaController = new MediaController(this);
         mVideoView.setMediaController(mediaController);
 
-        mediaController.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LogUtil.d("TvLiveActivity", "mediaController vv");
-            }
-        });
 //        mVideoView.requestFocus();
 
 

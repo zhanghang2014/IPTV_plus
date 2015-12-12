@@ -68,6 +68,14 @@
                 android:src="@android:drawable/ic_input_add" />
         </RelativeLayout>
 
+        <ViewStub
+            android:id="@+id/vs_edit_danmu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/black"
+            android:layout="@layout/layout_edit_danmu" />
+
         <TextView
             android:id="@+id/tv_vv_buffer_info"
             android:layout_width="wrap_content"

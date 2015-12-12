@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="right"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:text="@string/danmu_control" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/danmu_filter" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bt_vv_filter_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/danmu_top" />
+
+        <Button
+            android:id="@+id/bt_vv_filter_flow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/danmu_flow" />
+
+        <Button
+            android:id="@+id/bt_vv_filter_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/danmu_bottom" />
+
+        <Button
+            android:id="@+id/bt_vv_filter_visitor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/danmu_visitor" />
+
+        <Button
+            android:id="@+id/bt_vv_filter_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/danmu_color" />
+    </LinearLayout>
+
+    <android.support.v4.widget.ContentLoadingProgressBar
+        android:id="@+id/pb"
+        style="?android:attr/horizontalSpacing"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:progress="20" />
+
+</LinearLayout>

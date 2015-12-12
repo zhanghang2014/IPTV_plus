@@ -51,6 +51,7 @@
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <!-- 必要！！！使用视频播放控件声明 -->
+
         <activity
             android:name=".ui.view.activity.UserSettingActivity"
             android:label="@string/title_activity_user_settings">
