@@ -3,8 +3,6 @@ package com.bigheart.byrtv.ui.view.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -12,8 +10,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.UpdatePasswordCallback;
+import com.avos.avoscloud.AVUser;
 import com.bigheart.byrtv.R;
 import com.bigheart.byrtv.ui.presenter.UserSettingPresenter;
 import com.bigheart.byrtv.ui.view.UserSettingView;
@@ -27,33 +24,11 @@ public class UserSettingActivity extends BaseActivity implements UserSettingView
 
     private UserSettingPresenter presenter;
     private SimpleDraweeView icon;
-    private TextView nickname, gender, friend;
-    private Button logout, updateData, verEmail;
+    private TextView username, gender, friend;
+    private Button logout, updatePWD, verPhone;
     private FrameLayout mLayout;
     private Toolbar toolbar;
 
-
-    //handler
-    private static final int UPDARE_DATA = 0x01;
-    private static final int UPDATE_PWD = 0x02;
-
-    private Handler handler = new Handler(new Handler.Callback() {
-        @Override
-        public boolean handleMessage(Message message) {
-            switch (message.what) {
-                case UPDARE_DATA:
-                    initData();
-                    Snackbar.make(mLayout, "已注销登陆", Snackbar.LENGTH_SHORT).show();
-                    break;
-                case UPDATE_PWD:
-                    Snackbar.make(mLayout, "已更新密码", Snackbar.LENGTH_SHORT).show();
-                    break;
-                default:
-                    break;
-            }
-            return true;
-        }
-    });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,25 +55,25 @@ public class UserSettingActivity extends BaseActivity implements UserSettingView
 
         mLayout = (FrameLayout) findViewById(R.id.layout_user_setting);
         icon = (SimpleDraweeView) findViewById(R.id.sdv_user_setting_icon);
-        nickname = (TextView) findViewById(R.id.tv_user_setting_nickname);
+        username = (TextView) findViewById(R.id.tv_user_setting_username);
         gender = (TextView) findViewById(R.id.tv_user_setting_gender);
         friend = (TextView) findViewById(R.id.tv_user_setting_friend);
         logout = (Button) findViewById(R.id.btn_user_setting_logout);
-        verEmail = (Button) findViewById(R.id.btn_user_ver_email);
-        updateData= (Button) findViewById(R.id.btn_user_update_data);
-        updateData.setOnClickListener(this);
+        verPhone = (Button) findViewById(R.id.btn_user_setting_ver_phone);
+        updatePWD = (Button) findViewById(R.id.btn_user_setting_update_pwd);
+        updatePWD.setOnClickListener(this);
 
-        verEmail.setOnClickListener(this);
+        verPhone.setOnClickListener(this);
         logout.setOnClickListener(this);
         icon.setOnClickListener(this);
-        nickname.setOnClickListener(this);
+        username.setOnClickListener(this);
         friend.setOnClickListener(this);
         gender.setOnClickListener(this);
     }
 
     private void initData() {
         presenter = new UserSettingPresenter(this, this);
-        nickname.setText(presenter.getNickname());
+        username.setText(presenter.getUsername());
         gender.setText(presenter.getGender());
         friend.setText(presenter.getFriend());
     }
@@ -111,9 +86,31 @@ public class UserSettingActivity extends BaseActivity implements UserSettingView
 
     @Override
     public void setEditEnable() {
-        //TODO:邮箱验证
+
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initData();
+        //手机验证相关
+//        if(AVUser.getCurrentUser()!=null && AVUser.getCurrentUser().isMobilePhoneVerified()){
+//            verPhone.setVisibility(View.GONE);
+//            updatePWD.setVisibility(View.VISIBLE);
+//        }else {
+//            updatePWD.setVisibility(View.GONE);
+//            verPhone.setVisibility(View.VISIBLE);
+//        }
+
+        //邮箱验证相关
+//        if (presenter.isVerEmailed()) {
+//            verPhone.setVisibility(View.GONE);
+//            updatePWD.setVisibility(View.VISIBLE);
+//        } else {
+//            updatePWD.setVisibility(View.GONE);
+//            verPhone.setVisibility(View.VISIBLE);
+//        }
+    }
 
     @Override
     public void onClick(View view) {
@@ -123,27 +120,39 @@ public class UserSettingActivity extends BaseActivity implements UserSettingView
                 Snackbar.make(mLayout, "友善度过低将限制部分功能", Snackbar.LENGTH_LONG).show();
                 break;
 
-            case R.id.tv_user_setting_nickname:
-            case R.id.btn_user_update_data:
-            case R.id.tv_user_setting_gender:
+            case R.id.tv_user_setting_username:
+                intent.putExtra("type", "username");
                 startActivity(intent);
                 break;
 
+            case R.id.btn_user_setting_update_pwd:
+                intent.putExtra("type", "pwd");
+                startActivity(intent);
+                break;
+
+            case R.id.tv_user_setting_gender:
+                //TODO 更改性别
+                break;
+
             case R.id.sdv_user_setting_icon:
+                //TODO 用户头像上传
                 break;
 
             case R.id.btn_user_setting_logout:
                 presenter.logout();
-                handler.sendEmptyMessage(UPDARE_DATA);
+                Snackbar.make(mLayout, "已注销登陆", Snackbar.LENGTH_SHORT).show();
+                initData();
                 break;
 
-            case R.id.btn_user_ver_email:
-                //TODO:验证邮箱后可更改昵称等其他资料
-                Snackbar.make(mLayout, "验证邮箱", Snackbar.LENGTH_SHORT).show();
+            case R.id.btn_user_setting_ver_phone:
+                //暂时验证邮箱
+                intent.putExtra("type", "phone");
+                startActivity(intent);
                 break;
 
             default:
                 break;
         }
     }
+
 }

@@ -2,39 +2,29 @@ package com.bigheart.byrtv.ui.view.activity;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.design.widget.NavigationView;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
-
-import android.graphics.Color;
-import android.net.Uri;
-import android.os.Bundle;
-import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-
 import android.view.MenuItem;
 
 import com.avos.avoscloud.AVUser;
 import com.bigheart.byrtv.R;
-import com.bigheart.byrtv.data.sqlite.SqlChannelManager;
-import com.bigheart.byrtv.ui.module.ChannelModule;
 import com.bigheart.byrtv.ui.presenter.MainActivityPresenter;
 import com.bigheart.byrtv.ui.view.FragContactToAct;
 import com.bigheart.byrtv.ui.view.MainActivityView;
 import com.bigheart.byrtv.ui.view.fragment.AllChannelFragment;
 import com.bigheart.byrtv.ui.view.fragment.MyCollectionFragment;
 import com.bigheart.byrtv.util.ChannelSortType;
-
+import com.bigheart.byrtv.util.LogUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
-import java.util.ArrayList;
 
 public class MainActivity extends BaseActivity implements MainActivityView, FragContactToAct {
 
@@ -51,7 +41,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
 
     private MainActivityPresenter presenter;
 
-    private int okFragCount = 0;
+    private static int okFragCount = 0;
 
 
     //drawer
@@ -67,6 +57,14 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         setContentView(R.layout.activity_main);
         initUI();
         initData();
+        LogUtil.d("MainActivity", "onCreate " + okFragCount);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        okFragCount = 0;
+        LogUtil.d("MainActivity", "onDestroy " + okFragCount);
     }
 
     private void initUI() {
@@ -76,14 +74,14 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
 
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
 
-        navigationView= (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.drawer_open, R.string.drawer_close);
 
         toggle.syncState();
         drawer.setDrawerListener(toggle);
-
 
 
         viewPager = (ViewPager) findViewById(R.id.vp_main);
@@ -125,7 +123,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 int id = menuItem.getItemId();
-                switch (id){
+                switch (id) {
                     case R.id.collection_of_channels:
                         viewPager.setCurrentItem(POS_MY_COLLECTION);
                         break;
@@ -133,13 +131,14 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
                         viewPager.setCurrentItem(POS_ALL_CHANNEL);
                         break;
                     case R.id.user_setting:
-                        Intent intent=new Intent(MainActivity.this ,UserSettingActivity.class);
+                        Intent intent = new Intent(MainActivity.this, UserSettingActivity.class);
                         startActivity(intent);
                         break;
                     case R.id.app_setting:
                         toast("app_setting");
                         break;
-                    default:break;
+                    default:
+                        break;
                 }
                 drawer.closeDrawer(GravityCompat.START);
                 return true;
@@ -188,7 +187,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     }
 
 
-  @Override
+    @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -201,7 +200,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     @Override
     public void fragmentInitOk() {
         okFragCount++;
-//        Log.i("MainActivity", "get ok msg");
+        Log.i("MainActivity", "get ok msg " + okFragCount);
         if (okFragCount == 2) {
             if (presenter == null)
                 presenter = new MainActivityPresenter(this, this, myCollectionFragment, channelFragment);
@@ -214,5 +213,4 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     public void notifyMyCollectionFrg() {
         presenter.upDateMyCollectionFrg();
     }
-
 }

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -47,7 +48,7 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
     private ArrayList<ChannelModule> channels;
 
     private static FragContactToAct allChannelFragContactToAct;
-    private AllChannelPresenter presenter;
+    private static AllChannelPresenter presenter;
 
 
     public static AllChannelFragment newInstance(ChannelSortType itemSortType, FragContactToAct contactToAct) {
@@ -93,6 +94,13 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
             }
         });
 
+        lvAllChannel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                presenter.onItemClick(channels.get(position));
+            }
+        });
+
         allChannelFragContactToAct.fragmentInitOk();
 //        Log.i("AllChannelFragment","onCreateView");
 
@@ -121,7 +129,7 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
     @Override
     public void onDetach() {
         super.onDetach();
-//        mListener = null;
+        allChannelFragContactToAct = null;
 //        Log.i("AllChannelFragment","onDetach");
     }
 

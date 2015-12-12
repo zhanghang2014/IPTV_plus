@@ -2,8 +2,13 @@ package com.bigheart.byrtv.ui.presenter;
 
 import android.content.Context;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.LogInCallback;
+import com.avos.avoscloud.RefreshCallback;
 import com.avos.avoscloud.UpdatePasswordCallback;
+import com.bigheart.byrtv.data.sharedpreferences.AccountPreferences;
 import com.bigheart.byrtv.ui.view.UserSettingView;
 
 /**
@@ -22,7 +27,7 @@ public class UserSettingPresenter extends Presenter {
         user = AVUser.getCurrentUser();
     }
 
-    public String getNickname() {
+    public String getUsername() {
         if (user != null) {
             nickname = user.getUsername();
         }
@@ -49,4 +54,20 @@ public class UserSettingPresenter extends Presenter {
         }
     }
 
+    public void isVerEmailed() {
+//        AccountPreferences sp =new AccountPreferences(context);
+//        final Boolean[] tmp = {false};
+//        AVUser newUser = new AVUser();
+//        newUser.logInInBackground(sp.getUserAccount(), sp.getUserPsw(), new LogInCallback<AVUser>() {
+//            @Override
+//            public void done(AVUser avUser, AVException e) {
+//                if(e==null){
+//                    tmp[0] =avUser.getBoolean("emailVerified");
+//                }
+//            }
+//        });
+//        return tmp[0];
+
+       //TODO 返回邮箱验证状态
+    }
 }

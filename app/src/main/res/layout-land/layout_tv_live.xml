@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <io.vov.vitamio.widget.VideoView
+        android:id="@+id/vv_tv_live"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
+
+    <RelativeLayout
+        android:id="@+id/rl_vv_control"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/rl_vv_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/black">
+
+            <ImageView
+                android:id="@+id/iv_vv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@android:drawable/ic_delete" />
+
+            <TextView
+                android:id="@+id/tv_vv_channel_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/iv_vv_back"
+                android:textColor="@android:color/white"
+                tools:text="CCAV" />
+
+            <TextView
+                android:id="@+id/tv_vv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:textColor="@android:color/white"
+                tools:text="11:11" />
+
+
+            <TextView
+                android:id="@+id/tv_vv_video_quality"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/iv_vv_more_setting"
+                android:textColor="@android:color/white"
+                tools:text="高清" />
+
+            <ImageView
+                android:id="@+id/iv_vv_more_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@android:drawable/ic_input_add" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_vv_buffer_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textColor="@android:color/white"
+            android:visibility="visible"
+            tools:text="1.13kb/s" />
+
+        <RelativeLayout
+            android:id="@+id/rl_vv_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/black"
+            android:gravity="bottom">
+
+            <Button
+                android:id="@+id/bt_vv_lock_screen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:background="@null"
+                android:drawableTop="@android:drawable/ic_lock_idle_lock"
+                android:text="@string/lock_screen"
+                android:textColor="@android:color/white" />
+
+
+            <Button
+                android:id="@+id/bt_vv_launch_danmu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/bt_vv_lock_screen"
+                android:background="@null"
+                android:drawableTop="@android:drawable/sym_action_chat"
+                android:text="@string/launch_danmu"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/bt_vv_danmu_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/bt_vv_launch_danmu"
+                android:background="@null"
+                android:drawableTop="@android:drawable/star_big_on"
+                android:text="@string/danmu_switch"
+                android:textColor="@android:color/white" />
+
+            <ImageView
+                android:id="@+id/iv_vv_play_pause"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@android:drawable/ic_media_play" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

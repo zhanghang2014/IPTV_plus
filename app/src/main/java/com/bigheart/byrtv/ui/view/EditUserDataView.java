@@ -4,8 +4,11 @@ package com.bigheart.byrtv.ui.view;
  * Created by InG on 15/12/10.
  */
 public interface EditUserDataView {
-    void clearPWD();
+    void clearEditText();
     void updatePWD();
-
-    void clearNickname();
+//    void verPhone();
+//    void verCode();
+    void verEmail();
+    void updateUsername();
+//    void reSendCode();
 }

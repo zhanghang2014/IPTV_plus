@@ -39,7 +39,7 @@ public class SqlUtil {
                 strId += (int) aimStr.charAt(i);
             }
         }
-        System.out.println(aimStr + " => " + strId);
+//        System.out.println(aimStr + " => " + strId);
         id = Long.valueOf(strId);
         return id;
     }

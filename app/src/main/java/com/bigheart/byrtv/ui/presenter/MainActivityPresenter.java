@@ -30,8 +30,8 @@ import javax.xml.validation.Validator;
 
 /**
  * * 控制AllChannelFragment,MyCollectionFragment
- * <p>
- * <p>
+ * <p/>
+ * <p/>
  * Created by BigHeart on 15/12/8.
  */
 public class MainActivityPresenter extends Presenter {
@@ -55,8 +55,9 @@ public class MainActivityPresenter extends Presenter {
     }
 
     public void pullData() {
-        channelView.startRefresh();
         collectionView.startRefresh();
+        channelView.startRefresh();
+
 
         new GetChannelList(new ChannelsRsp() {
             @Override
