@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="true"
-            android:hint="新的用户名"
+            android:hint="新的昵称"
             android:padding="16dp"
             app:hintTextAppearance="@style/defualt_hint_text">
 
@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/activity_vertical_margin"
-            android:text="更改用户名"
+            android:text="更改昵称"
             android:textColor="@android:color/black"
             android:textSize="@dimen/default_text_size" />
 
@@ -65,6 +65,14 @@
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/default_text_size" />
         </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_vertical_margin"
+            android:text="验证完成后需要重启应用才能生效"
+            android:textColor="@color/default_gray_text"
+            android:textSize="@dimen/default_text_size"/>
 
         <Button
             android:id="@+id/btn_edit_user_data_ver_email"
@@ -116,6 +124,14 @@
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/default_text_size" />
         </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_vertical_margin"
+            android:text="若是第一次更改密码，原始密码留空即可"
+            android:textColor="@color/default_gray_text"
+            android:textSize="@dimen/default_text_size"/>
 
         <Button
             android:id="@+id/btn_edit_user_data_pwd"

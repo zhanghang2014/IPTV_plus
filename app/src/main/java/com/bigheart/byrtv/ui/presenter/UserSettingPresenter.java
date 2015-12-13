@@ -2,13 +2,7 @@ package com.bigheart.byrtv.ui.presenter;
 
 import android.content.Context;
 
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVUser;
-import com.avos.avoscloud.LogInCallback;
-import com.avos.avoscloud.RefreshCallback;
-import com.avos.avoscloud.UpdatePasswordCallback;
-import com.bigheart.byrtv.data.sharedpreferences.AccountPreferences;
 import com.bigheart.byrtv.ui.view.UserSettingView;
 
 /**
@@ -18,7 +12,7 @@ public class UserSettingPresenter extends Presenter {
 
     private Context context;
     private UserSettingView userSettingView;
-    private String nickname, gender, friend;
+    private String username, gender, friend,nickname;
     private AVUser user;
 
     public UserSettingPresenter(Context c, UserSettingView view) {
@@ -29,9 +23,16 @@ public class UserSettingPresenter extends Presenter {
 
     public String getUsername() {
         if (user != null) {
-            nickname = user.getUsername();
+            username = user.getUsername();
         }
-        return nickname;
+        return username;
+    }
+
+    public String getNickname() {
+        if (user != null) {
+            username = user.getString("nickname");
+        }
+        return username;
     }
 
     public String getGender() {
@@ -54,7 +55,7 @@ public class UserSettingPresenter extends Presenter {
         }
     }
 
-    public void isVerEmailed() {
+    public boolean isVerEmailed() {
 //        AccountPreferences sp =new AccountPreferences(context);
 //        final Boolean[] tmp = {false};
 //        AVUser newUser = new AVUser();
@@ -67,7 +68,14 @@ public class UserSettingPresenter extends Presenter {
 //            }
 //        });
 //        return tmp[0];
+        boolean tmp = false;
+        if(user!=null){
+            tmp = user.getBoolean("emailVerified");
+        }
+        return tmp;
+    }
 
-       //TODO 返回邮箱验证状态
+    public AVUser getUser() {
+        return user;
     }
 }

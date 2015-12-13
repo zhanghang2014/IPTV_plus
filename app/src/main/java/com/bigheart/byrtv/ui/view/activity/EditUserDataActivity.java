@@ -12,11 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVMobilePhoneVerifyCallback;
-import com.avos.avoscloud.AVUser;
-import com.avos.avoscloud.LogInCallback;
 import com.avos.avoscloud.RequestEmailVerifyCallback;
-import com.avos.avoscloud.RequestMobileCodeCallback;
 import com.avos.avoscloud.SaveCallback;
 import com.avos.avoscloud.UpdatePasswordCallback;
 import com.bigheart.byrtv.R;
@@ -77,7 +73,7 @@ public class EditUserDataActivity extends BaseActivity implements EditUserDataVi
         Intent intent = getIntent();
         String type = intent.getStringExtra("type");
         if (type.equals("username")) {
-            toolbar.setTitle("修改用户名");
+            toolbar.setTitle("修改昵称");
             updateUsernameLayout.setVisibility(View.VISIBLE);
         } else if (type.equals("pwd")) {
             toolbar.setTitle("修改密码");
@@ -124,7 +120,7 @@ public class EditUserDataActivity extends BaseActivity implements EditUserDataVi
                 break;
 
             case R.id.btn_edit_user_data_username:
-                updateUsername();
+                updateNickname();
                 break;
 
             case R.id.btn_edit_user_data_ver_phone:
@@ -162,6 +158,10 @@ public class EditUserDataActivity extends BaseActivity implements EditUserDataVi
         final String oldPWD = etOldPWD.getText().toString().trim();
         final String newPWD = etNewPWD.getText().toString().trim();
 
+        if (presenter.getLocalPWD().equals("f32@ds*@&dsa")){
+            etOldPWD.setText("f32@ds*@&dsa");
+        }
+
         if (oldPWD.equals("") || oldPWD == null || newPWD.equals("") || newPWD == null) {
             Snackbar.make(rootLayout, "原始密码或新密码不能为空", Snackbar.LENGTH_SHORT).show();
             return;
@@ -172,7 +172,7 @@ public class EditUserDataActivity extends BaseActivity implements EditUserDataVi
                     public void done(AVException e) {
                         if (e == null) {
                             Toast.makeText(EditUserDataActivity.this, "修改密码成功", Toast.LENGTH_SHORT).show();
-                            presenter.saveLocalPWD(newPWD, EditUserDataActivity.this);
+                            presenter.saveLocalPWD(newPWD);
                         } else {
                             Toast.makeText(EditUserDataActivity.this, "修改密码失败", Toast.LENGTH_SHORT).show();
                             clearEditText();
@@ -195,7 +195,17 @@ public class EditUserDataActivity extends BaseActivity implements EditUserDataVi
                             @Override
                             public void done(AVException e) {
                                 if (e==null){
-                                    toast("请前往邮箱验证");
+                                    toast("请前往邮箱查收验证邮件");
+                                    presenter.updateUsername(email, new SaveCallback() {
+                                        @Override
+                                        public void done(AVException e) {
+                                            if(e==null){
+                                                toast("使用邮箱可以登陆啦");
+                                            }else {
+                                                toast(e.toString());
+                                            }
+                                        }
+                                    });
                                 }else {
                                     toast(e.toString());
                                 }
@@ -263,17 +273,16 @@ public class EditUserDataActivity extends BaseActivity implements EditUserDataVi
 //    }
 
     @Override
-    public void updateUsername() {
+    public void updateNickname() {
         String username = etUsername.getText().toString();
         if (username == null || username.equals("")) {
             Snackbar.make(rootLayout, "用户名不能为空", Snackbar.LENGTH_SHORT).show();
         } else {
-            presenter.updateUsername(username, new SaveCallback() {
+            presenter.updateNickname(username, new SaveCallback() {
                 @Override
                 public void done(AVException e) {
                     if (e == null) {
                         Toast.makeText(EditUserDataActivity.this, "更改成功", Toast.LENGTH_SHORT).show();
-
                     } else {
                         Snackbar.make(rootLayout, "更改失败，换一个试试？", Snackbar.LENGTH_SHORT).show();
                         LogUtil.d("username", e.toString());

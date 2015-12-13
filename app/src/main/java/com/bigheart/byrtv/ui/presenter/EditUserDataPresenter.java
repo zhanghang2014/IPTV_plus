@@ -33,38 +33,63 @@ public class EditUserDataPresenter extends Presenter {
     }
 
     public void updatePWD(String oldPWD, String newPWD, UpdatePasswordCallback callback) {
-        currentUser.updatePasswordInBackground(oldPWD, newPWD, callback);
+        if (currentUser != null) {
+            currentUser.updatePasswordInBackground(oldPWD, newPWD, callback);
+        }
     }
 
-    public void saveLocalPWD(String pwd, Context c) {
+    public void saveLocalPWD(String pwd) {
         sp.setUserPsw(pwd);
     }
 
-    public void updatePhone(String phone,SaveCallback callback) {
-        currentUser.setMobilePhoneNumber(phone);
-        currentUser.saveInBackground(callback);
+    public String getLocalPWD(){
+        return sp.getUserPsw();
+    }
+
+    public void updatePhone(String phone, SaveCallback callback) {
+        if (currentUser != null) {
+            currentUser.setMobilePhoneNumber(phone);
+            currentUser.saveInBackground(callback);
+        }
     }
 
     public void verPhone(String phone, RequestMobileCodeCallback callback) {
-        currentUser.requestMobilePhoneVerifyInBackground(phone, callback);
+        if (currentUser != null) {
+            currentUser.requestMobilePhoneVerifyInBackground(phone, callback);
+        }
     }
 
     public void verCode(String code, AVMobilePhoneVerifyCallback callback) {
-        currentUser.verifyMobilePhoneInBackground(code, callback);
+        if (currentUser != null) {
+            currentUser.verifyMobilePhoneInBackground(code, callback);
+        }
     }
 
     public void updateUsername(String username, SaveCallback callback) {
-        sp.setUserAccount(username);
-        currentUser.setUsername(username);
-        currentUser.saveInBackground(callback);
+        if (currentUser != null) {
+            sp.setUserAccount(username);
+            currentUser.setUsername(username);
+            currentUser.saveInBackground(callback);
+        }
     }
 
-    public void updateEmail(String email,SaveCallback callback){
-        currentUser.setEmail(email);
-        currentUser.saveInBackground(callback);
+    public void updateNickname(String nickname,SaveCallback callback){
+        if(currentUser!=null){
+            currentUser.put("nickname",nickname);
+            currentUser.saveInBackground(callback);
+        }
     }
 
-    public void verEmail(String email,RequestEmailVerifyCallback callback){
-        AVUser.requestEmailVerfiyInBackground(email,callback);
+    public void updateEmail(String email, SaveCallback callback) {
+        if (currentUser != null) {
+            currentUser.setEmail(email);
+            currentUser.saveInBackground(callback);
+        }
+    }
+
+    public void verEmail(String email, RequestEmailVerifyCallback callback) {
+        if (currentUser != null) {
+            AVUser.requestEmailVerfiyInBackground(email, callback);
+        }
     }
 }

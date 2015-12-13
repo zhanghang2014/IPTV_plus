@@ -18,128 +18,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d033ce9f-46c8-46c7-82e0-dabab32f4245" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/res/drawable-hdpi/ic_launcher.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/res/drawable-ldpi/ic_launcher.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/res/drawable-mdpi/ic_launcher.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/res/drawable-xhdpi/ic_launcher.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/libs/armeabi-v7a/libOMX.11.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/libs/armeabi-v7a/libOMX.14.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/libs/x86/libOMX.14.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/libs/armeabi-v7a/libOMX.18.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/libs/x86/libOMX.18.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/libs/armeabi-v7a/libOMX.9.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/libs/x86/libOMX.9.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/libs/armeabi-v7a/libffmpeg.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/libs/x86/libffmpeg.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/libs/armeabi-v7a/libstlport_shared.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/libs/x86/libstlport_shared.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/libs/armeabi-v7a/libvao.0.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/libs/x86/libvao.0.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/libs/armeabi-v7a/libvplayer.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/libs/x86/libvplayer.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/libs/armeabi-v7a/libvscanner.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/libs/x86/libvscanner.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/libs/armeabi-v7a/libvvo.0.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/libs/x86/libvvo.0.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/libs/armeabi-v7a/libvvo.7.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/libs/armeabi-v7a/libvvo.8.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/libs/armeabi-v7a/libvvo.9.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/libs/x86/libvvo.9.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/libs/armeabi-v7a/libvvo.j.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/libs/x86/libvvo.j.so" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/res/drawable-xhdpi/mediacontroller_pause.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/res/drawable-xhdpi/mediacontroller_play.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/res/drawable-xhdpi/scrubber_control_disabled_holo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/res/drawable-xhdpi/scrubber_control_focused_holo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/res/drawable-xhdpi/scrubber_control_normal_holo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/res/drawable-xhdpi/scrubber_control_pressed_holo.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/res/drawable-xhdpi/scrubber_primary_holo.9.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/res/drawable-xhdpi/scrubber_secondary_holo.9.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/res/drawable-xhdpi/scrubber_track_holo_dark.9.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/.classpath" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/.project" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/AndroidManifest.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/src/io/vov/vitamio/utils/Base64.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/util/ByrTvUtil.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/src/io/vov/vitamio/utils/CPU.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/src/io/vov/vitamio/widget/CenterLayout.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/src/io/vov/vitamio/utils/ContextUtils.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/src/io/vov/vitamio/utils/Crypto.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/src/io/vov/vitamio/utils/Device.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/src/io/vov/vitamio/EGL.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/src/io/vov/vitamio/utils/FileUtils.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/src/io/vov/vitamio/utils/IOUtils.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/src/io/vov/vitamio/activity/InitActivity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/src/io/vov/vitamio/utils/Log.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/util/LogUtil.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/src/io/vov/vitamio/widget/MediaController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/src/io/vov/vitamio/MediaFile.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/src/io/vov/vitamio/MediaFormat.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/src/io/vov/vitamio/MediaMetadataRetriever.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/src/io/vov/vitamio/MediaPlayer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/src/io/vov/vitamio/MediaScanner.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/src/io/vov/vitamio/MediaScannerClient.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/src/io/vov/vitamio/provider/MediaStore.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/src/io/vov/vitamio/Metadata.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/src/io/vov/vitamio/provider/MiniThumbFile.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/src/io/vov/vitamio/widget/OutlineTextView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/src/io/vov/vitamio/utils/ScreenResolution.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/src/io/vov/vitamio/utils/StringUtils.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/src/io/vov/vitamio/ThumbnailUtils.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/view/activity/TvLiveActivity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/view/TvLiveAvtivityView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/presenter/TvLivePresenter.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/src/io/vov/vitamio/VIntent.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/src/io/vov/vitamio/widget/VideoView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/src/io/vov/vitamio/Vitamio.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/src/io/vov/vitamio/VitamioLicense.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/build.gradle" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/res/values/colors.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/layout_tv_live.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout-land/layout_tv_live.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/res/layout/mediacontroller.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/res/drawable/mediacontroller_button.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/proguard-project.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/project.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/res/drawable/scrubber_control_selector_holo.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/res/drawable/scrubber_progress_horizontal_holo_dark.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/res/values/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/vitamio/res/values/styles.xml" />
-      <change type="DELETED" beforePath="G:\androidDev\IptvWithDanMu\bigheartC-IptvPlus-dev\IptvPlus-dev\.idea\libraries\appcompat_v7_23_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="G:\androidDev\IptvWithDanMu\bigheartC-IptvPlus-dev\IptvPlus-dev\.idea\libraries\design_23_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="G:\androidDev\IptvWithDanMu\bigheartC-IptvPlus-dev\IptvPlus-dev\.idea\libraries\recyclerview_v7_23_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="G:\androidDev\IptvWithDanMu\bigheartC-IptvPlus-dev\IptvPlus-dev\.idea\libraries\support_annotations_23_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="G:\androidDev\IptvWithDanMu\bigheartC-IptvPlus-dev\IptvPlus-dev\.idea\libraries\support_v13_23_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="G:\androidDev\IptvWithDanMu\bigheartC-IptvPlus-dev\IptvPlus-dev\.idea\libraries\support_v4_23_1_1.xml" afterPath="" />
-      <change type="DELETED" beforePath="G:\androidDev\IptvWithDanMu\bigheartC-IptvPlus-dev\IptvPlus-dev\.idea\misc.xml" afterPath="" />
-      <change type="DELETED" beforePath="G:\androidDev\IptvWithDanMu\bigheartC-IptvPlus-dev\IptvPlus-dev\.idea\modules.xml" afterPath="" />
-      <change type="DELETED" beforePath="G:\androidDev\IptvWithDanMu\bigheartC-IptvPlus-dev\IptvPlus-dev\ByrTv.iml" afterPath="" />
-      <change type="DELETED" beforePath="G:\androidDev\IptvWithDanMu\bigheartC-IptvPlus-dev\IptvPlus-dev\IptvPlus-dev.iml" afterPath="" />
-      <change type="DELETED" beforePath="G:\androidDev\IptvWithDanMu\bigheartC-IptvPlus-dev\IptvPlus-dev\app\app.iml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/view/fragment/AllChannelFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/view/fragment/AllChannelFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/presenter/AllChannelPresenter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/presenter/AllChannelPresenter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ByrTvApplication.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ByrTvApplication.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/view/activity/EditUserDataActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/view/activity/EditUserDataActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/presenter/EditUserDataPresenter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/presenter/EditUserDataPresenter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/view/EditUserDataView.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/view/EditUserDataView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/view/activity/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/view/activity/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/presenter/MainActivityPresenter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/presenter/MainActivityPresenter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/view/fragment/MyCollectionFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/view/fragment/MyCollectionFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/presenter/MyCollectionPresenter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/presenter/MyCollectionPresenter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/util/SqlUtil.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/util/SqlUtil.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/view/activity/UserSettingActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/view/activity/UserSettingActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/presenter/UserSettingPresenter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/presenter/UserSettingPresenter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_edit_user_data.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_edit_user_data.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_user_setting.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_user_setting.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gradle.properties" afterPath="$PROJECT_DIR$/gradle.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/settings.gradle" afterPath="$PROJECT_DIR$/settings.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="IptvPlus-dev.iws" />
@@ -168,19 +48,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="EditUserDataPresenter.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/presenter/EditUserDataPresenter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="2.4864864">
-              <caret line="59" column="5" selection-start-line="59" selection-start-column="5" selection-end-line="59" selection-end-column="5" />
-              <folding>
-                <element signature="e#1387#1388#0" expanded="true" />
-                <element signature="e#1421#1422#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="UserSettingActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/view/activity/UserSettingActivity.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -191,11 +58,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserSettingPresenter.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="UserSettingPresenter.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/presenter/UserSettingPresenter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="65" column="19" selection-start-line="65" selection-start-column="19" selection-end-line="65" selection-end-column="19" />
+            <state vertical-scroll-proportion="0.6698565">
+              <caret line="69" column="47" selection-start-line="69" selection-start-column="47" selection-end-line="69" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -2446,9 +2313,9 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_edit_user_data.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/view/activity/EditUserDataActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_user_setting.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/presenter/EditUserDataPresenter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/presenter/UserSettingPresenter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/view/activity/UserSettingActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/presenter/EditUserDataPresenter.java" />
       </list>
     </option>
   </component>
@@ -2975,215 +2842,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="AndroidView">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="IptvPlus-dev" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="IptvPlus-dev" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="IptvPlus-dev" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="IptvPlus-dev" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="IptvPlus-dev" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="byrtv" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="IptvPlus-dev" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="byrtv" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="util" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="IptvPlus-dev" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="byrtv" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="view" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="IptvPlus-dev" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="byrtv" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="view" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="activity" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="IptvPlus-dev" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="byrtv" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="presenter" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="IptvPlus-dev" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="byrtv" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="IptvPlus-dev" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
+      <pane id="Scratches">
+        <subPane />
       </pane>
       <pane id="Scope">
         <subPane subId="Default" />
@@ -3192,8 +2852,15 @@
         <subPane subId="Project Files" />
         <subPane subId="Changed Files" />
       </pane>
-      <pane id="Scratches">
-        <subPane />
+      <pane id="AndroidView">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="IptvPlus-dev" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
       </pane>
     </panes>
   </component>
@@ -3381,17 +3048,15 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18368903" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980332" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.6686838" sideWeight="0.49085367" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6686838" sideWeight="0.49085367" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3292683" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39939487" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31935975" sideWeight="0.505295" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6686838" sideWeight="0.50914633" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -3405,12 +3070,14 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2972561" sideWeight="0.494705" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32829046" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32829046" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18368903" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32893" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39939487" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -3452,23 +3119,23 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/nav_head_main.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-15.971429">
           <caret line="33" column="38" selection-start-line="33" selection-start-column="38" selection-end-line="33" selection-end-column="38" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/toolbar_layout.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/toolbar_layout.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4433735">
           <caret line="8" column="32" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
@@ -3479,13 +3146,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-24.314285">
           <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://D:/AndroidSDK/sdk/platforms/android-23/data/res/values/colors.xml">
@@ -3685,32 +3352,29 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/layout_tv_live.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/layout_tv_live.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/build/generated/source/r/debug/com/bigheart/byrtv/R.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.35185185">
           <caret line="2476" column="32" selection-start-line="2476" selection-start-column="32" selection-end-line="2476" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3725,7 +3389,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.79744816">
           <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3733,10 +3396,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.3365232">
           <caret line="192" column="18" selection-start-line="192" selection-start-column="18" selection-end-line="203" selection-end-column="31" />
-          <folding>
-            <element signature="e#4107#5161#0" expanded="true" />
-            <element signature="e#5160#5161#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3744,7 +3403,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33014354">
           <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3752,55 +3410,40 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.29346094">
           <caret line="8" column="0" selection-start-line="8" selection-start-column="2" selection-end-line="9" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_edit_user_data.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-10.514286">
           <caret line="65" column="59" selection-start-line="65" selection-start-column="59" selection-end-line="65" selection-end-column="59" />
-          <folding>
-            <element signature="e#2605#2631#0" expanded="true" />
-          </folding>
         </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/view/activity/EditUserDataActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="200" column="33" selection-start-line="200" selection-start-column="33" selection-end-line="200" selection-end-column="33" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#4733#4734#0" expanded="true" />
-            <element signature="e#4798#4799#0" expanded="true" />
-            <element signature="e#7098#7827#0" expanded="true" />
-            <element signature="e#7278#7699#0" expanded="true" />
-            <element signature="e#7698#7699#0" expanded="true" />
-            <element signature="e#7826#7827#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_user_setting.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-8.3714285">
           <caret line="133" column="34" selection-start-line="133" selection-start-column="34" selection-end-line="133" selection-end-column="34" />
-          <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/view/UserSettingView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.18341307">
           <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3808,15 +3451,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.35185185">
           <caret line="891" column="16" selection-start-line="891" selection-start-column="16" selection-end-line="891" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/presenter/UserSettingPresenter.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/presenter/EditUserDataPresenter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="65" column="19" selection-start-line="65" selection-start-column="19" selection-end-line="65" selection-end-column="19" />
-          <folding />
+          <caret line="56" column="34" selection-start-line="56" selection-start-column="34" selection-end-line="56" selection-end-column="34" />
         </state>
       </provider>
     </entry>
@@ -3828,14 +3469,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/presenter/EditUserDataPresenter.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/bigheart/byrtv/ui/presenter/UserSettingPresenter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.4864864">
-          <caret line="59" column="5" selection-start-line="59" selection-start-column="5" selection-end-line="59" selection-end-column="5" />
-          <folding>
-            <element signature="e#1387#1388#0" expanded="true" />
-            <element signature="e#1421#1422#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.6698565">
+          <caret line="69" column="47" selection-start-line="69" selection-start-column="47" selection-end-line="69" selection-end-column="47" />
+          <folding />
         </state>
       </provider>
     </entry>

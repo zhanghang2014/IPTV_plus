@@ -73,7 +73,7 @@ public class UserSettingActivity extends BaseActivity implements UserSettingView
 
     private void initData() {
         presenter = new UserSettingPresenter(this, this);
-        username.setText(presenter.getUsername());
+        username.setText(presenter.getNickname());
         gender.setText(presenter.getGender());
         friend.setText(presenter.getFriend());
     }
@@ -103,13 +103,14 @@ public class UserSettingActivity extends BaseActivity implements UserSettingView
 //        }
 
         //邮箱验证相关
-//        if (presenter.isVerEmailed()) {
-//            verPhone.setVisibility(View.GONE);
-//            updatePWD.setVisibility(View.VISIBLE);
-//        } else {
-//            updatePWD.setVisibility(View.GONE);
-//            verPhone.setVisibility(View.VISIBLE);
-//        }
+        UserSettingPresenter tmp = new UserSettingPresenter(this,this);
+        if (tmp.isVerEmailed()) {
+            verPhone.setVisibility(View.GONE);
+            updatePWD.setVisibility(View.VISIBLE);
+        } else {
+            updatePWD.setVisibility(View.GONE);
+            verPhone.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -139,9 +140,12 @@ public class UserSettingActivity extends BaseActivity implements UserSettingView
                 break;
 
             case R.id.btn_user_setting_logout:
+                //跳转至用户登陆,实际效果为切换用户
                 presenter.logout();
                 Snackbar.make(mLayout, "已注销登陆", Snackbar.LENGTH_SHORT).show();
-                initData();
+                Intent intent1 = new Intent(UserSettingActivity.this,LoginActivity.class);
+                startActivity(intent1);
+                finish();
                 break;
 
             case R.id.btn_user_setting_ver_phone:

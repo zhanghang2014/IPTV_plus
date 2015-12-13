@@ -9,6 +9,6 @@ public interface EditUserDataView {
 //    void verPhone();
 //    void verCode();
     void verEmail();
-    void updateUsername();
+    void updateNickname();
 //    void reSendCode();
 }
