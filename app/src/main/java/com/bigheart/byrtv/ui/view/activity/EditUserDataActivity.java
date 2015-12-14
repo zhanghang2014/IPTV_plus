@@ -160,10 +160,8 @@ public class EditUserDataActivity extends BaseActivity implements EditUserDataVi
 
         if (presenter.getLocalPWD().equals("f32@ds*@&dsa")){
             etOldPWD.setText("f32@ds*@&dsa");
-        }
-
-        if (oldPWD.equals("") || oldPWD == null || newPWD.equals("") || newPWD == null) {
-            Snackbar.make(rootLayout, "原始密码或新密码不能为空", Snackbar.LENGTH_SHORT).show();
+        }else if (oldPWD.equals("") || oldPWD == null || newPWD.equals("") || newPWD == null) {
+            toast("原始密码或新密码不能为空");
             return;
         }
         presenter.updatePWD(oldPWD, newPWD,
