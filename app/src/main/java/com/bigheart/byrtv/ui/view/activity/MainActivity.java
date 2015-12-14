@@ -135,7 +135,9 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
                         startActivity(intent);
                         break;
                     case R.id.app_setting:
-                        toast("app_setting");
+                        //增加应用设置
+                        Intent intent1=new Intent(MainActivity.this,AppSettingActivity.class);
+                        startActivity(intent1);
                         break;
                     default:
                         break;

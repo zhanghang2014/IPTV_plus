@@ -64,6 +64,9 @@
         <activity
             android:name=".ui.view.activity.LoginActivity"
             android:launchMode="singleTask" />
+
+        <activity android:name=".ui.view.activity.AppSettingActivity"
+            android:launchMode="singleTask"/>
     </application>
 
 </manifest>
