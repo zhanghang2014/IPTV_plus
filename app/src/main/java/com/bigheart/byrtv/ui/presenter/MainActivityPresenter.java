@@ -11,6 +11,11 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
 import com.avos.avoscloud.SignUpCallback;
+import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.AVIMException;
+import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
+import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
 import com.bigheart.byrtv.R;
 import com.bigheart.byrtv.data.sharedpreferences.AccountPreferences;
 import com.bigheart.byrtv.data.sqlite.ChannelColumn;
@@ -21,10 +26,12 @@ import com.bigheart.byrtv.ui.module.ChannelModule;
 import com.bigheart.byrtv.ui.view.AllChannelView;
 import com.bigheart.byrtv.ui.view.MainActivityView;
 import com.bigheart.byrtv.ui.view.MyCollectionView;
+import com.bigheart.byrtv.util.LogUtil;
 import com.bigheart.byrtv.util.SqlUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 
 import javax.xml.validation.Validator;
 
@@ -200,4 +207,23 @@ public class MainActivityPresenter extends Presenter {
         }
     }
 
+    public void createChatroom(final String chatroomName, final AVIMConversationCreatedCallback conversationCreatedCallback) {
+        //由local用户创建聊天室
+        //TODO: BUG 无法创建聊天室
+        final AVIMClient local = AVIMClient.getInstance(AVUser.getCurrentUser().getObjectId());
+        local.open(new AVIMClientCallback() {
+            @Override
+            public void done(AVIMClient avimClient, AVIMException e) {
+                if (e == null) {
+                    local.createConversation(Collections.<String>emptyList(), chatroomName,
+                            null, true, true, conversationCreatedCallback);
+                }
+            }
+        });
+//获取聊天室名称:
+//            ChannelModule item = allChannels.get(i);
+//            name=item.getUri().substring(item.getUri().lastIndexOf('/') + 1, item.getUri().length() - 5);
+//            LogUtil.d("chatRoom",name);
+//
+    }
 }

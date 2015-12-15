@@ -16,6 +16,11 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.AVIMException;
+import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
+import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
 import com.bigheart.byrtv.R;
 import com.bigheart.byrtv.ui.presenter.MainActivityPresenter;
 import com.bigheart.byrtv.ui.view.FragContactToAct;
@@ -25,6 +30,8 @@ import com.bigheart.byrtv.ui.view.fragment.MyCollectionFragment;
 import com.bigheart.byrtv.util.ChannelSortType;
 import com.bigheart.byrtv.util.LogUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
+
+import java.util.Collections;
 
 public class MainActivity extends BaseActivity implements MainActivityView, FragContactToAct {
 
@@ -58,6 +65,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         initUI();
         initData();
         LogUtil.d("MainActivity", "onCreate " + okFragCount);
+
     }
 
     @Override
@@ -117,7 +125,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         initDrawerUI();
     }
 
-    // TODO: 15/12/8 绑定侧滑菜单的控件、添加监听
+
     private void initDrawerUI() {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -135,7 +143,6 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
                         startActivity(intent);
                         break;
                     case R.id.app_setting:
-                        //增加应用设置
                         Intent intent1=new Intent(MainActivity.this,AppSettingActivity.class);
                         startActivity(intent1);
                         break;
@@ -208,6 +215,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
                 presenter = new MainActivityPresenter(this, this, myCollectionFragment, channelFragment);
             presenter.pullData();
 //            Log.i("MainActivity", "pullData");
+
         }
     }
 
