@@ -5,7 +5,11 @@ package com.bigheart.byrtv.ui.view;
  */
 public interface UserSettingView {
 
-    void updateUserData();
+    void refreshUserData();
 
-    void setEditEnable();
+    void selectPhoto();
+
+    void refreshIcon();
+
+    void updateGender();
 }

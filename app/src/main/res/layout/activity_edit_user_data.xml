@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_layout_activity_edit_user_data"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:id="@+id/root_layout_activity_edit_user_data">
+    android:orientation="vertical">
 
     <include layout="@layout/toolbar_layout" />
 
     <LinearLayout
-        android:id="@+id/ll_edit_user_data_text"
+        android:id="@+id/ll_edit_user_data_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -17,83 +17,199 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/til_edit_user_nickname"
+            android:focusable="true"
+            android:hint="新的昵称"
             android:padding="16dp"
-            app:hintTextAppearance="@style/defualt_hint_text"
-            android:hint="昵称">
+            app:hintTextAppearance="@style/defualt_hint_text">
 
             <EditText
-                android:id="@+id/et_edit_user_nickname"
+                android:id="@+id/et_edit_user_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/default_text_size"
                 android:singleLine="true"
-                />
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/default_text_size" />
         </android.support.design.widget.TextInputLayout>
 
         <Button
+            android:id="@+id/btn_edit_user_data_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
-            android:id="@+id/btn_edit_user_data_nickname"
-            android:textSize="@dimen/default_text_size"
+            android:padding="@dimen/activity_vertical_margin"
             android:text="更改昵称"
-            android:padding="@dimen/activity_vertical_margin"/>
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/default_text_size" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_edit_user_data_ver_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/til_edit_user_old_pwd"
+            android:focusable="true"
+            android:hint="邮箱地址"
             android:padding="16dp"
-            app:hintTextAppearance="@style/defualt_hint_text"
-            android:hint="原始密码">
+            app:hintTextAppearance="@style/defualt_hint_text">
+
+            <EditText
+                android:id="@+id/et_edit_user_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:singleLine="true"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/default_text_size" />
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_vertical_margin"
+            android:text="验证完成后需要重启应用才能生效"
+            android:textColor="@color/default_gray_text"
+            android:textSize="@dimen/default_text_size"/>
+
+        <Button
+            android:id="@+id/btn_edit_user_data_ver_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_vertical_margin"
+            android:text="验证邮箱地址"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/default_text_size" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_edit_user_data_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="原始密码"
+            android:padding="16dp"
+            app:hintTextAppearance="@style/defualt_hint_text">
 
             <EditText
                 android:id="@+id/et_edit_user_old_pwd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/default_text_size"
+                android:inputType="textPassword"
                 android:singleLine="true"
-                />
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/default_text_size" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/til_edit_user_new_pwd"
+            android:hint="新密码"
             android:padding="16dp"
-            app:hintTextAppearance="@style/defualt_hint_text"
-            android:hint="新密码">
+            app:hintTextAppearance="@style/defualt_hint_text">
 
             <EditText
                 android:id="@+id/et_edit_user_new_pwd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/default_text_size"
+                android:inputType="textPassword"
                 android:singleLine="true"
-                />
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/default_text_size" />
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_vertical_margin"
+            android:text="若是第一次更改密码，原始密码留空即可"
+            android:textColor="@color/default_gray_text"
+            android:textSize="@dimen/default_text_size"/>
+
+        <Button
+            android:id="@+id/btn_edit_user_data_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/activity_vertical_margin"
+            android:text="更改密码"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/default_text_size" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_edit_user_data_ver_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="手机号"
+            android:padding="16dp"
+            app:hintTextAppearance="@style/defualt_hint_text">
+
+            <EditText
+                android:id="@+id/et_edit_user_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="phone"
+                android:singleLine="true"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/default_text_size" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="验证码"
+            android:padding="16dp"
+            app:hintTextAppearance="@style/defualt_hint_text">
+
+            <EditText
+                android:id="@+id/et_edit_user_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/default_text_size" />
         </android.support.design.widget.TextInputLayout>
 
         <Button
+            android:id="@+id/btn_edit_user_data_ver_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="@dimen/activity_vertical_margin"
+            android:text="发送验证码"
             android:textColor="@android:color/black"
-            android:id="@+id/btn_edit_user_data_pwd"
-            android:textSize="@dimen/default_text_size"
-            android:text="更改密码"
-            android:padding="@dimen/activity_vertical_margin"/>
+            android:textSize="@dimen/default_text_size" />
 
         <Button
+            android:id="@+id/btn_edit_user_data_ver_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="@dimen/activity_vertical_margin"
+            android:text="完成"
             android:textColor="@android:color/black"
-            android:id="@+id/btn_edit_user_data_give_up"
-            android:textSize="@dimen/default_text_size"
-            android:text="放弃更改"
-            android:padding="@dimen/activity_vertical_margin"/>
+            android:textSize="@dimen/default_text_size" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_edit_user_data_give_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_vertical_margin"
+        android:text="放弃更改"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/default_text_size" />
+
 </LinearLayout>
