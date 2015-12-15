@@ -16,4 +16,6 @@ public interface AppSettingView {
     void mainPage();
 
     void about();
+
+    void feedback();
 }

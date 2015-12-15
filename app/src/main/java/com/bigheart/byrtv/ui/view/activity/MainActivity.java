@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.feedback.FeedbackAgent;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMException;
@@ -68,6 +69,15 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         initUI();
         initData();
         LogUtil.d("MainActivity", "onCreate " + okFragCount);
+
+
+        /**
+         * 查询Feedback回复的信息
+         *  当用户收到开发者的新回复时，就会产生一个新的消息通知。如果你需要改变通知的图标，
+         *  请替换 res 下的 avoscloud_feedback_notification.png 文件即可。
+         * */
+        FeedbackAgent agent = new FeedbackAgent(this);
+        agent.sync();
     }
 
     @Override

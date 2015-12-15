@@ -11,10 +11,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import com.avos.avoscloud.feedback.FeedbackAgent;
 import com.bigheart.byrtv.R;
 import com.bigheart.byrtv.data.sharedpreferences.AppSettingOption;
 import com.bigheart.byrtv.ui.presenter.AppSettingPresenter;
 import com.bigheart.byrtv.ui.view.AppSettingView;
+
+import static com.bigheart.byrtv.R.id.ll_app_setting_feedback;
 
 
 /**
@@ -22,7 +25,8 @@ import com.bigheart.byrtv.ui.view.AppSettingView;
  */
 public class AppSettingActivity extends BaseActivity implements AppSettingView, View.OnClickListener {
 
-    private LinearLayout llMainPage, llSortWay, llAppUpdate, llAbout,llCloseDanMu;
+    private LinearLayout llMainPage, llSortWay, llAppUpdate,
+            llAbout, llCloseDanMu, llFeedback;
     private AppCompatCheckBox ccbCloseDanMu;
     private TextView mainPage, sortWay;
     private String mainPages, sortWays, closeDanMus;
@@ -67,8 +71,10 @@ public class AppSettingActivity extends BaseActivity implements AppSettingView, 
 
 //        ccbCloseDanMu.setOnClickListener(this);
 
-        llCloseDanMu= (LinearLayout) findViewById(R.id.ll_app_setting_close_danmu);
+        llCloseDanMu = (LinearLayout) findViewById(R.id.ll_app_setting_close_danmu);
         llCloseDanMu.setOnClickListener(this);
+        llFeedback= (LinearLayout) findViewById(ll_app_setting_feedback);
+        llFeedback.setOnClickListener(this);
     }
 
     private void iniData() {
@@ -121,9 +127,9 @@ public class AppSettingActivity extends BaseActivity implements AppSettingView, 
     @Override
     public void danmuOption() {
 
-        if(ccbCloseDanMu.isChecked()){
+        if (ccbCloseDanMu.isChecked()) {
             ccbCloseDanMu.setChecked(false);
-        }else{
+        } else {
             ccbCloseDanMu.setChecked(true);
         }
 
@@ -145,9 +151,9 @@ public class AppSettingActivity extends BaseActivity implements AppSettingView, 
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if (i == 0) {
-                            tmp[0] =AppSettingOption.SORT_PINYIN;
-                        } else{
-                            tmp[0]=AppSettingOption.SORT_PEOPLE;
+                            tmp[0] = AppSettingOption.SORT_PINYIN;
+                        } else {
+                            tmp[0] = AppSettingOption.SORT_PEOPLE;
                         }
                     }
                 }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
@@ -169,9 +175,9 @@ public class AppSettingActivity extends BaseActivity implements AppSettingView, 
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if (i == 0) {
-                            tmp[0] =AppSettingOption.ALL_CHANNEL;
-                        } else{
-                            tmp[0]=AppSettingOption.MY_CHANNEL;
+                            tmp[0] = AppSettingOption.ALL_CHANNEL;
+                        } else {
+                            tmp[0] = AppSettingOption.MY_CHANNEL;
                         }
                     }
                 }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
@@ -186,6 +192,12 @@ public class AppSettingActivity extends BaseActivity implements AppSettingView, 
     @Override
     public void about() {
 
+    }
+
+    @Override
+    public void feedback() {
+        FeedbackAgent agent = new FeedbackAgent(this);
+        agent.startDefaultThreadActivity();
     }
 
     @Override
@@ -209,6 +221,10 @@ public class AppSettingActivity extends BaseActivity implements AppSettingView, 
 
             case R.id.ll_app_setting_about:
                 //TODO about
+                break;
+
+            case R.id.ll_app_setting_feedback:
+                feedback();
                 break;
             default:
                 break;

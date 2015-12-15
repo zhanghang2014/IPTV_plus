@@ -72,6 +72,12 @@
         </receiver>
         <!-- leancloud 实时通信声明  !-->
 
+        <!-- 用户反馈组件-->
+        <activity
+            android:name="com.avos.avoscloud.feedback.ThreadActivity" >
+        </activity>
+        <!-- 用户反馈组件-->
+
     </application>
 
 </manifest>

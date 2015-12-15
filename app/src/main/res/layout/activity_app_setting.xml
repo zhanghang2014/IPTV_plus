@@ -44,7 +44,7 @@
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:text=""
                 android:textColor="@color/default_gray_text"
-                android:textSize="@dimen/default_text_size"  />
+                android:textSize="@dimen/default_text_size" />
 
         </LinearLayout>
     </LinearLayout>
@@ -62,7 +62,7 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:text="频道排序方式"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/default_text_size"  />
+            android:textSize="@dimen/default_text_size" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -161,7 +161,24 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:text="检查更新"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/default_text_size"  />
+            android:textSize="@dimen/default_text_size" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_app_setting_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/activity_vertical_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:text="反馈"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/default_text_size" />
 
     </LinearLayout>
 
@@ -178,9 +195,10 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:text="关于"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/default_text_size"  />
+            android:textSize="@dimen/default_text_size" />
 
     </LinearLayout>
+
 
     <TextView
         android:layout_width="match_parent"
