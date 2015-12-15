@@ -1,5 +1,6 @@
 package com.bigheart.byrtv.ui.presenter;
 
+import android.app.Application;
 import android.content.ContentValues;
 import android.content.Context;
 import android.os.Handler;
@@ -11,6 +12,12 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
 import com.avos.avoscloud.SignUpCallback;
+import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.AVIMException;
+import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
+import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
+import com.bigheart.byrtv.ByrTvApplication;
 import com.bigheart.byrtv.R;
 import com.bigheart.byrtv.data.sharedpreferences.AccountPreferences;
 import com.bigheart.byrtv.data.sqlite.ChannelColumn;
@@ -25,13 +32,14 @@ import com.bigheart.byrtv.util.SqlUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.xml.validation.Validator;
 
 /**
  * * 控制AllChannelFragment,MyCollectionFragment
- * <p/>
- * <p/>
+ * <p>
+ * <p>
  * Created by BigHeart on 15/12/8.
  */
 public class MainActivityPresenter extends Presenter {
@@ -156,10 +164,15 @@ public class MainActivityPresenter extends Presenter {
                     if (e == null) {
                         accountSp.setUserAccount(AVUser.getCurrentUser().getUsername());
                         accountSp.setUserPsw(strPsw);
+                        ByrTvApplication.isLogin = true;
                     }
                 }
             });
         }
+    }
+
+    public void upDateChatRoomNum() {
+
     }
 
     /**

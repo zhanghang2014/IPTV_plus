@@ -16,7 +16,14 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.AVIMException;
+import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
+import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
+import com.bigheart.byrtv.ByrTvApplication;
 import com.bigheart.byrtv.R;
+import com.bigheart.byrtv.data.sharedpreferences.AccountPreferences;
 import com.bigheart.byrtv.ui.presenter.MainActivityPresenter;
 import com.bigheart.byrtv.ui.view.FragContactToAct;
 import com.bigheart.byrtv.ui.view.MainActivityView;
@@ -25,6 +32,9 @@ import com.bigheart.byrtv.ui.view.fragment.MyCollectionFragment;
 import com.bigheart.byrtv.util.ChannelSortType;
 import com.bigheart.byrtv.util.LogUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends BaseActivity implements MainActivityView, FragContactToAct {
 
@@ -111,7 +121,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
             }
         });
 
-        channelFragment = AllChannelFragment.newInstance(ChannelSortType.SORT_BY_PEOPLE_NUM, this);
+        channelFragment = AllChannelFragment.newInstance(new AccountPreferences(this).getAllChannelOrderType(), this);
         myCollectionFragment = MyCollectionFragment.newInstance(ChannelSortType.SORT_BY_PEOPLE_NUM, this);
 
         initDrawerUI();
@@ -179,6 +189,8 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     public void login(Exception e) {
         if (e == null) {
             this.toast("login success!" + AVUser.getCurrentUser().getUsername());
+            ByrTvApplication.isLogin = true;
+            presenter.upDateChatRoomNum();
         } else {
             this.toast("login fail");
             e.printStackTrace();
