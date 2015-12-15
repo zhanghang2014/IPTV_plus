@@ -6,7 +6,8 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.view.WindowManager;
 
-import com.bigheart.byrtv.ui.view.TvLiveAvtivityView;
+import com.bigheart.byrtv.data.sharedpreferences.DanmuPreferences;
+import com.bigheart.byrtv.ui.view.TvLiveActivityView;
 
 import io.vov.vitamio.MediaPlayer;
 
@@ -16,14 +17,22 @@ import io.vov.vitamio.MediaPlayer;
 public class TvLivePresenter extends Presenter {
 
     private Context context;
-    private TvLiveAvtivityView view;
+    private TvLiveActivityView view;
 
 
-    public TvLivePresenter(Context c, TvLiveAvtivityView tvLiveAvtivityView) {
+    public TvLivePresenter(Context c, TvLiveActivityView tvLiveAvtivityView) {
         context = c;
         view = tvLiveAvtivityView;
     }
 
+    @Override
+    public void init() {
+        super.init();
+        DanmuPreferences pref = new DanmuPreferences(context);
+        view.setDanmuEtPos(pref.getDanmuEtPos());
+        view.setDanmuEtTextColorPos(pref.getDanmuEtColorPos());
+        view.setDanmuEtTextSize(pref.getDanmuEtTextSize());
+    }
 
     public void tvPlayError(MediaPlayer mp, int what, int extra) {
 

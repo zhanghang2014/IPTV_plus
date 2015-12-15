@@ -6,6 +6,24 @@
     <string name="danmu_switch">弹幕开关</string>
     <string name="lock_screen">锁定屏幕</string>
     <string name="launch_danmu">发射弹幕</string>
+
+    <string name="danmu_control">弹幕控制</string>
+    <string name="danmu_filter_by_pos">按位置屏蔽</string>
+    <string name="danmu_top">顶部</string>
+    <string name="danmu_flow">滚动</string>
+    <string name="danmu_bottom">底部</string>
+    <string name="danmu_visitor">游客</string>
+    <string name="danmu_color">彩色</string>
+
+    <string name="danmu_text_scale">字号缩放</string>
+    <string name="danmu_shadow_square">阴影大小</string>
+    <string name="danmu_destiny">同屏弹幕数目</string>
+    <string name="danmu_speed">速度调节</string>
+    <string name="danmu_aphla">弹幕透明度</string>
+
+    <string name="danmu_filter">弹幕过滤</string>
+    <string name="filter_selected_users">屏蔽选中用户</string>
+
     <!--控件上固定字符 -->
 
 
@@ -15,7 +33,7 @@
 
     <!-- 提示语-->
     <string name="net_wrong">网络出错了哦</string>
-    
+
     <string name="title_activity_user_settings">UserSettings</string>
 
     <!-- 默认显示文字-->

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_danmu_edit"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/black"
+    android:orientation="vertical"
+    android:visibility="gone">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_vv_close_danmu_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_delete" />
+
+        <EditText
+            android:id="@+id/et_write_danmu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignBottom="@+id/iv_vv_close_danmu_edit"
+            android:layout_toLeftOf="@+id/ib_launch_danmu"
+            android:layout_toRightOf="@+id/iv_vv_close_danmu_edit"
+            android:textColor="@android:color/white" />
+
+        <ImageButton
+            android:id="@+id/ib_launch_danmu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@android:drawable/ic_menu_send" />
+    </RelativeLayout>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_vv_big_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_input_add" />
+
+            <ImageView
+                android:id="@+id/iv_vv_small_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_input_add" />
+
+            <ImageView
+                android:id="@+id/iv_vv_text_still_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:src="@android:drawable/ic_input_add" />
+
+            <ImageView
+                android:id="@+id/iv_vv_text_flow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_input_add" />
+
+            <ImageView
+                android:id="@+id/iv_vv_text_still_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_input_add" />
+
+            <ImageView
+                android:id="@+id/iv_vv_color_0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@android:color/white"
+                android:src="@android:drawable/ic_input_add" />
+
+
+            <ImageView
+                android:id="@+id/iv_vv_color_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/holo_green_light"
+                android:src="@android:drawable/ic_input_add" />
+
+            <ImageView
+                android:id="@+id/iv_vv_color_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/holo_red_light"
+                android:src="@android:drawable/ic_input_add" />
+
+            <ImageView
+                android:id="@+id/iv_vv_color_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/holo_blue_light"
+                android:src="@android:drawable/ic_input_add" />
+
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+</LinearLayout>
