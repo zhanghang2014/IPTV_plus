@@ -206,24 +206,5 @@ public class MainActivityPresenter extends Presenter {
             }
         }
     }
-
-    public void createChatroom(final String chatroomName, final AVIMConversationCreatedCallback conversationCreatedCallback) {
-        //由local用户创建聊天室
-        //TODO: BUG 无法创建聊天室
-        final AVIMClient local = AVIMClient.getInstance(AVUser.getCurrentUser().getObjectId());
-        local.open(new AVIMClientCallback() {
-            @Override
-            public void done(AVIMClient avimClient, AVIMException e) {
-                if (e == null) {
-                    local.createConversation(Collections.<String>emptyList(), chatroomName,
-                            null, true, true, conversationCreatedCallback);
-                }
-            }
-        });
-//获取聊天室名称:
-//            ChannelModule item = allChannels.get(i);
-//            name=item.getUri().substring(item.getUri().lastIndexOf('/') + 1, item.getUri().length() - 5);
-//            LogUtil.d("chatRoom",name);
-//
-    }
+    
 }
