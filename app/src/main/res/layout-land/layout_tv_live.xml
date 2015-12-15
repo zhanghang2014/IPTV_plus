@@ -11,10 +11,26 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true" />
 
+    <master.flame.danmaku.ui.widget.DanmakuView
+        android:id="@+id/dmk_view_live"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <RelativeLayout
         android:id="@+id/rl_vv_control"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_vv_unlock_screen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@android:color/black"
+            android:padding="20dp"
+            android:src="@android:drawable/ic_lock_idle_lock"
+            android:visibility="gone" />
 
         <RelativeLayout
             android:id="@+id/rl_vv_top"
@@ -50,15 +66,6 @@
                 tools:text="11:11" />
 
 
-            <TextView
-                android:id="@+id/tv_vv_video_quality"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/iv_vv_more_setting"
-                android:textColor="@android:color/white"
-                tools:text="高清" />
-
             <ImageView
                 android:id="@+id/iv_vv_more_setting"
                 android:layout_width="wrap_content"
@@ -68,13 +75,12 @@
                 android:src="@android:drawable/ic_input_add" />
         </RelativeLayout>
 
-        <ViewStub
-            android:id="@+id/vs_edit_danmu"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:background="@android:color/black"
-            android:layout="@layout/layout_edit_danmu" />
+
+        <include layout="@layout/layout_edit_danmu" />
+
+        <include layout="@layout/sub_danmu_filter" />
+
+        <include layout="@layout/sub_danmu_setting" />
 
         <TextView
             android:id="@+id/tv_vv_buffer_info"

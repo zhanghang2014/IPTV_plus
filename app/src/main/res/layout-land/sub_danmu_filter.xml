@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_alignParentRight="true"
+    android:layout_gravity="right"
+    android:visibility="gone"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/danmu_filter"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tv_vv_fliter_users"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@android:drawable/ic_menu_agenda"
+        android:gravity="center_vertical"
+        android:text="@string/filter_selected_users" />
+
+    <ListView
+        android:id="@+id/lv_vv_danmu_users"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></ListView>
+</LinearLayout>

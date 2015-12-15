@@ -8,7 +8,7 @@
     <string name="launch_danmu">发射弹幕</string>
 
     <string name="danmu_control">弹幕控制</string>
-    <string name="danmu_filter">弹幕屏蔽</string>
+    <string name="danmu_filter_by_pos">按位置屏蔽</string>
     <string name="danmu_top">顶部</string>
     <string name="danmu_flow">滚动</string>
     <string name="danmu_bottom">底部</string>
@@ -21,6 +21,8 @@
     <string name="danmu_speed">速度调节</string>
     <string name="danmu_aphla">弹幕透明度</string>
 
+    <string name="danmu_filter">弹幕过滤</string>
+    <string name="filter_selected_users">屏蔽选中用户</string>
 
     <!--控件上固定字符 -->
 

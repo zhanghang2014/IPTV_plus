@@ -117,7 +117,6 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         initDrawerUI();
     }
 
-    // TODO: 15/12/8 绑定侧滑菜单的控件、添加监听
     private void initDrawerUI() {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
