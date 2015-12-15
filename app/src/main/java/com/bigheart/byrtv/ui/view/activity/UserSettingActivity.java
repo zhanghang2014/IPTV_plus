@@ -150,7 +150,7 @@ public class UserSettingActivity extends BaseActivity implements UserSettingView
 
             case R.id.tv_user_setting_gender:
                 //选择性别
-                LogUtil.d("onclick","user_setting_gender");
+                LogUtil.d("onclick", "user_setting_gender");
                 updateGender();
                 break;
 
@@ -212,7 +212,7 @@ public class UserSettingActivity extends BaseActivity implements UserSettingView
 
     @Override
     public void updateGender() {
-        LogUtil.d("onclick","updateGender");
+        LogUtil.d("onclick", "updateGender");
 
         final String[] gender = {""};
         String[] strings = new String[]{"男", "女", "保密"};
@@ -236,10 +236,10 @@ public class UserSettingActivity extends BaseActivity implements UserSettingView
                 presenter.updateGender(gender[0], new SaveCallback() {
                     @Override
                     public void done(AVException e) {
-                        if(e==null){
+                        if (e == null) {
                             toast("修改性别成功");
                             refreshUserData();
-                        }else{
+                        } else {
                             toast(e.toString());
                         }
                     }
@@ -266,8 +266,8 @@ public class UserSettingActivity extends BaseActivity implements UserSettingView
 
             case CROP_REQUEST_CODE:
                 //剪裁后的图片
-                Bundle extras = data.getExtras();
-                if (extras != null) {
+                if (data != null && data.getExtras() != null) {
+                    Bundle extras = data.getExtras();
                     Bitmap photo = extras.getParcelable("data");
                     //将Bitmap转换为Byte[]
                     ByteArrayOutputStream baos = new ByteArrayOutputStream();

@@ -22,7 +22,7 @@ import com.bigheart.byrtv.ui.view.AppSettingView;
  */
 public class AppSettingActivity extends BaseActivity implements AppSettingView, View.OnClickListener {
 
-    private LinearLayout llMainPage, llSortWay, llAppUpdate, llAbout;
+    private LinearLayout llMainPage, llSortWay, llAppUpdate, llAbout,llCloseDanMu;
     private AppCompatCheckBox ccbCloseDanMu;
     private TextView mainPage, sortWay;
     private String mainPages, sortWays, closeDanMus;
@@ -65,7 +65,10 @@ public class AppSettingActivity extends BaseActivity implements AppSettingView, 
         llAppUpdate.setOnClickListener(this);
         llAbout.setOnClickListener(this);
 
-        ccbCloseDanMu.setOnClickListener(this);
+//        ccbCloseDanMu.setOnClickListener(this);
+
+        llCloseDanMu= (LinearLayout) findViewById(R.id.ll_app_setting_close_danmu);
+        llCloseDanMu.setOnClickListener(this);
     }
 
     private void iniData() {
@@ -117,6 +120,13 @@ public class AppSettingActivity extends BaseActivity implements AppSettingView, 
 
     @Override
     public void danmuOption() {
+
+        if(ccbCloseDanMu.isChecked()){
+            ccbCloseDanMu.setChecked(false);
+        }else{
+            ccbCloseDanMu.setChecked(true);
+        }
+
         if (ccbCloseDanMu.isChecked()) {
             presenter.saveCloseDanMu(AppSettingOption.CLOSE_DANMU);
         } else {
@@ -189,7 +199,7 @@ public class AppSettingActivity extends BaseActivity implements AppSettingView, 
                 channelSortWay();
                 break;
 
-            case R.id.ccb_app_setting_close_danmu:
+            case R.id.ll_app_setting_close_danmu:
                 danmuOption();
                 break;
 
