@@ -78,6 +78,9 @@
         </activity>
         <!-- 用户反馈组件-->
 
+        <activity android:name=".ui.view.activity.AppAboutActivity"
+            android:launchMode="singleTask"/>
+
     </application>
 
 </manifest>

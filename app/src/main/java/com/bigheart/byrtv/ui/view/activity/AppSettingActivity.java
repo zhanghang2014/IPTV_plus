@@ -1,6 +1,7 @@
 package com.bigheart.byrtv.ui.view.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -191,7 +192,8 @@ public class AppSettingActivity extends BaseActivity implements AppSettingView, 
 
     @Override
     public void about() {
-
+        Intent intent=new Intent(AppSettingActivity.this, AppAboutActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -220,7 +222,7 @@ public class AppSettingActivity extends BaseActivity implements AppSettingView, 
                 break;
 
             case R.id.ll_app_setting_about:
-                //TODO about
+                about();
                 break;
 
             case R.id.ll_app_setting_feedback:
