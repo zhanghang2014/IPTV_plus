@@ -7,10 +7,12 @@ package com.bigheart.byrtv.ui.module;
  */
 public class ChannelModule {
     private String channelName;
-    private boolean isCollected;
+    private boolean isCollected = false;
     private String Uri;
-    private int peopleNum;
+    private String serverName;
+    private int peopleNum = 0;
     private long sqlId;
+    private boolean isExistInServer = false;
 
     public ChannelModule() {
 
@@ -56,6 +58,14 @@ public class ChannelModule {
         this.channelName = channelName;
     }
 
+    public String getServerName() {
+        return serverName;
+    }
+
+    public void setServerName(String serverName) {
+        this.serverName = serverName;
+    }
+
     public boolean isCollected() {
         return isCollected;
     }
@@ -63,4 +73,13 @@ public class ChannelModule {
     public void setIsCollected(boolean isCollected) {
         this.isCollected = isCollected;
     }
+
+    public boolean isExistInServer() {
+        return isExistInServer;
+    }
+
+    public void setIsExistInServer(boolean isExistInServer) {
+        this.isExistInServer = isExistInServer;
+    }
+
 }

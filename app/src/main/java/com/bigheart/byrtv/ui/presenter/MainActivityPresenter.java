@@ -9,14 +9,21 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.LogInCallback;
 import com.avos.avoscloud.SignUpCallback;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.AVIMConversationQuery;
 import com.avos.avoscloud.im.v2.AVIMException;
 import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
+import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
 import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
+import com.avos.avoscloud.im.v2.callback.AVIMConversationMemberCountCallback;
+import com.avos.avoscloud.im.v2.callback.AVIMConversationQueryCallback;
 import com.bigheart.byrtv.ByrTvApplication;
 import com.bigheart.byrtv.R;
 import com.bigheart.byrtv.data.sharedpreferences.AccountPreferences;
@@ -28,18 +35,22 @@ import com.bigheart.byrtv.ui.module.ChannelModule;
 import com.bigheart.byrtv.ui.view.AllChannelView;
 import com.bigheart.byrtv.ui.view.MainActivityView;
 import com.bigheart.byrtv.ui.view.MyCollectionView;
+import com.bigheart.byrtv.util.LogUtil;
 import com.bigheart.byrtv.util.SqlUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.validation.Validator;
 
 /**
  * * 控制AllChannelFragment,MyCollectionFragment
- * <p>
- * <p>
+ * <p/>
+ * <p/>
  * Created by BigHeart on 15/12/8.
  */
 public class MainActivityPresenter extends Presenter {
@@ -48,6 +59,7 @@ public class MainActivityPresenter extends Presenter {
     private MyCollectionView collectionView;
     private AllChannelView channelView;
     private volatile ArrayList<ChannelModule> allChannels;
+    private HashMap<String, ChannelModule> mapChannels;
 
     private boolean hadSetDataFromNet = false;
     private Handler handler;
@@ -60,6 +72,7 @@ public class MainActivityPresenter extends Presenter {
 
         handler = new Handler();
         allChannels = new ArrayList<>();
+        mapChannels = new HashMap<>();
     }
 
     public void pullData() {
@@ -72,6 +85,8 @@ public class MainActivityPresenter extends Presenter {
             public void getFromSqLiteSuccess(final ArrayList<ChannelModule> channels) {
                 if (channels.size() > 0) {
                     allChannels = channels;
+                    shoveChannelsToMap(mapChannels, allChannels);
+
                     if (!hadSetDataFromNet) {
                         final ArrayList<ChannelModule> collectionChannels = filterCollectionChannel(channels);
                         handler.post(new Runnable() {
@@ -98,6 +113,10 @@ public class MainActivityPresenter extends Presenter {
                 //只需更新全部列表
                 allChannels = channels;
                 updateSqlChannel(channels);
+                shoveChannelsToMap(mapChannels, allChannels);
+
+                ByrTvApplication.updateLoginAndPullDataState(true, true, ByrTvApplication.updateWhat.updatePullChannelState);
+                upDateChatRoomNum(true);
 
                 Log.i("All Channel net", channels.size() + " group");
                 handler.post(new Runnable() {
@@ -119,6 +138,10 @@ public class MainActivityPresenter extends Presenter {
                     public void run() {
                         channelView.stopRefresh();
                         collectionView.stopRefresh();
+
+                        ByrTvApplication.updateLoginAndPullDataState(true, true, ByrTvApplication.updateWhat.updatePullChannelState);
+                        upDateChatRoomNum(true);
+
                         Toast.makeText(context, R.string.net_wrong, Toast.LENGTH_SHORT).show();
                         Log.i("MainActivityPresenter", "can not get channel from net");
                     }
@@ -164,16 +187,119 @@ public class MainActivityPresenter extends Presenter {
                     if (e == null) {
                         accountSp.setUserAccount(AVUser.getCurrentUser().getUsername());
                         accountSp.setUserPsw(strPsw);
-                        ByrTvApplication.isLogin = true;
                     }
                 }
             });
         }
     }
 
-    public void upDateChatRoomNum() {
+    private int serverRoomCount, hadServerRoomUpdateCount;
+
+
+    private final String INS_ID = "BigHeart&InG";
+
+    /**
+     * 实例化 AVIMClient
+     */
+    public void instanceAVIMClient() {
+        ByrTvApplication.avimClient = AVIMClient.getInstance(INS_ID);
+        ByrTvApplication.avimClient.open(new AVIMClientCallback() {
+            @Override
+            public void done(AVIMClient avimClient, AVIMException e) {
+                if (e == null) {
+                    ByrTvApplication.avimClient = avimClient;
+                    upDateChatRoomNum(true);
+                }
+            }
+        });
+    }
+
+    /**
+     * 更新聊天室人数
+     *
+     * @param isNeedToCreateRoom 是否需要建立 chat room
+     */
+    private synchronized void upDateChatRoomNum(final boolean isNeedToCreateRoom) {
+
+        if (ByrTvApplication.isLoginAndTryPullChannelFromNet()) {
+            //仅当 登录 且 尝试请求频道数据 后才执行
+            AVIMConversationQuery query = ByrTvApplication.avimClient.getQuery();
+            query.whereGreaterThan("name", "");//查询全部
+            query.setQueryPolicy(AVQuery.CachePolicy.NETWORK_ONLY);
+            query.setLimit(100000000);
+            query.findInBackground(new AVIMConversationQueryCallback() {
+                @Override
+                public void done(List<AVIMConversation> convs, AVIMException e) {
+                    if (e == null) {
+                        if (convs != null) {
+                            LogUtil.d("upDateChatRoomNum", convs.size() + "");
+                            serverRoomCount = convs.size();
+                            hadServerRoomUpdateCount = 0;
+                            if (serverRoomCount > 0) {
+                                for (int roomIndex = 0; roomIndex < convs.size(); roomIndex++) {
+                                    final AVIMConversation cv = convs.get(roomIndex);
+
+                                    if (isNeedToCreateRoom) {
+                                        setIsExistToMap(cv.getName());
+                                        createChatRoom();
+                                    }
+                                    // TODO: 15/12/16 一次把全部更新，开的线程过多
+//                                    cv.getMemberCount(new AVIMConversationMemberCountCallback() {
+//                                        @Override
+//                                        public void done(Integer count, AVIMException e) {
+//                                            if (e == null) {
+//                                                setPeopleNumToMap(cv.getName(), count);
+//                                                LogUtil.d(cv.getName(), "conversation got " + count + " members");
+//                                            } else {
+//                                                e.printStackTrace();
+//                                            }
+//                                        }
+//                                    });
+                                }
+                            } else {
+                                LogUtil.d("upDateChatRoomNum", convs.size() + "");
+                                createChatRoom();
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+
+    private void createChatRoom() {
+        hadServerRoomUpdateCount++;
+//        LogUtil.d("hadServerRoomUpdateCount", hadServerRoomUpdateCount + "");
+        if (hadServerRoomUpdateCount >= serverRoomCount) {//已有的聊天室的人数均已加载完毕
+            Iterator createI = mapChannels.entrySet().iterator();
+            int i = 0;
+            while (createI.hasNext()) {
+                ChannelModule c = (ChannelModule) ((Map.Entry) createI.next()).getValue();
+                if (c != null && !c.isExistInServer()) {
+                    i++;
+//                    LogUtil.d("ExistInServer", c.getChannelName());
+                    ByrTvApplication.avimClient.createConversation(new ArrayList<String>(), c.getServerName(), null, true, true,
+                            new AVIMConversationCreatedCallback() {
+                                @Override
+                                public void done(AVIMConversation conv, AVIMException e) {
+                                    if (e == null) {
+                                        LogUtil.d("createChatRoom", conv.getName());
+                                    } else {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            });
+                    if (i > 20) {
+                        break;
+                    }
+                }
+            }
+            LogUtil.d("createChatRoomNum", i + "");
+        }
 
     }
+
 
     /**
      * 从全部频道中获取收藏频道
@@ -181,7 +307,8 @@ public class MainActivityPresenter extends Presenter {
      * @param channels
      * @return
      */
-    private ArrayList<ChannelModule> filterCollectionChannel(ArrayList<ChannelModule> channels) {
+    private ArrayList<ChannelModule> filterCollectionChannel
+    (ArrayList<ChannelModule> channels) {
         ArrayList<ChannelModule> collectionChannels = new ArrayList<>();
         for (ChannelModule c : channels) {
             if (c.isCollected()) {
@@ -210,6 +337,40 @@ public class MainActivityPresenter extends Presenter {
                 //还未存在，新建
                 SqlChannelManager.getInstance().addChannel(c);
             }
+        }
+    }
+
+    /**
+     * 将 频道 填充为 Map
+     *
+     * @param map
+     * @param channels
+     */
+    private void shoveChannelsToMap(HashMap<String, ChannelModule> map, ArrayList<ChannelModule> channels) {
+        map.clear();
+        for (ChannelModule c : channels) {
+            String uri = c.getUri();
+            c.setServerName(uri.substring(uri.lastIndexOf('/') + 1, uri.length() - 5));
+            map.put(c.getServerName(), c);
+        }
+    }
+
+    private synchronized void setIsExistToMap(String roomName) {
+        ChannelModule cm = mapChannels.get(roomName);
+        if (cm != null) {
+            cm.setIsExistInServer(true);
+//            LogUtil.d("ExistInServer", cm.getChannelName());
+        } else {
+            LogUtil.d("setPeopleNumToMap", "服务器存在，本地不存在的聊天室");
+        }
+    }
+
+    private synchronized void setPeopleNumToMap(String roomName, int num) {
+        ChannelModule cm = mapChannels.get(roomName);
+        if (cm != null) {
+            cm.setPeopleNum(num);
+        } else {
+            LogUtil.d("setPeopleNumToMap", "服务器存在，本地不存在的聊天室");
         }
     }
 

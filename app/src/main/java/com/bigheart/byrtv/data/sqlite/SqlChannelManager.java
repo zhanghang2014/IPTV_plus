@@ -4,14 +4,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.bigheart.byrtv.ui.module.ChannelModule;
+import com.bigheart.byrtv.util.LogUtil;
 import com.bigheart.byrtv.util.SqlUtil;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by BigHeart on 15/12/8.
@@ -54,11 +52,11 @@ public class SqlChannelManager {
                 long rowId = db.insert(ChannelColumn.CHANNEL_TABLE_NAME, null, values);
                 if (rowId != -1)
                     channel.setSqlId(rowId);
-                Log.i("SqlChannelManager add id", rowId + " : " + channel.getChannelName());
+                LogUtil.i("SqlChannelManager add id", rowId + " : " + channel.getChannelName());
 
             }
             db.setTransactionSuccessful();
-            Log.i("SqlChannelManager add", channels.size() + "");
+            LogUtil.i("SqlChannelManager add", channels.size() + "");
         } catch (IllegalStateException e) {
             e.printStackTrace();
         } finally {
@@ -77,7 +75,7 @@ public class SqlChannelManager {
             long rowId = db.insert(ChannelColumn.CHANNEL_TABLE_NAME, null, values);
             if (rowId != -1)
                 channel.setSqlId(rowId);
-            Log.i("SqlChannelManager add id", rowId + " : " + channel.getChannelName());
+            LogUtil.i("SqlChannelManager add id", rowId + " : " + channel.getChannelName());
 
             db.setTransactionSuccessful();
         } catch (IllegalStateException e) {
@@ -106,7 +104,7 @@ public class SqlChannelManager {
      * @param whereArgs   修改添加参数
      */
     public int upDateChannel(ContentValues values, String whereClause, String[] whereArgs) {
-        Log.i("SqlChannelManager update", whereClause);
+//        LogUtil.i("SqlChannelManager update", whereClause);
         return db.update(ChannelColumn.CHANNEL_TABLE_NAME, values, whereClause, whereArgs);
     }
 
@@ -117,7 +115,7 @@ public class SqlChannelManager {
      */
     public int delChannel(String whereClause, String[] whereArgs) {
         int count = db.delete(ChannelColumn.CHANNEL_TABLE_NAME, whereClause, whereArgs);
-        Log.i("SqlChannelManager del", count + "");
+        LogUtil.i("SqlChannelManager del", count + "");
         return count;
     }
 
