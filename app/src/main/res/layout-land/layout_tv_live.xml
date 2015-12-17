@@ -106,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:background="@null"
-                android:drawableTop="@android:drawable/ic_lock_idle_lock"
+                android:drawableTop="@drawable/ic_lock_white_24dp"
                 android:text="@string/lock_screen"
                 android:textColor="@android:color/white" />
 
@@ -118,7 +118,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/bt_vv_lock_screen"
                 android:background="@null"
-                android:drawableTop="@android:drawable/sym_action_chat"
+                android:drawableTop="@drawable/ic_textsms_white_24dp"
                 android:text="@string/launch_danmu"
                 android:textColor="@android:color/white" />
 
@@ -129,7 +129,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/bt_vv_launch_danmu"
                 android:background="@null"
-                android:drawableTop="@android:drawable/star_big_on"
+                android:drawableTop="@drawable/ic_visibility_white_24dp"
                 android:text="@string/danmu_switch"
                 android:textColor="@android:color/white" />
 
@@ -139,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@android:drawable/ic_media_play" />
+                android:src="@drawable/ic_pause_circle_fill_white_24dp" />
         </RelativeLayout>
 
     </RelativeLayout>

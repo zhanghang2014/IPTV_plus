@@ -4,11 +4,11 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/collection_of_channels"
-            android:icon="@android:drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_favorite_outline_black_48dp"
             android:title="收藏频道" />
         <item
             android:id="@+id/all_of_channels"
-            android:icon="@android:drawable/ic_menu_search"
+            android:icon="@drawable/ic_format_list_bulleted_black_48dp"
             android:title="全部频道" />
 
     </group>
@@ -17,11 +17,11 @@
         <menu>
             <item
                 android:id="@+id/user_setting"
-                android:icon="@android:drawable/ic_menu_set_as"
+                android:icon="@drawable/ic_perm_identity_black_48dp"
                 android:title="用户设置" />
             <item
                 android:id="@+id/app_setting"
-                android:icon="@android:drawable/ic_menu_view"
+                android:icon="@drawable/ic_settings_black_48dp"
                 android:title="软件设置" />
         </menu>
     </item>
