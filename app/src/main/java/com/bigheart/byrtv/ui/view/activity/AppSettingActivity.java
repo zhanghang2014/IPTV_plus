@@ -30,9 +30,10 @@ public class AppSettingActivity extends BaseActivity implements AppSettingView, 
             llAbout, llCloseDanMu, llFeedback;
     private AppCompatCheckBox ccbCloseDanMu;
     private TextView mainPage, sortWay;
-    private String mainPages, sortWays, closeDanMus;
+    private int mainPages, sortWays, closeDanMus;
     private AppSettingPresenter presenter;
     private Toolbar toolbar;
+    private int tmp;
 
 
     @Override
@@ -46,7 +47,7 @@ public class AppSettingActivity extends BaseActivity implements AppSettingView, 
     private void initUI() {
         //toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("用户设置");
+        toolbar.setTitle("软件设置");
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
@@ -74,7 +75,7 @@ public class AppSettingActivity extends BaseActivity implements AppSettingView, 
 
         llCloseDanMu = (LinearLayout) findViewById(R.id.ll_app_setting_close_danmu);
         llCloseDanMu.setOnClickListener(this);
-        llFeedback= (LinearLayout) findViewById(ll_app_setting_feedback);
+        llFeedback = (LinearLayout) findViewById(ll_app_setting_feedback);
         llFeedback.setOnClickListener(this);
     }
 
@@ -82,35 +83,35 @@ public class AppSettingActivity extends BaseActivity implements AppSettingView, 
         presenter = new AppSettingPresenter(this);
         mainPages = presenter.getMainPage();
         sortWays = presenter.getChannelSort();
-        closeDanMus = presenter.getCloseDanMu();
+        closeDanMus = presenter.getDanMuSetting();
 
-        if (mainPages == null) {
+        if (mainPages == AppSettingOption.NOT_SETTING) {
             //默认设置:全部频道
             presenter.saveMainPage(AppSettingOption.ALL_CHANNEL);
             mainPage.setText("全部频道");
-        } else if (mainPages.equals(AppSettingOption.ALL_CHANNEL)) {
+        } else if (mainPages == AppSettingOption.ALL_CHANNEL) {
             mainPage.setText("全部频道");
-        } else if (mainPages.equals(AppSettingOption.MY_CHANNEL)) {
+        } else if (mainPages == AppSettingOption.MY_CHANNEL) {
             mainPage.setText("收藏的频道");
         }
 
-        if (sortWays == null) {
+        if (sortWays == AppSettingOption.NOT_SETTING) {
             //默认设置：拼音排序
             presenter.saveChannelSort(AppSettingOption.SORT_PINYIN);
             sortWay.setText("拼音首字母");
-        } else if (sortWays.equals(AppSettingOption.SORT_PINYIN)) {
+        } else if (sortWays == AppSettingOption.SORT_PINYIN) {
             sortWay.setText("拼音首字母");
-        } else if (sortWays.equals(AppSettingOption.SORT_PEOPLE)) {
+        } else if (sortWays == AppSettingOption.SORT_PEOPLE) {
             sortWay.setText("频道在线人数");
         }
 
-        if (closeDanMus == null) {
+        if (closeDanMus == AppSettingOption.NOT_SETTING) {
             //默认设置：打开弹幕
-            presenter.saveCloseDanMu(AppSettingOption.OPEN_DANMU);
+            presenter.saveDanMuSetting(AppSettingOption.OPEN_DANMU);
             ccbCloseDanMu.setChecked(false);
-        } else if (closeDanMus.equals(AppSettingOption.OPEN_DANMU)) {
+        } else if (closeDanMus == AppSettingOption.OPEN_DANMU) {
             ccbCloseDanMu.setChecked(false);
-        } else if (closeDanMus.equals(AppSettingOption.CLOSE_DANMU)) {
+        } else if (closeDanMus == AppSettingOption.CLOSE_DANMU) {
             ccbCloseDanMu.setChecked(true);
         }
     }
@@ -135,32 +136,32 @@ public class AppSettingActivity extends BaseActivity implements AppSettingView, 
         }
 
         if (ccbCloseDanMu.isChecked()) {
-            presenter.saveCloseDanMu(AppSettingOption.CLOSE_DANMU);
+            presenter.saveDanMuSetting(AppSettingOption.CLOSE_DANMU);
         } else {
-            presenter.saveCloseDanMu(AppSettingOption.OPEN_DANMU);
+            presenter.saveDanMuSetting(AppSettingOption.OPEN_DANMU);
         }
-        iniData();
+//        iniData();
     }
 
     @Override
     public void channelSortWay() {
+        tmp=-1;
         final String[] op = new String[]{"拼音首字母", "频道在线人数"};
-        final String[] tmp = {""};
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("选择频道排序方式：")
                 .setSingleChoiceItems(op, 0, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if (i == 0) {
-                            tmp[0] = AppSettingOption.SORT_PINYIN;
+                            tmp = AppSettingOption.SORT_PINYIN;
                         } else {
-                            tmp[0] = AppSettingOption.SORT_PEOPLE;
+                            tmp = AppSettingOption.SORT_PEOPLE;
                         }
                     }
                 }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                presenter.saveChannelSort(tmp[0]);
+                presenter.saveChannelSort(tmp);
                 iniData();
             }
         }).create().show();
@@ -168,23 +169,23 @@ public class AppSettingActivity extends BaseActivity implements AppSettingView, 
 
     @Override
     public void mainPage() {
+        tmp=-1;
         final String[] op = new String[]{"全部频道", "收藏的频道"};
-        final String[] tmp = {""};
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("选择默认首页：")
                 .setSingleChoiceItems(op, 0, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if (i == 0) {
-                            tmp[0] = AppSettingOption.ALL_CHANNEL;
+                            tmp = AppSettingOption.ALL_CHANNEL;
                         } else {
-                            tmp[0] = AppSettingOption.MY_CHANNEL;
+                            tmp = AppSettingOption.MY_CHANNEL;
                         }
                     }
                 }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                presenter.saveMainPage(tmp[0]);
+                presenter.saveMainPage(tmp);
                 iniData();
             }
         }).create().show();
@@ -192,7 +193,7 @@ public class AppSettingActivity extends BaseActivity implements AppSettingView, 
 
     @Override
     public void about() {
-        Intent intent=new Intent(AppSettingActivity.this, AppAboutActivity.class);
+        Intent intent = new Intent(AppSettingActivity.this, AppAboutActivity.class);
         startActivity(intent);
     }
 

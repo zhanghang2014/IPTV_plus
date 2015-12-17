@@ -4,10 +4,11 @@ package com.bigheart.byrtv.data.sharedpreferences;
  * Created by InG on 15/12/14.
  */
 public abstract class AppSettingOption {
-    public static final String ALL_CHANNEL = "all_channel";
-    public static final String MY_CHANNEL = "my_channel";
-    public static final String SORT_PINYIN = "sort_pinyin";
-    public static final String SORT_PEOPLE = "sort_people";
-    public static final String CLOSE_DANMU = "close_danmu";
-    public static final String OPEN_DANMU = "open_danmu";
+    public static final int NOT_SETTING = -1;
+    public static final int ALL_CHANNEL = 0;
+    public static final int MY_CHANNEL = 1;
+    public static final int SORT_PINYIN = 2;
+    public static final int SORT_PEOPLE = 3;
+    public static final int CLOSE_DANMU = 4;
+    public static final int OPEN_DANMU = 5;
 }

@@ -18,27 +18,27 @@ public class AppSettingPresenter extends Presenter {
         sp = new AppSettingPreferences(context);
     }
 
-    public void saveMainPage(String mainPage) {
+    public void saveMainPage(int mainPage) {
         sp.setMainPage(mainPage);
     }
 
-    public String getMainPage() {
+    public int getMainPage() {
         return sp.getMainPage();
     }
 
-    public void saveChannelSort(String sortWay) {
+    public void saveChannelSort(int sortWay) {
         sp.setChannelSort(sortWay);
     }
 
-    public String getChannelSort() {
+    public int getChannelSort() {
         return sp.getChannelSort();
     }
 
-    public void saveCloseDanMu(String closeDanMu) {
-        sp.setCloseDanMu(closeDanMu);
+    public void saveDanMuSetting(int DanMuSetting) {
+        sp.setDanMuSetting(DanMuSetting);
     }
 
-    public String getCloseDanMu() {
-        return sp.getColseDanMu();
+    public int getDanMuSetting() {
+        return sp.getDanMuSetting();
     }
 }

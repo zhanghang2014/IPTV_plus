@@ -25,6 +25,7 @@ import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
 import com.bigheart.byrtv.ByrTvApplication;
 import com.bigheart.byrtv.R;
 import com.bigheart.byrtv.data.sharedpreferences.AccountPreferences;
+import com.bigheart.byrtv.data.sharedpreferences.AppSettingPreferences;
 import com.bigheart.byrtv.ui.presenter.MainActivityPresenter;
 import com.bigheart.byrtv.ui.view.FragContactToAct;
 import com.bigheart.byrtv.ui.view.MainActivityView;
@@ -131,7 +132,9 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
             }
         });
 
-        channelFragment = AllChannelFragment.newInstance(new AccountPreferences(this).getAllChannelOrderType(), this);
+        //首页排序方式放在了AppSettingPreferences
+        channelFragment = AllChannelFragment.newInstance(new AppSettingPreferences(this).getAllChannelOrderType(), this);
+
         myCollectionFragment = MyCollectionFragment.newInstance(ChannelSortType.SORT_BY_PEOPLE_NUM, this);
 
         initDrawerUI();
@@ -155,7 +158,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
                         startActivity(intent);
                         break;
                     case R.id.app_setting:
-                        Intent intent1=new Intent(MainActivity.this,AppSettingActivity.class);
+                        Intent intent1 = new Intent(MainActivity.this, AppSettingActivity.class);
                         startActivity(intent1);
                         break;
                     default:
