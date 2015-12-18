@@ -39,6 +39,10 @@ public class AccountPreferences {
         pref.edit().putInt(ALL_CHANNEL_ORDER_TYPE, type.ordinal()).commit();
     }
 
+    /*
+    * 同目录下AppSettingPreferences可获取到用户设置的值
+    * By InG
+    * */
     public ChannelSortType getAllChannelOrderType() {
         int index = pref.getInt(ALL_CHANNEL_ORDER_TYPE, 0);
         switch (index) {

@@ -49,8 +49,8 @@ import javax.xml.validation.Validator;
 
 /**
  * * 控制AllChannelFragment,MyCollectionFragment
- * <p/>
- * <p/>
+ * <p>
+ * <p>
  * Created by BigHeart on 15/12/8.
  */
 public class MainActivityPresenter extends Presenter {
@@ -187,6 +187,7 @@ public class MainActivityPresenter extends Presenter {
                     if (e == null) {
                         accountSp.setUserAccount(AVUser.getCurrentUser().getUsername());
                         accountSp.setUserPsw(strPsw);
+                        ByrTvApplication.isLogin = true;
                     }
                 }
             });

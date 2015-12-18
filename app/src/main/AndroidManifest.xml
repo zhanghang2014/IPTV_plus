@@ -57,6 +57,9 @@
             android:name=".ui.view.activity.LoginActivity"
             android:launchMode="singleTask" />
 
+        <activity android:name=".ui.view.activity.AppSettingActivity"
+            android:launchMode="singleTask" />
+
         <activity android:name="com.avos.avoscloud.feedback.ThreadActivity"></activity>
 
         <!-- leancloud 实时通信声明  !-->
@@ -68,6 +71,15 @@
             </intent-filter>
         </receiver>
         <!-- leancloud 实时通信声明  !-->
+
+        <!-- 用户反馈组件-->
+        <activity
+            android:name="com.avos.avoscloud.feedback.ThreadActivity" >
+        </activity>
+        <!-- 用户反馈组件-->
+
+        <activity android:name=".ui.view.activity.AppAboutActivity"
+            android:launchMode="singleTask"/>
 
     </application>
 
