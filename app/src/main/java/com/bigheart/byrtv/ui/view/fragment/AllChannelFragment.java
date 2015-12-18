@@ -244,9 +244,9 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
     private void setCollectionStartState(ImageView imageView, boolean isCollection) {
         if (isCollection) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                imageView.setImageDrawable(getResources().getDrawable(android.R.drawable.btn_star_big_off, getActivity().getTheme()));
+                imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_outline_grey600_36dp, getActivity().getTheme()));
             } else {
-                imageView.setImageDrawable(getResources().getDrawable(android.R.drawable.btn_star_big_off));
+                imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_outline_grey600_36dp));
             }
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

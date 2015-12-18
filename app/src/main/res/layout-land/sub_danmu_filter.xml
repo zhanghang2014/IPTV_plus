@@ -9,7 +9,7 @@
     android:background="@android:color/black"
     android:orientation="vertical"
     android:visibility="gone"
-    tools:visibility="gone">
+    tools:visibility="visible">
 
     <TextView
         android:layout_width="wrap_content"
@@ -19,11 +19,63 @@
         android:textColor="@android:color/white"
         android:textSize="20sp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/danmu_filter_by_pos"
+        android:textColor="@android:color/white" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp">
+
+        <ImageView
+            android:id="@+id/iv_vv_filter_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/ic_danmu_position_block_top_white_24dp"
+            android:text="@string/danmu_top" />
+
+        <ImageView
+            android:id="@+id/iv_vv_filter_flow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/ic_danmu_poisition_block_center_white_24dp"
+            android:text="@string/danmu_flow" />
+
+
+        <ImageView
+            android:id="@+id/iv_vv_filter_bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/ic_danmu_poisition_block_bottom_white_24dp"
+            android:text="@string/danmu_bottom" />
+
+        <ImageView
+            android:id="@+id/iv_vv_filter_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingRight="5dp"
+            android:src="@drawable/ic_danmu_poisition_block_colors_24dp" />
+
+    </LinearLayout>
+
+
     <Button
         android:id="@+id/bt_vv_fliter_users"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableLeft="@android:drawable/ic_menu_agenda"
+        android:layout_marginTop="10dp"
         android:gravity="center_vertical"
         android:text="@string/filter_selected_users" />
 

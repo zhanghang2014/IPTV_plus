@@ -120,7 +120,7 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
     private ImageView ibBigText, ibSmallText, ibDanmuInTop, ibDanmuInBottom, ibDanmuFlow, ivColor0, ivColor1, ivColor2, ivColor3;
 
     //弹幕设置 子菜单
-    private ScrollView svDanmuSetting;
+    private LinearLayout llDanmuSetting;
     private ImageView ivFilterTopDanmu, ivFilterBottomDanmu, ivFilterFlowDanmu, ivFilterColorDanmu;
     private SeekBar sbTextScale, sbDestiny, sbSpeed, sbAlpha;
     private boolean isFilterColorDanmu = false, isFilterTopDanmu = false, isFilterFlowDanmu = false, isFilterBottomDanmu = false;
@@ -306,7 +306,7 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
 
 
         //弹幕设置
-        svDanmuSetting = (ScrollView) findViewById(R.id.sv_iv_danmu_setting);
+        llDanmuSetting = (LinearLayout) findViewById(R.id.ll_iv_danmu_setting);
         ivFilterTopDanmu = (ImageView) findViewById(R.id.iv_vv_filter_top);
         ivFilterBottomDanmu = (ImageView) findViewById(R.id.iv_vv_filter_bottom);
         ivFilterFlowDanmu = (ImageView) findViewById(R.id.iv_vv_filter_flow);
@@ -324,7 +324,7 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
         sbDestiny.setOnSeekBarChangeListener(userSettingSbChangeListener);
         sbSpeed.setOnSeekBarChangeListener(userSettingSbChangeListener);
         sbTextScale.setOnSeekBarChangeListener(userSettingSbChangeListener);
-        svDanmuSetting.setOnTouchListener(new View.OnTouchListener() {
+        llDanmuSetting.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 return true;
@@ -517,7 +517,7 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
                     Log.i("TvLiveActivity change", videoH + " " + videoW);
                 }
                 mVideoView.setBufferSize(512 * 1024);
-                ivPlayOrPause.setImageDrawable(getResources().getDrawable(android.R.drawable.ic_media_pause));
+                ivPlayOrPause.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause_circle_fill_white_24dp));
             }
         });
 
@@ -588,7 +588,7 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
             }
         });
         danmakuView.prepare(danmakuParser, danmakuContext);
-        danmakuView.showFPS(true);
+//        danmakuView.showFPS(true);
 
 
         //用户屏蔽
@@ -727,11 +727,11 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
                     if (mVideoView.isPlaying()) {
 //                    LogUtil.d("TvLiveActivity", "pause");
                         mVideoView.pause();
-                        ivPlayOrPause.setImageDrawable(getResources().getDrawable(android.R.drawable.ic_media_play));
+                        ivPlayOrPause.setImageDrawable(getResources().getDrawable(R.drawable.ic_play_circle_fill_white_24dp));
                     } else {
 //                    LogUtil.d("TvLiveActivity", "play");
                         mVideoView.start();
-                        ivPlayOrPause.setImageDrawable(getResources().getDrawable(android.R.drawable.ic_media_pause));
+                        ivPlayOrPause.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause_circle_fill_white_24dp));
                     }
                     break;
                 case R.id.iv_vv_back:
@@ -761,7 +761,7 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
 
                 case R.id.iv_vv_danmu_setting:
                     cleanAllMenu();
-                    svDanmuSetting.setVisibility(View.VISIBLE);
+                    llDanmuSetting.setVisibility(View.VISIBLE);
                     break;
                 default:
                     LogUtil.d("TvLiveActivity mainCtlClickListener", "未处理监听事件");
@@ -924,7 +924,7 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
                 ivUnlockScreenLogo.setVisibility(View.VISIBLE);
             }
         } else {
-            if (rlVvBottom.isShown() || llDanmuEdit.isShown() || svDanmuSetting.isShown()) {
+            if (rlVvBottom.isShown() || llDanmuEdit.isShown() || llDanmuSetting.isShown() || llFilterUser.isShown()) {
                 cleanAllMenu();
             } else {
                 showTopBottomMenu();
@@ -939,7 +939,7 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
         rlVvBottom.setVisibility(View.GONE);
         rlVvTop.setVisibility(View.GONE);
         llDanmuEdit.setVisibility(View.GONE);
-        svDanmuSetting.setVisibility(View.GONE);
+        llDanmuSetting.setVisibility(View.GONE);
         llFilterUser.setVisibility(View.GONE);
     }
 
@@ -1040,8 +1040,7 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
 
     private boolean addDanmuToServer(String content) {
 
-        // TODO: 15/12/18 删除，只接受服务器传来的
-//        addDanmu(content, new DanmuAttrs(danmuEtPos, danmuEtColorPos, danmuEtTextSize, ByrTvApplication.avimClient.getClientId()), true);
+        addDanmu(content, new DanmuAttrs(danmuEtPos, danmuEtColorPos, danmuEtTextSize, ByrTvApplication.avimClient.getClientId()), true);
 
 //        AVIMTextMessage msg = new AVIMTextMessage();
 //        msg.setDanmuText(content);
@@ -1064,6 +1063,7 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
                         LogUtil.d("TvLiveActivity", "addDanmuToServer ！");
                     } else {
                         e.printStackTrace();
+                        toast("发送失败");
                     }
                 }
             });

@@ -29,7 +29,7 @@
             android:layout_centerVertical="true"
             android:background="@android:color/black"
             android:padding="20dp"
-            android:src="@android:drawable/ic_lock_idle_lock"
+            android:src="@drawable/ic_lock_open_white_24dp"
             android:visibility="gone" />
 
         <RelativeLayout
@@ -37,7 +37,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:background="@android:color/black">
+            android:background="@android:color/black"
+            android:padding="10dp">
 
             <ImageView
                 android:id="@+id/iv_vv_back"
@@ -45,13 +46,14 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:src="@android:drawable/ic_delete" />
+                android:src="@drawable/ic_arrow_back_white_24dp" />
 
             <TextView
                 android:id="@+id/tv_vv_channel_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
                 android:layout_toRightOf="@+id/iv_vv_back"
                 android:textColor="@android:color/white"
                 tools:text="CCAV" />
@@ -69,15 +71,17 @@
                 android:id="@+id/iv_vv_filter_user"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="8dp"
                 android:layout_toLeftOf="@+id/iv_vv_danmu_setting"
-                android:src="@android:drawable/sym_action_chat" />
+                android:src="@drawable/ic_not_interested_white_24dp" />
 
             <ImageView
                 android:id="@+id/iv_vv_danmu_setting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:src="@android:drawable/sym_action_chat" />
+                android:src="@drawable/ic_settings_display_white_24dp" />
 
         </RelativeLayout>
 
