@@ -48,34 +48,39 @@
                 android:id="@+id/iv_vv_big_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_text_format_white_36dp"
-                android:layout_gravity="center_vertical"/>
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_text_format_white_36dp" />
 
             <ImageView
                 android:id="@+id/iv_vv_small_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_text_format_white_24dp"
-                android:layout_gravity="center_vertical"/>
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_text_format_white_24dp" />
 
             <ImageView
                 android:id="@+id/iv_vv_text_still_top"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"
-                android:src="@android:drawable/ic_input_add" />
+                android:src="@drawable/ic_danmu_position_top_white_24dp" />
 
             <ImageView
                 android:id="@+id/iv_vv_text_flow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@android:drawable/ic_input_add" />
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_danmu_poisition_center_white_24dp" />
+
 
             <ImageView
                 android:id="@+id/iv_vv_text_still_bottom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@android:drawable/ic_input_add" />
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_danmu_poisition_bottom_white_24dp" />
+
 
             <ImageView
                 android:id="@+id/iv_vv_color_0"

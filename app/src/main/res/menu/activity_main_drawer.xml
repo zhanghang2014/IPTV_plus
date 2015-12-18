@@ -18,7 +18,7 @@
             <item
                 android:id="@+id/user_setting"
                 android:icon="@drawable/ic_perm_identity_black_48dp"
-                android:title="用户设置" />
+                android:title="个人资料" />
             <item
                 android:id="@+id/app_setting"
                 android:icon="@drawable/ic_settings_black_48dp"
