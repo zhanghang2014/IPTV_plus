@@ -38,7 +38,8 @@ dependencies {
     compile 'com.android.support:design:+'
     compile 'com.facebook.fresco:fresco:0.8.1'
     //汉子转拼音解析包
-    compile 'com.github.stuxuhai:jpinyin:1.1'
+    //改包有BUG 弃用 by InG
+//    compile 'com.github.stuxuhai:jpinyin:1.1'
     //avoscloud-sdk 为 LeanCloud基础包
     compile 'cn.leancloud.android:avoscloud-sdk:v3.+'
     //avoscloud-push 与 Java-WebSocket 为推送与IM需要的包

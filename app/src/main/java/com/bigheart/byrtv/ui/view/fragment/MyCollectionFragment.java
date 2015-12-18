@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bigheart.byrtv.R;
+import com.bigheart.byrtv.data.sharedpreferences.AppSettingPreferences;
 import com.bigheart.byrtv.ui.module.ChannelModule;
 import com.bigheart.byrtv.ui.presenter.MyCollectionPresenter;
 import com.bigheart.byrtv.ui.view.FragContactToAct;
@@ -41,6 +42,8 @@ public class MyCollectionFragment extends Fragment implements MyCollectionView {
     private MyCollectionPresenter presenter;
     private static FragContactToAct collectionFragContactToAct;
 
+    private AppSettingPreferences sp;
+
     public static MyCollectionFragment newInstance(ChannelSortType itemSortType, FragContactToAct contactToAct) {
         MyCollectionFragment fragment = new MyCollectionFragment();
         collectionFragContactToAct = contactToAct;
@@ -58,6 +61,7 @@ public class MyCollectionFragment extends Fragment implements MyCollectionView {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new MyCollectionPresenter(getActivity(), this);
+        sp = new AppSettingPreferences(this.getActivity());
         if (getArguments() != null) {
             sortType = getArguments().getInt(ITEM_SORT_TYPE);
         }
@@ -77,6 +81,9 @@ public class MyCollectionFragment extends Fragment implements MyCollectionView {
             @Override
             public void onRefresh() {
                 //只刷新在线人数，不刷新频道列表
+                collectionChannels = presenter.channelSort(sp.getChannelSort(), collectionChannels);
+                updateData(collectionChannels);
+                stopRefresh();
             }
         });
 
@@ -182,6 +189,5 @@ public class MyCollectionFragment extends Fragment implements MyCollectionView {
             }
         }
     }
-
 
 }

@@ -25,6 +25,7 @@ import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
 import com.bigheart.byrtv.ByrTvApplication;
 import com.bigheart.byrtv.R;
 import com.bigheart.byrtv.data.sharedpreferences.AccountPreferences;
+import com.bigheart.byrtv.data.sharedpreferences.AppSettingOption;
 import com.bigheart.byrtv.data.sharedpreferences.AppSettingPreferences;
 import com.bigheart.byrtv.ui.presenter.MainActivityPresenter;
 import com.bigheart.byrtv.ui.view.FragContactToAct;
@@ -55,6 +56,8 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
 
     private static int okFragCount = 0;
 
+    private AppSettingPreferences sp;
+
 
     //drawer
     private DrawerLayout drawer;
@@ -67,6 +70,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
 
         Fresco.initialize(this);
         setContentView(R.layout.activity_main);
+        sp=new AppSettingPreferences(this);
         initUI();
         initData();
         LogUtil.d("MainActivity", "onCreate " + okFragCount);
@@ -131,6 +135,13 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
 
             }
         });
+
+        //首页默认显示
+        if(sp.getMainPage()== AppSettingOption.MY_CHANNEL){
+            viewPager.setCurrentItem(POS_MY_COLLECTION);
+        }else if(sp.getMainPage()==AppSettingOption.ALL_CHANNEL){
+            viewPager.setCurrentItem(POS_ALL_CHANNEL);
+        }
 
         //首页排序方式放在了AppSettingPreferences
         channelFragment = AllChannelFragment.newInstance(new AppSettingPreferences(this).getAllChannelOrderType(), this);
