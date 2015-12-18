@@ -17,7 +17,7 @@ public interface TvLiveActivityView {
     void setDanmuEtTextSize(int size);
 
 
-    int[] danmuColor = {Color.WHITE, Color.BLUE, Color.GREEN, Color.CYAN};
+    int[] danmuColor = {Color.WHITE, Color.RED, Color.GREEN, Color.YELLOW};
 
     /**
      * 设置弹幕颜色

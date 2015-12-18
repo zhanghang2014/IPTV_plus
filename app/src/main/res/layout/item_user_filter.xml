@@ -3,13 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@android:color/holo_red_light"
+    android:background="@android:color/black"
     android:orientation="horizontal">
 
     <CheckBox
         android:id="@+id/cb_vv_user_filter"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:allowUndo="false"
+        android:buttonTint="@android:color/white" />
 
     <TextView
         android:id="@+id/tv_vv_danmu_filter"
