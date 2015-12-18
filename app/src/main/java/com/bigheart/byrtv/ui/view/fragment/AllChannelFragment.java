@@ -2,12 +2,10 @@ package com.bigheart.byrtv.ui.view.fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.ContentValues;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +17,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bigheart.byrtv.R;
-import com.bigheart.byrtv.data.sqlite.ChannelColumn;
-import com.bigheart.byrtv.data.sqlite.SqlChannelManager;
+import com.bigheart.byrtv.data.sharedpreferences.AppSettingPreferences;
 import com.bigheart.byrtv.ui.module.ChannelModule;
 import com.bigheart.byrtv.ui.presenter.AllChannelPresenter;
 import com.bigheart.byrtv.ui.view.AllChannelView;
 import com.bigheart.byrtv.ui.view.FragContactToAct;
-import com.bigheart.byrtv.ui.view.activity.MainActivity;
 import com.bigheart.byrtv.util.ChannelSortType;
 
 import java.util.ArrayList;
@@ -50,6 +46,8 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
     private static FragContactToAct allChannelFragContactToAct;
     private static AllChannelPresenter presenter;
 
+    private AppSettingPreferences sp;
+
 
     public static AllChannelFragment newInstance(ChannelSortType itemSortType, FragContactToAct contactToAct) {
         AllChannelFragment fragment = new AllChannelFragment();
@@ -68,6 +66,7 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new AllChannelPresenter(getActivity(), this);
+        sp = new AppSettingPreferences(this.getActivity());
 
         if (getArguments() != null) {
             sortType = getArguments().getInt(ITEM_SORT_TYPE);
@@ -91,6 +90,9 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
             @Override
             public void onRefresh() {
                 //只刷新在线人数，不刷新频道列表
+                channels = presenter.channelSort(sp.getChannelSort(), channels);
+                updateData(channels);
+                stopRefresh();
             }
         });
 

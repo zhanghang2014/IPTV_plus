@@ -27,7 +27,7 @@ public class AppSettingPreferences {
     }
 
     public int getMainPage() {
-        return pref.getInt(APP_SETTING_MAIN_PAGE, -1);
+        return pref.getInt(APP_SETTING_MAIN_PAGE, AppSettingOption.ALL_CHANNEL);
     }
 
     public void setChannelSort(int sortWay) {
@@ -35,7 +35,7 @@ public class AppSettingPreferences {
     }
 
     public int getChannelSort() {
-        return pref.getInt(APP_SETTING_CHANNEL_SORT, -1);
+        return pref.getInt(APP_SETTING_CHANNEL_SORT, AppSettingOption.SORT_PINYIN);
     }
 
     public void setDanMuSetting(int danMuSetting) {
