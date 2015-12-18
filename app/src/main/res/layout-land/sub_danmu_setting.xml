@@ -40,28 +40,33 @@
                 android:id="@+id/iv_vv_filter_top"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@android:drawable/btn_star"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_danmu_position_block_top_white_24dp"
                 android:text="@string/danmu_top" />
 
             <ImageView
                 android:id="@+id/iv_vv_filter_flow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@android:drawable/btn_star"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_danmu_poisition_block_center_white_24dp"
                 android:text="@string/danmu_flow" />
+
 
             <ImageView
                 android:id="@+id/iv_vv_filter_bottom"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@android:drawable/btn_star"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_danmu_poisition_block_bottom_white_24dp"
                 android:text="@string/danmu_bottom" />
 
             <ImageView
                 android:id="@+id/iv_vv_filter_color"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@android:drawable/btn_star" />
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_danmu_poisition_block_colors_24dp" />
 
         </LinearLayout>
 

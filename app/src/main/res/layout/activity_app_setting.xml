@@ -127,7 +127,8 @@
                 android:layout_height="20dp"
                 android:layout_gravity="right"
                 android:buttonTint="@color/colorPrimaryDark"
-                android:buttonTintMode="src_in" />
+                android:buttonTintMode="src_in"
+                android:clickable="false"/>
         </LinearLayout>
     </LinearLayout>
 

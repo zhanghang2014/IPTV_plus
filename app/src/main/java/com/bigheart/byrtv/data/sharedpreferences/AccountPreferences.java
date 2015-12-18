@@ -43,17 +43,17 @@ public class AccountPreferences {
     * 同目录下AppSettingPreferences可获取到用户设置的值
     * By InG
     * */
-    public ChannelSortType getAllChannelOrderType() {
-        int index = pref.getInt(ALL_CHANNEL_ORDER_TYPE, 0);
-        switch (index) {
-            case 0:
-                return ChannelSortType.SORT_BY_PEOPLE_NUM;
-            case 1:
-                return ChannelSortType.SORT_BY_ALPHA;
-            default:
-                return ChannelSortType.SORT_BY_PEOPLE_NUM;
-        }
-    }
+//    public ChannelSortType getAllChannelOrderType() {
+//        int index = pref.getInt(ALL_CHANNEL_ORDER_TYPE, 0);
+//        switch (index) {
+//            case 0:
+//                return ChannelSortType.SORT_BY_PEOPLE_NUM;
+//            case 1:
+//                return ChannelSortType.SORT_BY_ALPHA;
+//            default:
+//                return ChannelSortType.SORT_BY_PEOPLE_NUM;
+//        }
+//    }
 
     public void clear() {
         pref.edit().clear().commit();

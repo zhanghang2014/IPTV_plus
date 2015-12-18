@@ -8,7 +8,7 @@
     <string name="launch_danmu">发射弹幕</string>
 
     <string name="danmu_control">弹幕控制</string>
-    <string name="danmu_filter_by_pos">按位置屏蔽</string>
+    <string name="danmu_filter_by_pos">弹幕屏蔽</string>
     <string name="danmu_top">顶部</string>
     <string name="danmu_flow">滚动</string>
     <string name="danmu_bottom">底部</string>
@@ -49,4 +49,5 @@
     <string name="app_about_dev_mem">BigHeart
         \n InG</string>
     <string name="app_about_faq_frend">友善度：初始值为100分，若您在弹幕中发表了不恰当言论导致其他用户屏蔽你时，将1分友善度，低于60时将不能发送弹幕且只能通过联系开发者申请恢复友善度</string>
+    <string name="app_about_dev_support">支付宝接受小额赞助，所得资金将用于支付服务器费用</string>
 </resources>
