@@ -65,14 +65,20 @@
                 android:textColor="@android:color/white"
                 tools:text="11:11" />
 
+            <ImageView
+                android:id="@+id/iv_vv_filter_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/iv_vv_danmu_setting"
+                android:src="@android:drawable/sym_action_chat" />
 
             <ImageView
-                android:id="@+id/iv_vv_more_setting"
+                android:id="@+id/iv_vv_danmu_setting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@android:drawable/ic_input_add" />
+                android:src="@android:drawable/sym_action_chat" />
+
         </RelativeLayout>
 
 

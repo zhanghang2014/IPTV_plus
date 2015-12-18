@@ -155,7 +155,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
                         startActivity(intent);
                         break;
                     case R.id.app_setting:
-                        Intent intent1=new Intent(MainActivity.this,AppSettingActivity.class);
+                        Intent intent1 = new Intent(MainActivity.this, AppSettingActivity.class);
                         startActivity(intent1);
                         break;
                     default:
@@ -201,7 +201,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     public void login(Exception e) {
         if (e == null) {
             this.toast("login success!" + AVUser.getCurrentUser().getUsername());
-            ByrTvApplication.updateLoginAndPullDataState(true,true,ByrTvApplication.updateWhat.upDateLoginState);
+            ByrTvApplication.updateReadGetPeopleNumState(true, true, true, ByrTvApplication.updateWhat.upDateLoginState);
             presenter.instanceAVIMClient();
 
         } else {

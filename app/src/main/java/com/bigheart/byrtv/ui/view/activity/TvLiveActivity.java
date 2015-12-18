@@ -10,12 +10,17 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -27,9 +32,25 @@ import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.AVIMConversationQuery;
+import com.avos.avoscloud.im.v2.AVIMException;
+import com.avos.avoscloud.im.v2.AVIMMessage;
+import com.avos.avoscloud.im.v2.AVIMMessageHandler;
+import com.avos.avoscloud.im.v2.AVIMMessageManager;
+import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
+import com.avos.avoscloud.im.v2.callback.AVIMConversationCallback;
+import com.avos.avoscloud.im.v2.callback.AVIMConversationQueryCallback;
+import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
+import com.bigheart.byrtv.ByrTvApplication;
 import com.bigheart.byrtv.R;
 import com.bigheart.byrtv.data.sharedpreferences.DanmuPreferences;
+import com.bigheart.byrtv.ui.module.ChannelModule;
+import com.bigheart.byrtv.ui.presenter.MainActivityPresenter;
 import com.bigheart.byrtv.ui.presenter.TvLivePresenter;
 import com.bigheart.byrtv.ui.view.TvLiveActivityView;
 import com.bigheart.byrtv.util.ByrTvUtil;
@@ -38,8 +59,11 @@ import com.bigheart.byrtv.util.LogUtil;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
 
 import io.vov.vitamio.MediaPlayer;
 import io.vov.vitamio.Vitamio;
@@ -60,13 +84,13 @@ import master.flame.danmaku.danmaku.parser.BaseDanmakuParser;
  */
 public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
 
-    public static final String TV_LIVE_URI = "tv_live_uri", TV_LIVE_NAME = "tv_live_name";
+    public static final String TV_SERVER_NAME = "tv_server_name";
 
     private final int OPTION_VOLUME = 0, OPTION_BRIGHTNESS = 1;
     private final float THRESHOLD = ByrTvUtil.dip2px(5f);
     private float adjustY = 0;
     private int adjustOption = OPTION_VOLUME;
-    private String channelUri, channelName;
+    private ChannelModule channel;
     private boolean isLockScreen = false;
 
     //弹幕偏好
@@ -93,7 +117,6 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
     private LinearLayout llDanmuEdit;
     private EditText etWriteDanmu;
     private ImageButton ibLaunchDanmu;
-    private ImageView ivCloseWrite;
     private ImageView ibBigText, ibSmallText, ibDanmuInTop, ibDanmuInBottom, ibDanmuFlow, ivColor0, ivColor1, ivColor2, ivColor3;
 
     //弹幕设置 子菜单
@@ -101,6 +124,24 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
     private ImageView ivFilterTopDanmu, ivFilterBottomDanmu, ivFilterFlowDanmu, ivFilterColorDanmu;
     private SeekBar sbTextScale, sbDestiny, sbSpeed, sbAlpha;
     private boolean isFilterColorDanmu = false, isFilterTopDanmu = false, isFilterFlowDanmu = false, isFilterBottomDanmu = false;
+
+    //弹幕屏蔽
+    private LinearLayout llFilterUser;
+    private ListView lvFilter;
+    private FilterAdapter filterAdapter;
+    private Button btFilter;
+    Queue<FilterItem> qFilter;
+
+    private class FilterItem {
+        FilterItem(String content, String senderId, boolean isCheck) {
+            danmuContent = content;
+            this.isCheck = isCheck;
+            this.senderId = senderId;
+        }
+
+        String danmuContent, senderId;
+        boolean isCheck;
+    }
 
     private TvLivePresenter presenter;
     private MediaController mediaController;
@@ -130,14 +171,15 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
         initData();
 
 
-        ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(1);
-        exec.scheduleAtFixedRate(new Runnable() {
-            public void run() {
-                addDanmu("四不四洒！！！", false);
-            }
-        }, 0, 800, TimeUnit.MILLISECONDS);
+//        ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(1);
+//        exec.scheduleAtFixedRate(new Runnable() {
+//            public void run() {
+//                addDanmu("四不四洒！！！", false);
+//            }
+//        }, 0, 800, TimeUnit.MILLISECONDS);
 
     }
+
 
     @Override
     protected void onPause() {
@@ -145,6 +187,8 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
         if (danmakuView != null && danmakuView.isPrepared()) {
             danmakuView.pause();
         }
+//        AVIMMessageManager.unregisterMessageHandler(DanmuTextMessage.class, messageHandler);
+        AVIMMessageManager.unregisterMessageHandler(AVIMTextMessage.class, messageHandler);
     }
 
     @Override
@@ -156,7 +200,10 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
         if (danmakuView != null && danmakuView.isPrepared() && danmakuView.isPaused()) {
             danmakuView.resume();
         }
+        AVIMMessageManager.registerMessageHandler(AVIMTextMessage.class, messageHandler);
+//        AVIMMessageManager.registerDefaultMessageHandler(messageHandler);
     }
+
 
     @Override
     protected void onDestroy() {
@@ -214,7 +261,8 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
         rlVvTop = (RelativeLayout) findViewById(R.id.rl_vv_top);
         tvChannelName = (TextView) findViewById(R.id.tv_vv_channel_name);
         findViewById(R.id.iv_vv_back).setOnClickListener(mainCtlClickListener);
-        findViewById(R.id.iv_vv_more_setting).setOnClickListener(mainCtlClickListener);
+        findViewById(R.id.iv_vv_danmu_setting).setOnClickListener(mainCtlClickListener);
+        findViewById(R.id.iv_vv_filter_user).setOnClickListener(mainCtlClickListener);
         //center
         tvBufferInfo = (TextView) findViewById(R.id.tv_vv_buffer_info);
         ivUnlockScreenLogo = (ImageView) findViewById(R.id.iv_vv_unlock_screen);
@@ -234,7 +282,6 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
         // 发射弹幕菜单控件
         llDanmuEdit = (LinearLayout) findViewById(R.id.ll_danmu_edit);
         etWriteDanmu = (EditText) findViewById(R.id.et_write_danmu);
-        ivCloseWrite = (ImageView) findViewById(R.id.iv_vv_close_danmu_edit);
         ibLaunchDanmu = (ImageButton) findViewById(R.id.ib_launch_danmu);
         ibBigText = (ImageView) findViewById(R.id.iv_vv_big_text);
         ibSmallText = (ImageView) findViewById(R.id.iv_vv_small_text);
@@ -246,7 +293,6 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
         ivColor2 = (ImageView) findViewById(R.id.iv_vv_color_2);
         ivColor3 = (ImageView) findViewById(R.id.iv_vv_color_3);
 
-        ivCloseWrite.setOnClickListener(editDanmuClickListen);
         ibLaunchDanmu.setOnClickListener(editDanmuClickListen);
         ibBigText.setOnClickListener(editDanmuClickListen);
         ibSmallText.setOnClickListener(editDanmuClickListen);
@@ -257,9 +303,6 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
         ivColor1.setOnClickListener(editDanmuClickListen);
         ivColor2.setOnClickListener(editDanmuClickListen);
         ivColor3.setOnClickListener(editDanmuClickListen);
-
-
-        //弹幕过滤
 
 
         //弹幕设置
@@ -287,17 +330,148 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
                 return true;
             }
         });
+
+        //弹幕过滤
+        llFilterUser = (LinearLayout) findViewById(R.id.ll_vv_filter_user);
+        btFilter = (Button) findViewById(R.id.bt_vv_fliter_users);
+        lvFilter = (ListView) findViewById(R.id.lv_vv_danmu_users);
+
+        btFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: 15/12/18 可以优化,减少循环
+
+                Iterator<FilterItem> iterator = qFilter.iterator();
+                boolean hasRemove = false;
+                ArrayList<FilterItem> listFilter = new ArrayList<>();
+                while (iterator.hasNext()) {
+                    FilterItem f = iterator.next();
+                    if (f.isCheck) {
+                        listFilter.add(f);
+                        hasRemove = true;
+                    }
+                }
+                if (hasRemove) {
+                    Iterator<FilterItem> listIterator = listFilter.iterator();
+                    while (listIterator.hasNext()) {
+                        FilterItem f2 = listIterator.next();
+                        qFilter.remove(f2);
+                        danmakuContext.addUserHashBlackList(f2.senderId);
+                    }
+                    filterAdapter.notifyDataSetChanged();
+                }
+            }
+        });
     }
 
 
+    // TODO: 15/12/18 每次发送都要判断是否登录
+    private boolean isJoinThisRoom = false;
+
+    private void initConv() {
+        AVIMConversation cv = channel.getConversation();
+        if (cv == null) {
+            if (!ByrTvApplication.isGetAVIMClient()) {
+                if (AVUser.getCurrentUser() != null) {//只处理有 登录记录 的情况
+                    ByrTvApplication.avimClient = AVIMClient.getInstance(AVUser.getCurrentUser().getObjectId());
+                    ByrTvApplication.avimClient.open
+                            (new AVIMClientCallback() {
+                                 @Override
+                                 public void done(AVIMClient client, AVIMException e) {
+                                     if (e == null) {
+                                         LogUtil.d("TvLiveActivity", "get client");
+                                         ByrTvApplication.avimClient = client;
+
+                                         //可复用
+                                         AVIMConversationQuery query = ByrTvApplication.avimClient.getQuery();
+                                         query.whereEqualTo("name", channel.getServerName());
+                                         query.setLimit(1);
+                                         query.findInBackground(new AVIMConversationQueryCallback() {
+                                             @Override
+                                             public void done(List<AVIMConversation> convs, AVIMException e) {
+                                                 if (e == null) {
+                                                     if (convs != null && !convs.isEmpty()) {
+                                                         convs.get(0).join(new AVIMConversationCallback() {
+                                                             @Override
+                                                             public void done(AVIMException e) {
+                                                                 if (e == null) {
+                                                                     LogUtil.d("TvLiveActivity", "join " + channel.getServerName() + " cv");
+                                                                     isJoinThisRoom = true;
+//                                                                     isInList();
+                                                                 } else {
+                                                                     e.printStackTrace();
+                                                                 }
+                                                             }
+                                                         });
+                                                         channel.setConversation(convs.get(0));
+                                                         LogUtil.d("TvLiveActivity", "get " + channel.getServerName() + " cv");
+                                                     }
+                                                 }
+                                             }
+                                         });
+
+                                     } else {
+                                         e.printStackTrace();
+                                         toast(getResources().getString(R.string.net_wrong));
+                                     }
+                                 }
+                             }
+
+                            );
+                }
+            } else {
+                AVIMConversationQuery query = ByrTvApplication.avimClient.getQuery();
+                query.whereEqualTo("name", channel.getServerName());
+                query.setLimit(1);
+                query.findInBackground(new AVIMConversationQueryCallback() {
+                    @Override
+                    public void done(List<AVIMConversation> convs, AVIMException e) {
+                        if (e == null) {
+                            if (convs != null && !convs.isEmpty()) {
+                                convs.get(0).join(new AVIMConversationCallback() {
+                                    @Override
+                                    public void done(AVIMException e) {
+                                        if (e == null) {
+                                            LogUtil.d("TvLiveActivity", "join " + channel.getServerName() + " cv");
+                                            isJoinThisRoom = true;
+                                        } else {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+                                channel.setConversation(convs.get(0));
+                                LogUtil.d("TvLiveActivity", "get " + channel.getServerName() + " cv");
+                            }
+                        }
+                    }
+                });
+            }
+        } else {
+            cv.join(new AVIMConversationCallback() {
+                @Override
+                public void done(AVIMException e) {
+                    if (e == null) {
+                        LogUtil.d("TvLiveActivity", "join " + channel.getServerName() + " cv");
+                        isJoinThisRoom = true;
+                    } else {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
+    }
+
     private void initData() {
 
-        if (getIntent().hasExtra(TV_LIVE_NAME) && getIntent().hasExtra(TV_LIVE_URI)) {
-            channelName = getIntent().getStringExtra(TV_LIVE_NAME);
-            channelUri = getIntent().getStringExtra(TV_LIVE_URI);
+        if (getIntent().hasExtra(TV_SERVER_NAME)) {
+            channel = MainActivityPresenter.getAllChannelByName(getIntent().getStringExtra(TV_SERVER_NAME));
         } else {
             finish();
         }
+
+        initConv();
+
+
         //先设置一次时间
         ((TextView) findViewById(R.id.tv_vv_time)).setText(new SimpleDateFormat("hh:mm").format(System.currentTimeMillis()));
         //绑定 Receiver
@@ -310,13 +484,13 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
         presenter.init();
 
 
-        tvChannelName.setText(channelName);
+        tvChannelName.setText(channel.getChannelName());
 
 
         //视频控件设置
-        Log.i(TV_LIVE_URI, channelUri + " " + channelUri.length());
-        mVideoView.setVideoPath(channelUri);
-        this.toast(channelUri);
+//        Log.i(TV_LIVE_URI, channelUri + " " + channelUri.length());
+        mVideoView.setVideoPath(channel.getUri());
+//        this.toast(channelUri);
         mediaController = new MediaController(this);
         mVideoView.setMediaController(mediaController);
         mVideoView.setVideoQuality(MediaPlayer.VIDEOQUALITY_HIGH);
@@ -415,6 +589,67 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
         });
         danmakuView.prepare(danmakuParser, danmakuContext);
         danmakuView.showFPS(true);
+
+
+        //用户屏蔽
+        qFilter = new LinkedList<>();
+        filterAdapter = new FilterAdapter(this);
+        lvFilter.setAdapter(filterAdapter);
+    }
+
+    private class FilterAdapter extends BaseAdapter {
+
+        private LayoutInflater inflater;
+
+        FilterAdapter(Context context) {
+            this.inflater = LayoutInflater.from(context);
+        }
+
+        @Override
+        public int getCount() {
+            return qFilter.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return ((LinkedList) qFilter).get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return 0;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            ViewHolder holder;
+            if (convertView == null) {
+                convertView = inflater.inflate(R.layout.item_user_filter, null);
+                holder = new ViewHolder(convertView);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+            holder.cbDanmuFilter.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    ((FilterItem) ((LinkedList) qFilter).get(position)).isCheck = isChecked;
+                }
+            });
+            holder.tvDanmuFilter.setText(((FilterItem) ((LinkedList) qFilter).get(position)).danmuContent);
+
+            return convertView;
+        }
+
+        class ViewHolder {
+            CheckBox cbDanmuFilter;
+            TextView tvDanmuFilter;
+
+            ViewHolder(View view) {
+                cbDanmuFilter = (CheckBox) view.findViewById(R.id.cb_vv_user_filter);
+                tvDanmuFilter = (TextView) view.findViewById(R.id.tv_vv_danmu_filter);
+            }
+        }
     }
 
     @Override
@@ -483,7 +718,10 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
                     break;
                 case R.id.bt_vv_launch_danmu:
                     cleanAllMenu();
+                    etWriteDanmu.requestFocus();
                     llDanmuEdit.setVisibility(View.VISIBLE);
+                    InputMethodManager inputManager = (InputMethodManager) etWriteDanmu.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    inputManager.showSoftInput(etWriteDanmu, InputMethodManager.SHOW_FORCED);
                     break;
                 case R.id.iv_vv_play_pause:
                     if (mVideoView.isPlaying()) {
@@ -506,15 +744,24 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
                     }
                     finish();
                     break;
-                case R.id.iv_vv_more_setting:
-                    showMoreSettingWin();
-                    break;
                 case R.id.rl_vv_control:
                     onScreenClicked();
                     break;
                 case R.id.iv_vv_unlock_screen:
                     isLockScreen = false;
                     ivUnlockScreenLogo.setVisibility(View.INVISIBLE);
+                    break;
+
+                case R.id.iv_vv_filter_user:
+                    cleanAllMenu();
+                    llFilterUser.setVisibility(View.VISIBLE);
+                    filterAdapter.notifyDataSetChanged();
+                    LogUtil.d("qFilter.size()", qFilter.size() + "");
+                    break;
+
+                case R.id.iv_vv_danmu_setting:
+                    cleanAllMenu();
+                    svDanmuSetting.setVisibility(View.VISIBLE);
                     break;
                 default:
                     LogUtil.d("TvLiveActivity mainCtlClickListener", "未处理监听事件");
@@ -531,11 +778,10 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.ib_launch_danmu:
-                    addDanmu(etWriteDanmu.getText().toString().trim(), true);
+                    // TODO: 15/12/17 判断 join 是否成功，作相应处理
+                    String content = etWriteDanmu.getText().toString().trim();
+                    addDanmuToServer(content);
                     etWriteDanmu.setText("");
-                    llDanmuEdit.setVisibility(View.GONE);
-                    break;
-                case R.id.iv_vv_close_danmu_edit:
                     llDanmuEdit.setVisibility(View.GONE);
                     break;
                 case R.id.iv_vv_big_text:
@@ -694,6 +940,7 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
         rlVvTop.setVisibility(View.GONE);
         llDanmuEdit.setVisibility(View.GONE);
         svDanmuSetting.setVisibility(View.GONE);
+        llFilterUser.setVisibility(View.GONE);
     }
 
     /**
@@ -705,67 +952,20 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
     }
 
 
-    /**
-     * 显示 更多设置 选择窗口
-     */
-    private void showMoreSettingWin() {
-        if (popupMoreSetting == null) {
-            View view = getLayoutInflater().inflate(R.layout.popup_layout, null);
-            ListView listView = (ListView) view.findViewById(R.id.lv_pop_up_win);
-
-            ArrayList<HashMap<String, String>> moreSettingList = new ArrayList<>();
-            final String tvItemKey = "textItem";
-            HashMap<String, String> danmuSettingMap = new HashMap<>();
-            HashMap<String, String> danmuFilterMap = new HashMap<>();
-
-            danmuSettingMap.put(tvItemKey, getResources().getString(R.string.danmu_filter));
-            moreSettingList.add(danmuSettingMap);
-            danmuFilterMap.put(tvItemKey, getResources().getString(R.string.danmu_control));
-            moreSettingList.add(danmuFilterMap);
-
-            listView.setAdapter(new SimpleAdapter(this, moreSettingList, R.layout.item_pop, new String[]{tvItemKey}, new int[]{R.id.tv_pop_item}));
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    cleanAllMenu();
-                    if (popupMoreSetting != null) {
-                        popupMoreSetting.dismiss();
-                    }
-                    if (position == 0) {
-                        //弹幕设置
-                        svDanmuSetting.setVisibility(View.VISIBLE);
-                    } else if (position == 1) {
-                        //用户屏蔽
-                    }
-                }
-            });
-
-            popupMoreSetting = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-            popupMoreSetting.setOutsideTouchable(true);
-            popupMoreSetting.setBackgroundDrawable(new BitmapDrawable(getResources(), (Bitmap) null));
-
-        }
-        LogUtil.d("showViewQualityWin", "show");
-        popupMoreSetting.showAsDropDown(findViewById(R.id.iv_vv_more_setting));
-//        popupMoreSetting.showAtLocation(findViewById(R.id.iv_vv_more_setting), Gravity.BOTTOM, 0, 0);
-
-    }
-
-
     private final int danmuStayTime = 1200;//弹幕显示时间
     private final float danmuBigTextSize = 25f, danmuSmallTextSize = 15f;
 
     /**
      * @param content
-     * @param isUser  是否是当前用户发送的
+     * @param attrs
      * @return
      */
-    private boolean addDanmu(String content, boolean isUser) {
-        if (!TextUtils.isEmpty(content)) {
+    private boolean addDanmu(String content, DanmuAttrs attrs, boolean isFromUser) {
+        if (!TextUtils.isEmpty(content) || attrs != null) {
             BaseDanmaku danmaku;
-            if (danmuEtPos == TvLiveActivity.this.DANMU_TEXT_TOP) {
+            if (attrs.getShowPos() == TvLiveActivity.this.DANMU_TEXT_TOP) {
                 danmaku = danmakuContext.mDanmakuFactory.createDanmaku(BaseDanmaku.TYPE_FIX_TOP);
-            } else if (danmuEtPos == TvLiveActivity.this.DANMU_TEXT_BOTTOM) {
+            } else if (attrs.getShowPos() == TvLiveActivity.this.DANMU_TEXT_BOTTOM) {
                 danmaku = danmakuContext.mDanmakuFactory.createDanmaku(BaseDanmaku.TYPE_FIX_BOTTOM);
             } else {
                 danmaku = danmakuContext.mDanmakuFactory.createDanmaku(BaseDanmaku.TYPE_SCROLL_RL);
@@ -778,19 +978,20 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
                 danmaku.isLive = true;
 
                 danmaku.time = danmakuView.getCurrentTime() + danmuStayTime;
-                if (danmuEtTextSize == TvLiveActivityView.DANMU_ET_BIG_SIZE_TEXT) {
+                if (attrs.getTextSize() == TvLiveActivityView.DANMU_ET_BIG_SIZE_TEXT) {
                     danmaku.textSize = danmuBigTextSize * (danmakuParser.getDisplayer().getDensity() - 0.6f);
                 } else {
                     danmaku.textSize = danmuSmallTextSize * (danmakuParser.getDisplayer().getDensity() - 0.6f);
                 }
-                danmaku.textColor = TvLiveActivity.danmuColor[danmuEtColorPos];
+                danmaku.textColor = TvLiveActivity.danmuColor[attrs.getColor()];
                 danmaku.textShadowColor = Color.WHITE;
-                if (isUser) {
+                if (isFromUser) {
                     danmaku.borderColor = Color.GREEN;
                 }
+
                 danmakuView.addDanmaku(danmaku);
+                danmaku.userHash = attrs.userId;
 //                LogUtil.d("addDanmu", "addDanmu success " + danmuEtColorPos + " " + danmuEtTextSize);
-                // TODO: 15/12/13 上传弹幕到 leancloud
                 return true;
             } else {
                 return false;
@@ -799,5 +1000,105 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
             return false;
         }
     }
+
+    public class DanmuAttrs {
+        public static final String DANMU_SHOW_POS = "show_pos", DANMU_COLOR = "color", DANMU_TEXT_SIZE = "text_size", DANMU_SENDER_ID = "sender_id";
+        private int showPos, color, textSize;
+        private String userId;
+
+        public void setShowPos(int showPos) {
+            this.showPos = showPos;
+        }
+
+        public int getShowPos() {
+            return showPos;
+        }
+
+        public int getColor() {
+            return color;
+        }
+
+        public int getTextSize() {
+            return textSize;
+        }
+
+        public void setColor(int color) {
+            this.color = color;
+        }
+
+        public void setTextSize(int textSize) {
+            this.textSize = textSize;
+        }
+
+        DanmuAttrs(int showPos, int color, int textSize, String userId) {
+            this.showPos = showPos;
+            this.color = color;
+            this.textSize = textSize;
+            this.userId = userId;
+        }
+    }
+
+    private boolean addDanmuToServer(String content) {
+
+        // TODO: 15/12/18 删除，只接受服务器传来的
+//        addDanmu(content, new DanmuAttrs(danmuEtPos, danmuEtColorPos, danmuEtTextSize, ByrTvApplication.avimClient.getClientId()), true);
+
+//        AVIMTextMessage msg = new AVIMTextMessage();
+//        msg.setDanmuText(content);
+//        msg.setDanmuAttrs(new DanmuAttrs(danmuEtPos, danmuEtColorPos, danmuEtTextSize, ByrTvApplication.avimClient.getClientId()));
+        AVIMTextMessage msg = new AVIMTextMessage();
+        Map<String, Object> mapAttrs = new HashMap<>();
+        mapAttrs.put(DanmuAttrs.DANMU_TEXT_SIZE, danmuEtTextSize);
+        mapAttrs.put(DanmuAttrs.DANMU_COLOR, danmuEtColorPos);
+        mapAttrs.put(DanmuAttrs.DANMU_SHOW_POS, danmuEtPos);
+        mapAttrs.put(DanmuAttrs.DANMU_SENDER_ID, ByrTvApplication.avimClient.getClientId());
+        msg.setAttrs(mapAttrs);
+        msg.setText(content);
+
+        // 发送消息
+        if (channel.getConversation() != null) {
+            channel.getConversation().sendMessage(msg, AVIMConversation.TRANSIENT_MESSAGE_FLAG, new AVIMConversationCallback() {
+                @Override
+                public void done(AVIMException e) {
+                    if (e == null) {
+                        LogUtil.d("TvLiveActivity", "addDanmuToServer ！");
+                    } else {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        } else {
+            LogUtil.e("TvLiveActivity", "addDanmuToServer fail ！getConversation == null");
+        }
+        return true;
+    }
+
+    private void addDanmuToQFilter(FilterItem item) {
+        if (qFilter.size() >= 10) {
+            qFilter.poll();
+        }
+        qFilter.add(item);
+    }
+
+    private AVIMMessageHandler messageHandler = new AVIMMessageHandler() {
+        @Override
+        public void onMessage(AVIMMessage message, AVIMConversation conversation, AVIMClient client) {
+            super.onMessage(message, conversation, client);
+            if (message instanceof AVIMTextMessage) {
+                Map<String, Object> mapAttrs = ((AVIMTextMessage) message).getAttrs();
+                addDanmu(((AVIMTextMessage) message).getText(),
+                        new DanmuAttrs(((Integer) mapAttrs.get(DanmuAttrs.DANMU_SHOW_POS)).intValue(),
+                                ((Integer) mapAttrs.get(DanmuAttrs.DANMU_COLOR)).intValue(),
+                                ((Integer) mapAttrs.get(DanmuAttrs.DANMU_TEXT_SIZE)).intValue(),
+                                ((String) mapAttrs.get(DanmuAttrs.DANMU_SENDER_ID))), false);
+                Toast.makeText(TvLiveActivity.this, ((AVIMTextMessage) message).getText(), Toast.LENGTH_SHORT).show();
+                addDanmuToQFilter(new FilterItem(((AVIMTextMessage) message).getText(), ((String) mapAttrs.get(DanmuAttrs.DANMU_SENDER_ID)), false));
+            } else {
+                LogUtil.d("CustomMessageHandler", "收到未声明的消息" + message.getClass());
+            }
+        }
+
+    };
+
 
 }

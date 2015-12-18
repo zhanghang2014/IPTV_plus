@@ -20,9 +20,9 @@ public class TvLivePresenter extends Presenter {
     private TvLiveActivityView view;
 
 
-    public TvLivePresenter(Context c, TvLiveActivityView tvLiveAvtivityView) {
+    public TvLivePresenter(Context c, TvLiveActivityView tvLiveActivityView) {
         context = c;
-        view = tvLiveAvtivityView;
+        view = tvLiveActivityView;
     }
 
     @Override
@@ -43,6 +43,10 @@ public class TvLivePresenter extends Presenter {
     }
 
     public void tvPlayInfo() {
+
+    }
+
+    public void getChannelConversation() {
 
     }
 
@@ -83,7 +87,5 @@ public class TvLivePresenter extends Presenter {
 //        toast(String.format("亮度：%.0f", lp.screenBrightness * 100));
 
         return lp.screenBrightness * 100;
-
-
     }
 }

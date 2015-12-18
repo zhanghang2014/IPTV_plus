@@ -26,8 +26,7 @@ public class MyCollectionPresenter extends Presenter {
      */
     public void onItemClick(ChannelModule channel) {
         Intent intent = new Intent(context, TvLiveActivity.class);
-        intent.putExtra(TvLiveActivity.TV_LIVE_NAME, channel.getChannelName());
-        intent.putExtra(TvLiveActivity.TV_LIVE_URI, channel.getUri());
+        intent.putExtra(TvLiveActivity.TV_SERVER_NAME, channel.getServerName());
         context.startActivity(intent);
     }
 

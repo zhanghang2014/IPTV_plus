@@ -7,15 +7,23 @@ import android.widget.Toast;
 
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.im.v2.AVIMClient;
+import com.avos.avoscloud.im.v2.AVIMConversation;
+import com.avos.avoscloud.im.v2.AVIMMessage;
+import com.avos.avoscloud.im.v2.AVIMMessageHandler;
+import com.avos.avoscloud.im.v2.AVIMMessageManager;
+import com.avos.avoscloud.im.v2.AVIMTypedMessage;
+import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.bigheart.byrtv.data.sqlite.SqlChannelManager;
+import com.bigheart.byrtv.ui.module.DanmuTextMessage;
 import com.bigheart.byrtv.util.ByrTvUtil;
+import com.bigheart.byrtv.util.LogUtil;
 
 public class ByrTvApplication extends Application {
-    private static boolean isLogin = false, isTryPullChannelFromNet = false;
+    private static boolean isLogin = false, isTryPullChannelFromNet = false, isGetAVIMClient = false;
     public static AVIMClient avimClient;
 
     public enum updateWhat {
-        upDateLoginState, updatePullChannelState, updateLoginAndPullChannelState;
+        upDateLoginState, updatePullChannelState, updateAVIMClientState;
     }
 
     @Override
@@ -25,18 +33,42 @@ public class ByrTvApplication extends Application {
 //        AVOSCloud.initialize(this, "2jCxyCwdAGGvTmRxM509vOrk", "RcDFh4h0qVxA1m6y4DUmxKwC");
         SqlChannelManager.initChannelManager(getApplicationContext());
         ByrTvUtil.init(getApplicationContext());
+        LogUtil.d("ByrTvApplication", "onCreate");
         //lancloud debug log
-//        AVOSCloud.setDebugLogEnabled(true);
+        AVOSCloud.setDebugLogEnabled(true);
+
+        //注册 弹幕 消息
+//        AVIMMessageManager.registerAVIMMessageType(DanmuTextMessage.class);
+    }
+
+
+    public static boolean isLogin() {
+        return isLogin;
+    }
+
+    public static boolean isTryPullChannelFromNet() {
+        return isTryPullChannelFromNet;
+    }
+
+    public static boolean isGetAVIMClient() {
+        return isGetAVIMClient;
+
+    }
+
+    public static void resetGetPeopleNumState() {
+
+        isLogin = isTryPullChannelFromNet = isGetAVIMClient = false;
     }
 
     /**
-     * 更新登录状态、拉取数据状态
+     * 更新登录状态、拉取数据状态、聊天室 Client 状态
      *
      * @param isLogin2
      * @param isTryPullChannelFromNet2
+     * @param isGetAVIMClient2
      * @param what
      */
-    public static synchronized void updateLoginAndPullDataState(boolean isLogin2, boolean isTryPullChannelFromNet2, updateWhat what) {
+    public static synchronized void updateReadGetPeopleNumState(boolean isLogin2, boolean isTryPullChannelFromNet2, boolean isGetAVIMClient2, updateWhat what) {
         switch (what) {
             case upDateLoginState:
                 isLogin = isLogin2;
@@ -44,16 +76,16 @@ public class ByrTvApplication extends Application {
             case updatePullChannelState:
                 isTryPullChannelFromNet = isTryPullChannelFromNet2;
                 break;
-            case updateLoginAndPullChannelState:
-                isLogin = isLogin2;
-                isTryPullChannelFromNet = isTryPullChannelFromNet2;
+            case updateAVIMClientState:
+                isGetAVIMClient = isGetAVIMClient2;
                 break;
             default:
                 break;
         }
     }
 
-    public static boolean isLoginAndTryPullChannelFromNet() {
-        return isLogin && isTryPullChannelFromNet;
+    public static boolean isReadGetPeopleNum() {
+        return isGetAVIMClient && isGetAVIMClient && isTryPullChannelFromNet;
     }
+
 }

@@ -12,19 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/iv_vv_close_danmu_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_delete" />
-
         <EditText
             android:id="@+id/et_write_danmu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignBottom="@+id/iv_vv_close_danmu_edit"
+            android:layout_alignBottom="@+id/ib_launch_danmu"
             android:layout_toLeftOf="@+id/ib_launch_danmu"
-            android:layout_toRightOf="@+id/iv_vv_close_danmu_edit"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:textColor="@android:color/white" />
 
         <ImageButton

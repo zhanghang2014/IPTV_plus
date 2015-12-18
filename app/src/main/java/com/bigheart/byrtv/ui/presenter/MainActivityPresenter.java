@@ -49,8 +49,8 @@ import javax.xml.validation.Validator;
 
 /**
  * * 控制AllChannelFragment,MyCollectionFragment
- * <p>
- * <p>
+ * <p/>
+ * <p/>
  * Created by BigHeart on 15/12/8.
  */
 public class MainActivityPresenter extends Presenter {
@@ -59,7 +59,7 @@ public class MainActivityPresenter extends Presenter {
     private MyCollectionView collectionView;
     private AllChannelView channelView;
     private volatile ArrayList<ChannelModule> allChannels;
-    private HashMap<String, ChannelModule> mapChannels;
+    private static HashMap<String, ChannelModule> mapChannels;
 
     private boolean hadSetDataFromNet = false;
     private Handler handler;
@@ -69,6 +69,8 @@ public class MainActivityPresenter extends Presenter {
         mainActivityView = view;
         collectionView = myCollectionView;
         channelView = allChannelView;
+
+        ByrTvApplication.resetGetPeopleNumState();
 
         handler = new Handler();
         allChannels = new ArrayList<>();
@@ -115,8 +117,10 @@ public class MainActivityPresenter extends Presenter {
                 updateSqlChannel(channels);
                 shoveChannelsToMap(mapChannels, allChannels);
 
-                ByrTvApplication.updateLoginAndPullDataState(true, true, ByrTvApplication.updateWhat.updatePullChannelState);
+                ByrTvApplication.updateReadGetPeopleNumState(true, true, true, ByrTvApplication.updateWhat.updatePullChannelState);
+                LogUtil.d("getFromNetSuccess", "getFromNetSuccess");
                 upDateChatRoomNum(true);
+
 
                 Log.i("All Channel net", channels.size() + " group");
                 handler.post(new Runnable() {
@@ -133,14 +137,17 @@ public class MainActivityPresenter extends Presenter {
             @Override
             public void getFromNetError(Exception e) {
                 e.printStackTrace();
+                LogUtil.d("getFromNetError", "getFromNetError");
+                upDateChatRoomNum(true);
+
+
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
                         channelView.stopRefresh();
                         collectionView.stopRefresh();
 
-                        ByrTvApplication.updateLoginAndPullDataState(true, true, ByrTvApplication.updateWhat.updatePullChannelState);
-                        upDateChatRoomNum(true);
+                        ByrTvApplication.updateReadGetPeopleNumState(true, true, true, ByrTvApplication.updateWhat.updatePullChannelState);
 
                         Toast.makeText(context, R.string.net_wrong, Toast.LENGTH_SHORT).show();
                         Log.i("MainActivityPresenter", "can not get channel from net");
@@ -150,9 +157,14 @@ public class MainActivityPresenter extends Presenter {
         }).getChannels();
     }
 
+    public static ChannelModule getAllChannelByName(String channelName) {
+        return mapChannels.get(channelName);
+    }
+
     /**
      * 更新MyCollectionFrg中的数据
      */
+
     public void upDateMyCollectionFrg() {
         final ArrayList<ChannelModule> newCollectionChannels = filterCollectionChannel(allChannels);
         handler.post(new Runnable() {
@@ -187,7 +199,6 @@ public class MainActivityPresenter extends Presenter {
                     if (e == null) {
                         accountSp.setUserAccount(AVUser.getCurrentUser().getUsername());
                         accountSp.setUserPsw(strPsw);
-                        ByrTvApplication.isLogin = true;
                     }
                 }
             });
@@ -197,19 +208,20 @@ public class MainActivityPresenter extends Presenter {
     private int serverRoomCount, hadServerRoomUpdateCount;
 
 
-    private final String INS_ID = "BigHeart&InG";
-
     /**
      * 实例化 AVIMClient
      */
     public void instanceAVIMClient() {
-        ByrTvApplication.avimClient = AVIMClient.getInstance(INS_ID);
+        ByrTvApplication.avimClient = AVIMClient.getInstance(AVUser.getCurrentUser().getObjectId());
         ByrTvApplication.avimClient.open(new AVIMClientCallback() {
             @Override
             public void done(AVIMClient avimClient, AVIMException e) {
                 if (e == null) {
                     ByrTvApplication.avimClient = avimClient;
+                    ByrTvApplication.updateReadGetPeopleNumState(true, true, true, ByrTvApplication.updateWhat.updateAVIMClientState);
+                    LogUtil.d("instanceAVIMClient", "instanceAVIMClient");
                     upDateChatRoomNum(true);
+
                 }
             }
         });
@@ -222,7 +234,7 @@ public class MainActivityPresenter extends Presenter {
      */
     private synchronized void upDateChatRoomNum(final boolean isNeedToCreateRoom) {
 
-        if (ByrTvApplication.isLoginAndTryPullChannelFromNet()) {
+        if (ByrTvApplication.isReadGetPeopleNum()) {
             //仅当 登录 且 尝试请求频道数据 后才执行
             AVIMConversationQuery query = ByrTvApplication.avimClient.getQuery();
             query.whereGreaterThan("name", "");//查询全部
@@ -240,8 +252,16 @@ public class MainActivityPresenter extends Presenter {
                                 for (int roomIndex = 0; roomIndex < convs.size(); roomIndex++) {
                                     final AVIMConversation cv = convs.get(roomIndex);
 
+                                    //update channel
+                                    ChannelModule cm = mapChannels.get(cv.getName());
+                                    if (cm != null) {
+                                        cm.setIsExistInServer(true);
+                                        cm.setConversation(cv);
+                                    } else {
+                                        LogUtil.d("setPeopleNumToMap", "惊现服务器存在，本地不存在的聊天室");
+                                    }
+
                                     if (isNeedToCreateRoom) {
-                                        setIsExistToMap(cv.getName());
                                         createChatRoom();
                                     }
                                     // TODO: 15/12/16 一次把全部更新，开的线程过多
@@ -291,9 +311,9 @@ public class MainActivityPresenter extends Presenter {
                                     }
                                 }
                             });
-                    if (i > 20) {
-                        break;
-                    }
+//                    if (i > 20) {
+//                        break;
+//                    }
                 }
             }
             LogUtil.d("createChatRoomNum", i + "");
@@ -353,16 +373,6 @@ public class MainActivityPresenter extends Presenter {
             String uri = c.getUri();
             c.setServerName(uri.substring(uri.lastIndexOf('/') + 1, uri.length() - 5));
             map.put(c.getServerName(), c);
-        }
-    }
-
-    private synchronized void setIsExistToMap(String roomName) {
-        ChannelModule cm = mapChannels.get(roomName);
-        if (cm != null) {
-            cm.setIsExistInServer(true);
-//            LogUtil.d("ExistInServer", cm.getChannelName());
-        } else {
-            LogUtil.d("setPeopleNumToMap", "服务器存在，本地不存在的聊天室");
         }
     }
 
