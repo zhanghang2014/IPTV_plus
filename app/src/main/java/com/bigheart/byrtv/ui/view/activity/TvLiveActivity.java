@@ -2,10 +2,12 @@ package com.bigheart.byrtv.ui.view.activity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -402,7 +404,7 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
     private boolean isJoinThisRoom = false;
 
     private void initConv() {
-        AVIMConversation cv = channel.getConversation();
+        final AVIMConversation cv = channel.getConversation();
         if (cv == null) {
             if (!ByrTvApplication.isGetAVIMClient()) {
                 if (AVUser.getCurrentUser() != null) {//只处理有 登录记录 的情况
@@ -429,6 +431,7 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
                                                              public void done(AVIMException e) {
                                                                  if (e == null) {
                                                                      LogUtil.d("TvLiveActivity", "join " + channel.getServerName() + " cv");
+                                                                     LogUtil.d(cv.getName() + " Members().size()", cv.getMembers().size() + "");
                                                                      isJoinThisRoom = true;
 //                                                                     isInList();
                                                                  } else {
@@ -466,6 +469,7 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
                                     public void done(AVIMException e) {
                                         if (e == null) {
                                             LogUtil.d("TvLiveActivity", "join " + channel.getServerName() + " cv");
+                                            LogUtil.d(cv.getName() + " Members().size()", cv.getMembers().size() + "");
                                             isJoinThisRoom = true;
                                         } else {
                                             e.printStackTrace();
@@ -485,6 +489,7 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
                 public void done(AVIMException e) {
                     if (e == null) {
                         LogUtil.d("TvLiveActivity", "join " + channel.getServerName() + " cv");
+                        LogUtil.d(cv.getName() + " Members().size()", cv.getMembers().size() + "");
                         isJoinThisRoom = true;
                     } else {
                         e.printStackTrace();
@@ -559,8 +564,11 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
             public boolean onError(MediaPlayer mp, int what, int extra) {
                 // extra : https://github.com/yixia/VitamioBundle/wiki/ErrorCode
                 // TODO: 15/12/11 加弹窗
-                LogUtil.e("TvLiveActivity", "setOnErrorListener");
-                toast("视频播放错误！");
+                new AlertDialog.Builder(TvLiveActivity.this).setMessage("视频播放错误").setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        finish();
+                    }
+                }).setCancelable(false).show();
                 return false;
             }
         });
@@ -768,13 +776,6 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
                     }
                     break;
                 case R.id.iv_vv_back:
-                    if (mVideoView != null) {
-                        mVideoView.stopPlayback();
-                    }
-                    if (danmakuView != null) {
-                        danmakuView.release();
-                        danmakuView = null;
-                    }
                     finish();
                     break;
                 case R.id.rl_vv_control:

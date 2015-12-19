@@ -24,6 +24,8 @@ import com.bigheart.byrtv.ui.view.AllChannelView;
 import com.bigheart.byrtv.ui.view.FragContactToAct;
 import com.bigheart.byrtv.util.ChannelSortType;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 /**
@@ -187,7 +189,7 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
                 convertView = inflater.inflate(R.layout.item_channel, null);
                 holder = new ViewHolder((TextView) convertView.findViewById(R.id.tv_channel_name),
                         (TextView) convertView.findViewById(R.id.tv_people_num),
-                        (ImageView) convertView.findViewById(R.id.iv_chanel),
+                        (TextView) convertView.findViewById(R.id.tv_chanel_short),
                         (ImageView) convertView.findViewById(R.id.iv_collection));
                 convertView.setTag(holder);
             } else {
@@ -226,18 +228,23 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
                     allChannelFragContactToAct.notifyMyCollectionFrg();
                 }
             });
+            if (tmpChannel.getChannelName().startsWith("CC")) {
+                holder.tvChannelShort.setText("央");
+            } else {
+                holder.tvChannelShort.setText(tmpChannel.getChannelName().charAt(0) + "");
+            }
 
             return convertView;
         }
 
         class ViewHolder {
-            TextView tvPeopleNum, tvChannelName;
-            ImageView ivCollection, ivChannelPic;
+            TextView tvPeopleNum, tvChannelName, tvChannelShort;
+            ImageView ivCollection;
 
-            ViewHolder(TextView channelName, TextView peopleNum, ImageView channelPic, ImageView collection) {
+            ViewHolder(TextView channelName, TextView peopleNum, TextView channelShort, ImageView collection) {
                 tvChannelName = channelName;
                 tvPeopleNum = peopleNum;
-                ivChannelPic = channelPic;
+                tvChannelShort = channelShort;
                 ivCollection = collection;
             }
         }
