@@ -39,7 +39,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="8dp"
-            android:background="@drawable/ic_danmu_position_block_top_white_24dp" />
+            android:src="@drawable/ic_danmu_position_top_white_block_36dp"
+            android:text="@string/danmu_top" />
 
         <ImageView
             android:id="@+id/iv_vv_filter_flow"
@@ -47,7 +48,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="8dp"
-            android:background="@drawable/ic_danmu_poisition_block_center_white_24dp" />
+            android:src="@drawable/ic_danmu_poisition_center_white_block_36dp"
+            android:text="@string/danmu_flow" />
 
 
         <ImageView
@@ -56,14 +58,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginRight="8dp"
-            android:background="@drawable/ic_danmu_poisition_block_bottom_white_24dp" />
+            android:src="@drawable/ic_danmu_poisition_bottom_white_block_36dp"
+            android:text="@string/danmu_bottom" />
 
         <ImageView
             android:id="@+id/iv_vv_filter_color"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/ic_danmu_poisition_block_colors_24dp" />
+            android:paddingRight="5dp"
+            android:src="@drawable/ic_danmu_poisition_colors_block_36dp" />
 
     </LinearLayout>
 
