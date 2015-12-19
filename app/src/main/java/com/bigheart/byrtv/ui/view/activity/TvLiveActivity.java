@@ -749,11 +749,11 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
                 case R.id.bt_vv_danmu_switch:
                     if (danmakuView.isShown()) {
                         //关闭弹幕
-                        btDanmuSwitch.setCompoundDrawables(null, getResources().getDrawable(android.R.drawable.star_big_off), null, null);
+                        btDanmuSwitch.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_visibility_off_white_24dp), null, null);
                         danmakuView.hide();
                     } else {
                         //打开弹幕
-                        btDanmuSwitch.setCompoundDrawables(null, getResources().getDrawable(android.R.drawable.star_big_on), null, null);
+                        btDanmuSwitch.setCompoundDrawablesWithIntrinsicBounds(null, getResources().getDrawable(R.drawable.ic_visibility_white_24dp), null, null);
                         danmakuView.show();
                     }
                     break;
@@ -811,6 +811,8 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
+                case R.id.ll_danmu_edit:
+                    break;
                 case R.id.ib_launch_danmu:
                     // TODO: 15/12/17 判断 join 是否成功，作相应处理
                     String content = etWriteDanmu.getText().toString().trim();

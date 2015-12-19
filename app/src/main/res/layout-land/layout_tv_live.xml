@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@android:color/black"
     android:layout_height="match_parent">
 
     <io.vov.vitamio.widget.VideoView
@@ -37,8 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:background="@android:color/black"
-            android:padding="10dp">
+            android:background="@android:color/black">
 
             <ImageView
                 android:id="@+id/iv_vv_back"
@@ -46,6 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
                 android:src="@drawable/ic_arrow_back_white_24dp" />
 
             <TextView
@@ -74,6 +75,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="8dp"
                 android:layout_toLeftOf="@+id/iv_vv_danmu_setting"
+                android:padding="8dp"
                 android:src="@drawable/ic_not_interested_white_24dp" />
 
             <ImageView
@@ -81,6 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:padding="8dp"
                 android:src="@drawable/ic_settings_display_white_24dp" />
 
         </RelativeLayout>
@@ -149,6 +152,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:paddingRight="8dp"
                 android:src="@drawable/ic_pause_circle_fill_white_24dp" />
         </RelativeLayout>
 

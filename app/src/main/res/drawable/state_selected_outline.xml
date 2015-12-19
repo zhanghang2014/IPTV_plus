@@ -10,6 +10,6 @@
         android:color="#0000ff"></stroke>
 
     <!-- 矩形的圆角半径 -->
-    <corners android:radius="2dp" />
+    <!--<corners android:radius="2px" />-->
 
 </shape>

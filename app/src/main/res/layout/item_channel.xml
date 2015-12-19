@@ -12,8 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:background="@drawable/channel_name_bg"
-        android:padding="8dp"
         android:gravity="center"
+        android:padding="8dp"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         tools:text="糊" />
@@ -36,7 +36,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:background="@drawable/ic_star_outline_grey600_36dp" />
+        tools:src="@drawable/ic_star_outline_grey600_36dp" />
 
 
     <TextView
