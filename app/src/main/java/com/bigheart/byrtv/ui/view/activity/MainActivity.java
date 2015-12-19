@@ -14,17 +14,14 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.feedback.FeedbackAgent;
-import com.avos.avoscloud.im.v2.AVIMClient;
-import com.avos.avoscloud.im.v2.AVIMConversation;
-import com.avos.avoscloud.im.v2.AVIMException;
-import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
-import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
 import com.bigheart.byrtv.ByrTvApplication;
 import com.bigheart.byrtv.R;
-import com.bigheart.byrtv.data.sharedpreferences.AccountPreferences;
 import com.bigheart.byrtv.data.sharedpreferences.AppSettingOption;
 import com.bigheart.byrtv.data.sharedpreferences.AppSettingPreferences;
 import com.bigheart.byrtv.ui.presenter.MainActivityPresenter;
@@ -35,11 +32,10 @@ import com.bigheart.byrtv.ui.view.fragment.MyCollectionFragment;
 import com.bigheart.byrtv.util.ChannelSortType;
 import com.bigheart.byrtv.util.LogUtil;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.view.SimpleDraweeView;
 
-import java.util.ArrayList;
-import java.util.List;
 
-public class MainActivity extends BaseActivity implements MainActivityView, FragContactToAct {
+public class MainActivity extends BaseActivity implements MainActivityView, FragContactToAct, View.OnClickListener {
 
 
     private final int FRAGMENT_NUM = 2, POS_MY_COLLECTION = 0, POS_ALL_CHANNEL = 1;
@@ -61,7 +57,10 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
 
     //drawer
     private DrawerLayout drawer;
-    private NavigationView navigationView;
+    private SimpleDraweeView icon, bg;
+    private TextView nickname;
+
+    private LinearLayout collectionC, allC, profile, setting;
 
 
     @Override
@@ -70,7 +69,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
 
         Fresco.initialize(this);
         setContentView(R.layout.activity_main);
-        sp=new AppSettingPreferences(this);
+        sp = new AppSettingPreferences(this);
         initUI();
         initData();
         LogUtil.d("MainActivity", "onCreate " + okFragCount);
@@ -102,7 +101,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close);
 
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+//        navigationView = (NavigationView) findViewById(R.id.nav_view);
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         toggle.syncState();
@@ -137,9 +136,9 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         });
 
         //首页默认显示
-        if(sp.getMainPage()== AppSettingOption.MY_CHANNEL){
+        if (sp.getMainPage() == AppSettingOption.MY_CHANNEL) {
             viewPager.setCurrentItem(POS_MY_COLLECTION);
-        }else if(sp.getMainPage()==AppSettingOption.ALL_CHANNEL){
+        } else if (sp.getMainPage() == AppSettingOption.ALL_CHANNEL) {
             viewPager.setCurrentItem(POS_ALL_CHANNEL);
         }
 
@@ -148,37 +147,48 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
 
         myCollectionFragment = MyCollectionFragment.newInstance(ChannelSortType.SORT_BY_PEOPLE_NUM, this);
 
+        icon = (SimpleDraweeView) findViewById(R.id.sdv_user_icon);
+        bg = (SimpleDraweeView) findViewById(R.id.sdv_nav_head_background);
+        nickname = (TextView) findViewById(R.id.tv_nickname);
+        collectionC = (LinearLayout) findViewById(R.id.collection_of_channels);
+        allC = (LinearLayout) findViewById(R.id.all_of_channels);
+        profile = (LinearLayout) findViewById(R.id.user_setting);
+        setting = (LinearLayout) findViewById(R.id.app_setting);
         initDrawerUI();
     }
 
 
     private void initDrawerUI() {
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-                int id = menuItem.getItemId();
-                switch (id) {
-                    case R.id.collection_of_channels:
-                        viewPager.setCurrentItem(POS_MY_COLLECTION);
-                        break;
-                    case R.id.all_of_channels:
-                        viewPager.setCurrentItem(POS_ALL_CHANNEL);
-                        break;
-                    case R.id.user_setting:
-                        Intent intent = new Intent(MainActivity.this, UserSettingActivity.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.app_setting:
-                        Intent intent1 = new Intent(MainActivity.this, AppSettingActivity.class);
-                        startActivity(intent1);
-                        break;
-                    default:
-                        break;
-                }
-                drawer.closeDrawer(GravityCompat.START);
-                return true;
-            }
-        });
+        allC.setOnClickListener(this);
+        collectionC.setOnClickListener(this);
+        profile.setOnClickListener(this);
+        setting.setOnClickListener(this);
+//        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(MenuItem menuItem) {
+//                int id = menuItem.getItemId();
+//                switch (id) {
+//                    case R.id.collection_of_channels:
+//                        viewPager.setCurrentItem(POS_MY_COLLECTION);
+//                        break;
+//                    case R.id.all_of_channels:
+//                        viewPager.setCurrentItem(POS_ALL_CHANNEL);
+//                        break;
+//                    case R.id.user_setting:
+//                        Intent intent = new Intent(MainActivity.this, UserSettingActivity.class);
+//                        startActivity(intent);
+//                        break;
+//                    case R.id.app_setting:
+//                        Intent intent1 = new Intent(MainActivity.this, AppSettingActivity.class);
+//                        startActivity(intent1);
+//                        break;
+//                    default:
+//                        break;
+//                }
+//                drawer.closeDrawer(GravityCompat.START);
+//                return true;
+//            }
+//        });
 
     }
 
@@ -186,6 +196,29 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         if (presenter == null)
             presenter = new MainActivityPresenter(this, this, myCollectionFragment, channelFragment);
         presenter.login();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.collection_of_channels:
+                viewPager.setCurrentItem(POS_MY_COLLECTION);
+                break;
+            case R.id.all_of_channels:
+                viewPager.setCurrentItem(POS_ALL_CHANNEL);
+                break;
+            case R.id.user_setting:
+                Intent intent = new Intent(MainActivity.this, UserSettingActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.app_setting:
+                Intent intent1 = new Intent(MainActivity.this, AppSettingActivity.class);
+                startActivity(intent1);
+                break;
+            default:
+                break;
+        }
+        drawer.closeDrawer(GravityCompat.START);
     }
 
     private class PagerAdapter extends FragmentPagerAdapter {
@@ -224,6 +257,14 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         }
     }
 
+    public void refreshIcon() {
+        if (presenter.getIconUri() != null) {
+            icon.setImageURI(presenter.getIconUri());
+            bg.setImageURI(presenter.getIconUri());
+            nickname.setText(presenter.getNickname());
+        }
+    }
+
 
     @Override
     public void onBackPressed() {
@@ -250,5 +291,11 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     @Override
     public void notifyMyCollectionFrg() {
         presenter.upDateMyCollectionFrg();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshIcon();
     }
 }

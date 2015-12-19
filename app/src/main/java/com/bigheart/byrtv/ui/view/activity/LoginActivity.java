@@ -83,19 +83,19 @@ public class LoginActivity extends BaseActivity implements LoginActivityView {
     public void login() {
         username=etUsername.getText().toString().trim();
         pwd=etPWD.getText().toString().trim();
-        if(username !=null || username.equals("") || pwd!=null || pwd.equals("")){
+        if(username ==null || username.equals("") || pwd==null || pwd.equals("")){
+            toast("不能为空");
+        }else{
             presenter.mLogin(username, pwd, new LogInCallback() {
                 @Override
                 public void done(AVUser avUser, AVException e) {
-                    if(e==null){
+                    if (e == null) {
                         loginSuccess();
-                    }else{
+                    } else {
                         loginFail();
                     }
                 }
             });
-        }else{
-            toast("不能为空");
         }
     }
 }

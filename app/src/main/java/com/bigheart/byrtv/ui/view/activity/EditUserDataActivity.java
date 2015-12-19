@@ -31,11 +31,11 @@ public class EditUserDataActivity extends BaseActivity implements EditUserDataVi
 
     private Toolbar toolbar;
     private EditUserDataPresenter presenter;
-    private EditText etUsername, etOldPWD, etNewPWD, etPhone, etCode,etEmail;
+    private EditText etUsername, etOldPWD, etNewPWD, etPhone, etCode, etEmail;
     private Button btnCommitNickname, btnCommitPWD, btnGiveUp,
-            btnVerPhone, btnVerCode,btnVerEmail;
+            btnVerPhone, btnVerCode, btnVerEmail;
     private LinearLayout rootLayout, updateUsernameLayout,
-            updatePWDLayout, verPhoneLayout,verEmailLayout;
+            updatePWDLayout, verPhoneLayout, verEmailLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +63,7 @@ public class EditUserDataActivity extends BaseActivity implements EditUserDataVi
         updateUsernameLayout = (LinearLayout) findViewById(R.id.ll_edit_user_data_username);
         updatePWDLayout = (LinearLayout) findViewById(R.id.ll_edit_user_data_pwd);
         verPhoneLayout = (LinearLayout) findViewById(R.id.ll_edit_user_data_ver_phone);
-        verEmailLayout= (LinearLayout) findViewById(ll_edit_user_data_ver_email);
+        verEmailLayout = (LinearLayout) findViewById(ll_edit_user_data_ver_email);
 
         updateUsernameLayout.setVisibility(View.GONE);
         updatePWDLayout.setVisibility(View.GONE);
@@ -91,7 +91,7 @@ public class EditUserDataActivity extends BaseActivity implements EditUserDataVi
         btnVerPhone = (Button) findViewById(R.id.btn_edit_user_data_ver_phone);
         btnGiveUp = (Button) findViewById(R.id.btn_edit_user_data_give_up);
         btnVerCode = (Button) findViewById(btn_edit_user_data_ver_code);
-        btnVerEmail= (Button) findViewById(R.id.btn_edit_user_data_ver_email);
+        btnVerEmail = (Button) findViewById(R.id.btn_edit_user_data_ver_email);
 
         btnCommitNickname.setOnClickListener(this);
         btnCommitPWD.setOnClickListener(this);
@@ -105,11 +105,16 @@ public class EditUserDataActivity extends BaseActivity implements EditUserDataVi
         etNewPWD = (EditText) findViewById(R.id.et_edit_user_new_pwd);
         etPhone = (EditText) findViewById(R.id.et_edit_user_phone);
         etCode = (EditText) findViewById(R.id.et_edit_user_code);
-        etEmail= (EditText) findViewById(R.id.et_edit_user_email);
+        etEmail = (EditText) findViewById(R.id.et_edit_user_email);
     }
 
     public void initData() {
         presenter = new EditUserDataPresenter(this, this);
+
+        if (presenter.getLocalPWD().equals("f32@ds*@&dsa")) {
+            etOldPWD.setText("f32@ds*@&dsa");
+        }
+
     }
 
     @Override
@@ -158,9 +163,10 @@ public class EditUserDataActivity extends BaseActivity implements EditUserDataVi
         final String oldPWD = etOldPWD.getText().toString().trim();
         final String newPWD = etNewPWD.getText().toString().trim();
 
-        if (presenter.getLocalPWD().equals("f32@ds*@&dsa")){
-            etOldPWD.setText("f32@ds*@&dsa");
-        }else if (oldPWD.equals("") || oldPWD == null || newPWD.equals("") || newPWD == null) {
+//        if (presenter.getLocalPWD().equals("f32@ds*@&dsa")) {
+//            etOldPWD.setText("f32@ds*@&dsa");
+//        } else
+        if (oldPWD.equals("") || oldPWD == null || newPWD.equals("") || newPWD == null) {
             toast("原始密码或新密码不能为空");
             return;
         }
@@ -182,34 +188,34 @@ public class EditUserDataActivity extends BaseActivity implements EditUserDataVi
     @Override
     public void verEmail() {
         final String email = etEmail.getText().toString().trim();
-        if(email==null || email.equals("")){
+        if (email == null || email.equals("")) {
             toast("邮箱地址不能为空");
-        }else{
+        } else {
             presenter.updateEmail(email, new SaveCallback() {
                 @Override
                 public void done(AVException e) {
-                    if(e==null){
+                    if (e == null) {
                         presenter.verEmail(email, new RequestEmailVerifyCallback() {
                             @Override
                             public void done(AVException e) {
-                                if (e==null){
+                                if (e == null) {
                                     toast("请前往邮箱查收验证邮件");
                                     presenter.updateUsername(email, new SaveCallback() {
                                         @Override
                                         public void done(AVException e) {
-                                            if(e==null){
+                                            if (e == null) {
                                                 toast("使用邮箱可以登陆啦");
-                                            }else {
+                                            } else {
                                                 toast(e.toString());
                                             }
                                         }
                                     });
-                                }else {
+                                } else {
                                     toast(e.toString());
                                 }
                             }
                         });
-                    }else{
+                    } else {
                         toast(e.toString());
                     }
                 }

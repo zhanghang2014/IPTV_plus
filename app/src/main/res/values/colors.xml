@@ -5,4 +5,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="default_gray_text">#666666</color>
     <color name="default_black_text">#000000</color>
+
+    <color name="colorPrimary_alpha">#883F51B5</color>
 </resources>

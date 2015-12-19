@@ -14,12 +14,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/iv_user_setting_background"
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_user_setting_background"
             android:layout_width="match_parent"
             android:layout_height="180dp"
-            android:background="@drawable/default_bg"
-            android:scaleType="center" />
+            fresco:placeholderImageScaleType="centerCrop"
+            fresco:actualImageScaleType="centerCrop"
+            fresco:placeholderImage="@drawable/pic_default"
+            fresco:failureImage="@drawable/pic_default"
+            fresco:failureImageScaleType="centerCrop"/>
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@color/colorPrimary_alpha"/>
+
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/sdv_user_setting_icon"
@@ -28,8 +38,11 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginTop="135dp"
             fresco:actualImageScaleType="centerCrop"
-            fresco:placeholderImage="@drawable/default_icon"
-            fresco:roundAsCircle="true" />
+            fresco:placeholderImageScaleType="fitCenter"
+            fresco:placeholderImage="@drawable/pic_default"
+            fresco:roundAsCircle="true"
+            fresco:failureImage="@drawable/pic_default"
+            fresco:failureImageScaleType="centerCrop"/>
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -2,12 +2,14 @@ package com.bigheart.byrtv.ui.presenter;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
@@ -377,6 +379,32 @@ public class MainActivityPresenter extends Presenter {
         } else {
             LogUtil.d("setPeopleNumToMap", "服务器存在，本地不存在的聊天室");
         }
+    }
+
+    public Uri getIconUri(){
+        Uri uri=null;
+        AVUser user=AVUser.getCurrentUser();
+        if (user!=null){
+            AVFile file = user.getAVFile("avator");
+            if(file!=null){
+                uri = Uri.parse(file.getUrl());
+            }
+        }
+        return uri;
+    }
+
+    public String getNickname(){
+        AVUser user=AVUser.getCurrentUser();
+        if (user!=null){
+           return user.getString("nickname");
+        }else{
+            return null;
+        }
+    }
+
+    public void reLogin(LogInCallback callback){
+        AccountPreferences sp =new AccountPreferences(context);
+        AVUser.logInInBackground(sp.getUserAccount(),sp.getUserPsw(),callback);
     }
 
 }

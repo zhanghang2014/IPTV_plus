@@ -39,7 +39,7 @@ public class UserSettingActivity extends BaseActivity implements UserSettingView
     private static final int REQUEST_UPDATE_USER_DATA = 4;
 
     private UserSettingPresenter presenter;
-    private SimpleDraweeView icon;
+    private SimpleDraweeView icon,bg;
     private TextView username, gender, friend;
     private Button logout, updatePWD, verPhone;
     private FrameLayout mLayout;
@@ -84,6 +84,8 @@ public class UserSettingActivity extends BaseActivity implements UserSettingView
         username.setOnClickListener(this);
         friend.setOnClickListener(this);
         gender.setOnClickListener(this);
+
+        bg= (SimpleDraweeView) findViewById(R.id.sdv_user_setting_background);
     }
 
     private void initData() {
@@ -176,8 +178,8 @@ public class UserSettingActivity extends BaseActivity implements UserSettingView
 
             case R.id.btn_user_setting_logout:
                 //跳转至用户登陆,实际效果为切换用户
-                presenter.logout();
-                Snackbar.make(mLayout, "已注销登陆", Snackbar.LENGTH_SHORT).show();
+//                presenter.logout();
+//                Snackbar.make(mLayout, "已注销登陆", Snackbar.LENGTH_SHORT).show();
                 Intent intent1 = new Intent(UserSettingActivity.this, LoginActivity.class);
                 startActivity(intent1);
                 finish();
@@ -207,6 +209,7 @@ public class UserSettingActivity extends BaseActivity implements UserSettingView
     public void refreshIcon() {
         if (presenter.getIconUri() != null) {
             icon.setImageURI(presenter.getIconUri());
+            bg.setImageURI(presenter.getIconUri());
         }
     }
 
