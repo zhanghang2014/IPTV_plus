@@ -4,9 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -16,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -28,9 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.SeekBar;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -117,7 +112,7 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
     private LinearLayout llDanmuEdit;
     private EditText etWriteDanmu;
     private ImageButton ibLaunchDanmu;
-    private ImageView ibBigText, ibSmallText, ibDanmuInTop, ibDanmuInBottom, ibDanmuFlow, ivColor0, ivColor1, ivColor2, ivColor3;
+    private ImageView ivBigText, ivSmallText, ivDanmuInTop, ivDanmuInBottom, ivDanmuFlow, ivColor0, ivColor1, ivColor2, ivColor3;
 
     //弹幕设置 子菜单
     private LinearLayout llDanmuSetting;
@@ -231,23 +226,61 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
 
     @Override
     public void setDanmuEtTextSize(int size) {
-        // TODO: 15/12/13 view change
         danmuEtTextSize = size;
         danmuPreferences.setDanmuTextEtSize(size);
+        ivBigText.setImageDrawable(null);
+        ivSmallText.setImageDrawable(null);
+        if (size == TvLiveActivity.this.DANMU_ET_BIG_SIZE_TEXT) {
+            setBeSelected(ivBigText);
+        } else {
+            setBeSelected(ivSmallText);
+        }
     }
 
     @Override
     public void setDanmuEtTextColorPos(int colorPos) {
         danmuEtColorPos = colorPos;
+        ivColor0.setImageDrawable(null);
+        ivColor1.setImageDrawable(null);
+        ivColor2.setImageDrawable(null);
+        ivColor3.setImageDrawable(null);
+        switch (colorPos) {
+            case 0:
+                setBeSelected(ivColor0);
+                break;
+            case 1:
+                setBeSelected(ivColor1);
+                break;
+            case 2:
+                setBeSelected(ivColor2);
+                break;
+            case 3:
+                setBeSelected(ivColor3);
+                break;
+        }
         danmuPreferences.setDanmuColorEtPos(danmuEtColorPos);
     }
 
     @Override
     public void setDanmuEtPos(int pos) {
         danmuEtPos = pos;
+        ivDanmuInTop.setImageDrawable(null);
+        ivDanmuInBottom.setImageDrawable(null);
+        ivDanmuFlow.setImageDrawable(null);
         danmuPreferences.setDanmuEtPos(pos);
+        if (pos == TvLiveActivity.this.DANMU_TEXT_TOP) {
+            setBeSelected(ivDanmuInTop);
+        } else if (pos == TvLiveActivity.this.DANMU_TEXT_BOTTOM) {
+            setBeSelected(ivDanmuInBottom);
+        } else {
+            //flow
+            setBeSelected(ivDanmuFlow);
+        }
     }
 
+    private void setBeSelected(ImageView iv) {
+        iv.setImageDrawable(getResources().getDrawable(R.drawable.state_selected_outline));
+    }
 
     private void initUI() {
         mVideoView = (VideoView) findViewById(R.id.vv_tv_live);
@@ -283,22 +316,22 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
         llDanmuEdit = (LinearLayout) findViewById(R.id.ll_danmu_edit);
         etWriteDanmu = (EditText) findViewById(R.id.et_write_danmu);
         ibLaunchDanmu = (ImageButton) findViewById(R.id.ib_launch_danmu);
-        ibBigText = (ImageView) findViewById(R.id.iv_vv_big_text);
-        ibSmallText = (ImageView) findViewById(R.id.iv_vv_small_text);
-        ibDanmuInTop = (ImageView) findViewById(R.id.iv_vv_text_still_top);
-        ibDanmuInBottom = (ImageView) findViewById(R.id.iv_vv_text_still_bottom);
-        ibDanmuFlow = (ImageView) findViewById(R.id.iv_vv_text_flow);
+        ivBigText = (ImageView) findViewById(R.id.iv_vv_big_text);
+        ivSmallText = (ImageView) findViewById(R.id.iv_vv_small_text);
+        ivDanmuInTop = (ImageView) findViewById(R.id.iv_vv_text_still_top);
+        ivDanmuInBottom = (ImageView) findViewById(R.id.iv_vv_text_still_bottom);
+        ivDanmuFlow = (ImageView) findViewById(R.id.iv_vv_text_flow);
         ivColor0 = (ImageView) findViewById(R.id.iv_vv_color_0);
         ivColor1 = (ImageView) findViewById(R.id.iv_vv_color_1);
         ivColor2 = (ImageView) findViewById(R.id.iv_vv_color_2);
         ivColor3 = (ImageView) findViewById(R.id.iv_vv_color_3);
 
         ibLaunchDanmu.setOnClickListener(editDanmuClickListen);
-        ibBigText.setOnClickListener(editDanmuClickListen);
-        ibSmallText.setOnClickListener(editDanmuClickListen);
-        ibDanmuInTop.setOnClickListener(editDanmuClickListen);
-        ibDanmuInBottom.setOnClickListener(editDanmuClickListen);
-        ibDanmuFlow.setOnClickListener(editDanmuClickListen);
+        ivBigText.setOnClickListener(editDanmuClickListen);
+        ivSmallText.setOnClickListener(editDanmuClickListen);
+        ivDanmuInTop.setOnClickListener(editDanmuClickListen);
+        ivDanmuInBottom.setOnClickListener(editDanmuClickListen);
+        ivDanmuFlow.setOnClickListener(editDanmuClickListen);
         ivColor0.setOnClickListener(editDanmuClickListen);
         ivColor1.setOnClickListener(editDanmuClickListen);
         ivColor2.setOnClickListener(editDanmuClickListen);
@@ -820,7 +853,7 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
 
 
     /**
-     * 弹幕设置 中的点击事件
+     * 弹幕过滤 中的点击事件
      */
 
     private View.OnClickListener danmuSettingClickListener = new View.OnClickListener() {
@@ -829,39 +862,48 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
             switch (v.getId()) {
                 case R.id.iv_vv_filter_top:
                     isFilterTopDanmu = !isFilterTopDanmu;
-                    danmakuContext.setFTDanmakuVisibility(isFilterTopDanmu);
+                    danmakuContext.setFTDanmakuVisibility(!isFilterTopDanmu);
                     if (isFilterTopDanmu) {
                         //show
+                        setBeSelected(ivFilterTopDanmu);
                     } else {
                         //hide
+                        ivFilterTopDanmu.setImageDrawable(null);
                     }
                     break;
                 case R.id.iv_vv_filter_flow:
                     isFilterFlowDanmu = !isFilterFlowDanmu;
-                    danmakuContext.setR2LDanmakuVisibility(isFilterFlowDanmu);
+                    danmakuContext.setR2LDanmakuVisibility(!isFilterFlowDanmu);
                     if (isFilterFlowDanmu) {
                         //show
+                        setBeSelected(ivFilterFlowDanmu);
                     } else {
                         //hide
+                        ivFilterFlowDanmu.setImageDrawable(null);
                     }
                     break;
                 case R.id.iv_vv_filter_bottom:
                     isFilterBottomDanmu = !isFilterBottomDanmu;
-                    danmakuContext.setFBDanmakuVisibility(isFilterBottomDanmu);
+                    danmakuContext.setFBDanmakuVisibility(!isFilterBottomDanmu);
                     if (isFilterBottomDanmu) {
                         //show
+                        setBeSelected(ivFilterBottomDanmu);
                     } else {
                         //hide
+                        ivFilterBottomDanmu.setImageDrawable(null);
+
                     }
                     break;
                 case R.id.iv_vv_filter_color:
                     isFilterColorDanmu = !isFilterColorDanmu;
                     if (isFilterColorDanmu) {
                         //only show white color
+                        setBeSelected(ivFilterColorDanmu);
                         danmakuContext.setColorValueWhiteList(Color.WHITE);
                     } else {
                         //show all color
 //                        danmakuContext.setColorValueWhiteList(0);
+                        ivFilterColorDanmu.setImageDrawable(null);
                         danmakuContext.setColorValueWhiteList(TvLiveActivity.this.danmuColor[0], TvLiveActivity.this.danmuColor[1], TvLiveActivity.this.danmuColor[2], TvLiveActivity.this.danmuColor[3]);
                     }
                     break;

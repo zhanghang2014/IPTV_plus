@@ -32,60 +32,66 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="20dp"
             android:text="@string/danmu_text_scale"
             android:textColor="@android:color/white" />
 
         <SeekBar
             android:id="@+id/sb_text_scale"
-            style="?android:attr/android:progressBarStyleHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_height="wrap_content"
             android:max="100"
-            android:visibility="visible" />
+            android:paddingLeft="13dp"
+            android:paddingRight="13dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
             android:text="@string/danmu_destiny"
             android:textColor="@android:color/white" />
 
         <SeekBar
             android:id="@+id/sb_danmu_destiny"
-            style="?android:attr/horizontalSpacing"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:max="100" />
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:paddingLeft="13dp"
+            android:paddingRight="13dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
             android:text="@string/danmu_speed"
             android:textColor="@android:color/white" />
 
         <SeekBar
             android:id="@+id/sb_danmu_speed"
-            style="?android:attr/horizontalSpacing"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:max="100" />
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:paddingLeft="13dp"
+            android:paddingRight="13dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
             android:text="@string/danmu_aphla"
             android:textColor="@android:color/white" />
 
         <SeekBar
             android:id="@+id/sb_danmu_aphla"
-            style="?android:attr/horizontalSpacing"
             android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:max="100" />
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:paddingLeft="13dp"
+            android:paddingRight="13dp" />
     </LinearLayout>
 
 </LinearLayout>
