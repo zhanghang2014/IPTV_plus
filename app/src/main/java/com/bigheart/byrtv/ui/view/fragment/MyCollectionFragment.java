@@ -165,7 +165,7 @@ public class MyCollectionFragment extends Fragment implements MyCollectionView {
                 convertView = inflater.inflate(R.layout.item_channel, null);
                 holder = new ViewHolder((TextView) convertView.findViewById(R.id.tv_channel_name),
                         (TextView) convertView.findViewById(R.id.tv_people_num),
-                        (ImageView) convertView.findViewById(R.id.iv_chanel),
+                        (TextView) convertView.findViewById(R.id.tv_chanel_short),
                         (ImageView) convertView.findViewById(R.id.iv_collection));
                 convertView.setTag(holder);
             } else {
@@ -173,18 +173,22 @@ public class MyCollectionFragment extends Fragment implements MyCollectionView {
             }
             ChannelModule tmpChannel = collectionChannels.get(position);
             holder.tvChannelName.setText(tmpChannel.getChannelName());
+            if (tmpChannel.getChannelName().startsWith("CC")) {
+                holder.tvChannelShort.setText("央");
+            } else {
+                holder.tvChannelShort.setText(tmpChannel.getChannelName().charAt(0) + "");
+            }
 
             return convertView;
         }
 
         class ViewHolder {
-            TextView tvPeopleNum, tvChannelName;
-            ImageView ivChannelPic;
+            TextView tvPeopleNum, tvChannelName, tvChannelShort;
 
-            ViewHolder(TextView channelName, TextView peopleNum, ImageView channelPic, ImageView collection) {
+            ViewHolder(TextView channelName, TextView peopleNum, TextView channelShort, ImageView collection) {
                 tvChannelName = channelName;
                 tvPeopleNum = peopleNum;
-                ivChannelPic = channelPic;
+                tvChannelShort = channelShort;
                 collection.setVisibility(View.GONE);
             }
         }

@@ -45,8 +45,8 @@ import java.util.Map;
 
 /**
  * * 控制AllChannelFragment,MyCollectionFragment
- * <p/>
- * <p/>
+ * <p>
+ * <p>
  * Created by BigHeart on 15/12/8.
  */
 public class MainActivityPresenter extends Presenter {
@@ -118,7 +118,7 @@ public class MainActivityPresenter extends Presenter {
                 upDateChatRoomNum(true);
 
 
-                Log.i("All Channel net", channels.size() + " group");
+                LogUtil.i("All Channel net", channels.size() + " group");
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -247,7 +247,7 @@ public class MainActivityPresenter extends Presenter {
                             if (serverRoomCount > 0) {
                                 for (int roomIndex = 0; roomIndex < convs.size(); roomIndex++) {
                                     final AVIMConversation cv = convs.get(roomIndex);
-
+                                    LogUtil.d(cv.getName()+" Members().size()", cv.getMembers().size() + "");
                                     //update channel
                                     ChannelModule cm = mapChannels.get(cv.getName());
                                     if (cm != null) {
