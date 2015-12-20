@@ -18,4 +18,6 @@ public interface AppSettingView {
     void about();
 
     void feedback();
+
+    void showUpdateDialog(String newVersionName, String updateInfo, String downloadUrl);
 }

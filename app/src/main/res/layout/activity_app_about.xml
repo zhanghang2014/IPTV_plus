@@ -10,105 +10,143 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_vertical_margin"
-            android:layout_marginTop="5dp"
-            android:text="关于软件"
-            android:textColor="@color/default_gray_text"
-            android:textSize="@dimen/default_text_size" />
-
-        <ImageView
-            android:padding="@dimen/activity_vertical_margin"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@mipmap/ic_launcher"/>
-
-        <TextView
-            android:padding="@dimen/activity_vertical_margin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_about"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/default_text_size" />
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:background="#ccc" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_vertical_margin"
-            android:layout_marginTop="5dp"
-            android:text="FAQ"
-            android:textColor="@color/default_gray_text"
-            android:textSize="@dimen/default_text_size" />
+            android:orientation="vertical">
 
-        <TextView
-            android:padding="@dimen/activity_vertical_margin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_about_faq_frend"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/default_text_size" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:background="#ccc" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginTop="5dp"
+                android:text="关于软件"
+                android:textColor="@color/default_gray_text"
+                android:textSize="@dimen/default_text_size" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_vertical_margin"
-            android:layout_marginTop="5dp"
-            android:text="关于开发者"
-            android:textColor="@color/default_gray_text"
-            android:textSize="@dimen/default_text_size" />
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center_horizontal"
+                android:padding="@dimen/activity_vertical_margin"
+                android:src="@mipmap/ic_launcher" />
 
-        <TextView
-            android:padding="@dimen/activity_vertical_margin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_about_dev_mem"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/default_text_size" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:background="#ccc" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/activity_vertical_margin"
+                android:text="@string/app_about"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/default_text_size" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/activity_vertical_margin"
-            android:layout_marginTop="5dp"
-            android:text="支持我们的开发"
-            android:textColor="@color/default_gray_text"
-            android:textSize="@dimen/default_text_size" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="#ccc" />
 
-        <TextView
-            android:padding="@dimen/activity_vertical_margin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/app_about_dev_support"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/default_text_size" />
-    </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginTop="5dp"
+                android:text="FAQ"
+                android:textColor="@color/default_gray_text"
+                android:textSize="@dimen/default_text_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/activity_vertical_margin"
+                android:text="@string/app_about_faq_frend"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/default_text_size" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="#ccc" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginTop="5dp"
+                android:text="关于开发者"
+                android:textColor="@color/default_gray_text"
+                android:textSize="@dimen/default_text_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginRight="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:text="Big Heart"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/default_text_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginRight="@dimen/activity_vertical_margin"
+                android:layout_marginTop="3dp"
+                android:text="Email: BigHeart_c@163.com"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/default_text_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginRight="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:text="InG_byr"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/default_text_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginRight="@dimen/activity_vertical_margin"
+                android:layout_marginTop="3dp"
+                android:text="Email: zwkv587@gmail.com"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/default_text_size" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="#ccc" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginTop="5dp"
+                android:text="支持我们的开发"
+                android:textColor="@color/default_gray_text"
+                android:textSize="@dimen/default_text_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/activity_vertical_margin"
+                android:text="@string/app_about_dev_support"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/default_text_size" />
+
+        </LinearLayout>
 
     </ScrollView>
 

@@ -3,10 +3,12 @@ package com.bigheart.byrtv.ui.view.activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -80,7 +82,7 @@ public class AppSettingActivity extends BaseActivity implements AppSettingView, 
     }
 
     private void iniData() {
-        presenter = new AppSettingPresenter(this);
+        presenter = new AppSettingPresenter(this, this);
         mainPages = presenter.getMainPage();
         sortWays = presenter.getChannelSort();
         closeDanMus = presenter.getDanMuSetting();
@@ -204,6 +206,29 @@ public class AppSettingActivity extends BaseActivity implements AppSettingView, 
     }
 
     @Override
+    public void showUpdateDialog(String newVersionName, String updateInfo, final String downloadUrl) {
+        if (!AppSettingActivity.this.isFinishing()) {
+            new AlertDialog.Builder(AppSettingActivity.this)
+                    .setTitle(getResources().getString(R.string.app_name) + " " + newVersionName)
+                    .setMessage(Html.fromHtml(updateInfo))
+                    .setPositiveButton("现在更新", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            Intent intent = new Intent();
+                            intent.setAction("android.intent.action.VIEW");
+                            intent.setData(Uri.parse("http://" + downloadUrl));
+                            startActivity(intent);
+                        }
+                    })
+                    .setNegativeButton("暂不更新", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+
+                        }
+                    }).show();
+        }
+    }
+
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_app_setting_main_page:
@@ -219,8 +244,7 @@ public class AppSettingActivity extends BaseActivity implements AppSettingView, 
                 break;
 
             case R.id.ll_app_setting_check_update:
-//                doAppUpdate();
-
+                presenter.checkUpdate();
                 break;
 
             case R.id.ll_app_setting_about:
