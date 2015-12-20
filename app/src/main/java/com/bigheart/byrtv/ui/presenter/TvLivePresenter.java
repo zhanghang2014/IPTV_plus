@@ -32,6 +32,7 @@ public class TvLivePresenter extends Presenter {
         view.setDanmuEtPos(pref.getDanmuEtPos());
         view.setDanmuEtTextColorPos(pref.getDanmuEtColorPos());
         view.setDanmuEtTextSize(pref.getDanmuEtTextSize());
+        view.setDanmuSBProgress(pref.getDanmuTextScale(), pref.getDanmuSpeed(), pref.getDanmuAlpha(), pref.getDanmuDestiny());
     }
 
     public void tvPlayError(MediaPlayer mp, int what, int extra) {

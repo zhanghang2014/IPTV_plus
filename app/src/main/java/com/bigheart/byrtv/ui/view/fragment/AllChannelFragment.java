@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bigheart.byrtv.R;
+import com.bigheart.byrtv.data.sharedpreferences.AppSettingOption;
 import com.bigheart.byrtv.data.sharedpreferences.AppSettingPreferences;
 import com.bigheart.byrtv.ui.module.ChannelModule;
 import com.bigheart.byrtv.ui.presenter.AllChannelPresenter;
@@ -92,7 +93,6 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
             @Override
             public void onRefresh() {
                 //只刷新在线人数，不刷新频道列表
-                channels = presenter.channelSort(sp.getChannelSort(), channels);
                 updateData(channels);
                 stopRefresh();
             }
@@ -150,7 +150,10 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
 
     @Override
     public void updateData(ArrayList<ChannelModule> channels) {
-        this.channels = channels;
+        int sortType = sp.getChannelSort();
+
+        //拼音排序只需排一次
+        this.channels = presenter.channelSort(sp.getChannelSort(), channels);
         channelAdapter.notifyDataSetChanged();
     }
 
@@ -259,9 +262,9 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
             }
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                imageView.setImageDrawable(getResources().getDrawable(android.R.drawable.btn_star_big_on, getActivity().getTheme()));
+                imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_yellow_38dp, getActivity().getTheme()));
             } else {
-                imageView.setImageDrawable(getResources().getDrawable(android.R.drawable.btn_star_big_on));
+                imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_yellow_38dp));
             }
         }
     }

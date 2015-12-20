@@ -35,7 +35,7 @@
             android:name=".ui.view.activity.TvLiveActivity"
             android:launchMode="singleTop"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustPan"></activity>
 
         <!-- 必要！！！使用视频播放控件声明 -->
         <activity

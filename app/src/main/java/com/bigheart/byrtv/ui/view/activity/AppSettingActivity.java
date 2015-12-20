@@ -145,7 +145,7 @@ public class AppSettingActivity extends BaseActivity implements AppSettingView, 
 
     @Override
     public void channelSortWay() {
-        tmp=-1;
+        tmp = -1;
         final String[] op = new String[]{"拼音首字母", "频道在线人数"};
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("选择频道排序方式：")
@@ -169,7 +169,7 @@ public class AppSettingActivity extends BaseActivity implements AppSettingView, 
 
     @Override
     public void mainPage() {
-        tmp=-1;
+        tmp = -1;
         final String[] op = new String[]{"全部频道", "收藏的频道"};
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("选择默认首页：")
@@ -219,7 +219,8 @@ public class AppSettingActivity extends BaseActivity implements AppSettingView, 
                 break;
 
             case R.id.ll_app_setting_check_update:
-                doAppUpdate();
+//                doAppUpdate();
+
                 break;
 
             case R.id.ll_app_setting_about:
