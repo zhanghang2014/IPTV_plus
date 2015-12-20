@@ -36,7 +36,7 @@ public class DanmuPreferences {
     }
 
     public int getDanmuEtPos() {
-        return pref.getInt(DANMU_ET_POSITION, 0);
+        return pref.getInt(DANMU_ET_POSITION, 1);
     }
 
     public void setDanmuEtPos(int danmuPos) {

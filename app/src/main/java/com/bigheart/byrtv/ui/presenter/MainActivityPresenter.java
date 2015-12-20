@@ -266,6 +266,7 @@ public class MainActivityPresenter extends Presenter implements FinishObtainData
     private synchronized void upDateChatRoomNum(final boolean isNeedToCreateRoom) {
 
         if (ByrTvApplication.isReadGetPeopleNum()) {
+            LogUtil.d("isReadGetPeopleNum", "isReadGetPeopleNum");
             //仅当 登录 且 尝试请求频道数据 后才执行
             AVIMConversationQuery query = ByrTvApplication.avimClient.getQuery();
             query.whereGreaterThan("name", "");//查询全部
@@ -303,6 +304,7 @@ public class MainActivityPresenter extends Presenter implements FinishObtainData
 
                             } else {
                                 LogUtil.d("upDateChatRoomNum", convs.size() + "");
+                                finishObtainPeopNum(false);
                                 createChatRoom();
                             }
                         }

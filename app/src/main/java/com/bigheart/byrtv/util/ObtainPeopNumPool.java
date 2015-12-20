@@ -28,12 +28,15 @@ public class ObtainPeopNumPool {
     }
 
     public void execute(ArrayList<ChannelModule> list) {
-        for (ChannelModule c : list) {
-            execute(c);
-        }
+        if (list == null || list.size() <= 0) {
+            rspo.finishObtainPeopNum(true);
+        } else
+            for (ChannelModule c : list) {
+                execute(c);
+            }
     }
 
-    public void execute(ChannelModule c) {
+    private void execute(ChannelModule c) {
         //先到先执行
         if (c != null) {
             q.add(c);
