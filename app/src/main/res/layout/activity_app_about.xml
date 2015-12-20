@@ -141,8 +141,20 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginRight="@dimen/activity_vertical_margin"
                 android:text="@string/app_about_dev_support"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/default_text_size" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="19023393@qq.com"
+                android:layout_marginTop="3dp"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginRight="@dimen/activity_vertical_margin"
+                android:textIsSelectable="true"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/default_text_size" />
 

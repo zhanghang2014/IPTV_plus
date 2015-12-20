@@ -57,7 +57,7 @@ public class AppSettingPresenter extends Presenter {
             @Override
             public void done(Object o, AVException e) {
                 if (e == null) {
-                    if (String.valueOf(ByrTvUtil.getVersionCode(context)) != ((List) o).get(0)) {
+                    if (!String.valueOf(ByrTvUtil.getVersionName(context)).equals(((List) o).get(0))) {
                         appSettingActivity.showUpdateDialog(((List<String>) o).get(0), ((List<String>) o).get(1), ((List<String>) o).get(2));
                     }else {
                         Toast.makeText(context,"已是最新版",Toast.LENGTH_SHORT).show();
