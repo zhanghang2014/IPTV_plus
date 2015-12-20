@@ -141,19 +141,31 @@ public class UserSettingActivity extends BaseActivity implements UserSettingView
                 break;
 
             case R.id.tv_user_setting_username:
-                intent.putExtra("type", "username");
-                startActivityForResult(intent, REQUEST_UPDATE_USER_DATA);
+                if (presenter.getUser() == null) {
+                    toast("请先登陆");
+                } else {
+                    intent.putExtra("type", "username");
+                    startActivityForResult(intent, REQUEST_UPDATE_USER_DATA);
+                }
                 break;
 
             case R.id.btn_user_setting_update_pwd:
-                intent.putExtra("type", "pwd");
-                startActivityForResult(intent, REQUEST_UPDATE_USER_DATA);
+                if (presenter.getUser() == null) {
+                    toast("请先登陆");
+                } else {
+                    intent.putExtra("type", "pwd");
+                    startActivityForResult(intent, REQUEST_UPDATE_USER_DATA);
+                }
                 break;
 
             case R.id.tv_user_setting_gender:
                 //选择性别
-                LogUtil.d("onclick", "user_setting_gender");
-                updateGender();
+                if (presenter.getUser() == null) {
+                    toast("请先登陆");
+                } else {
+                    LogUtil.d("onclick", "user_setting_gender");
+                    updateGender();
+                }
                 break;
 
             case R.id.sdv_user_setting_icon:
@@ -187,10 +199,13 @@ public class UserSettingActivity extends BaseActivity implements UserSettingView
 
             case R.id.btn_user_setting_ver_phone:
                 //暂时验证邮箱
-                intent.putExtra("type", "phone");
-                startActivityForResult(intent, REQUEST_UPDATE_USER_DATA);
-                break;
-
+                if (presenter.getUser() == null) {
+                    toast("请先登陆");
+                } else {
+                    intent.putExtra("type", "phone");
+                    startActivity(intent);
+                    break;
+                }
             default:
                 break;
         }

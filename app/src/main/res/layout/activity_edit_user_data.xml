@@ -70,7 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/activity_vertical_margin"
-            android:text="验证完成后需要重启应用才能生效"
+            android:text="需重启应用才能生效，之后可通过邮箱登陆"
             android:textColor="@color/default_gray_text"
             android:textSize="@dimen/default_text_size"/>
 

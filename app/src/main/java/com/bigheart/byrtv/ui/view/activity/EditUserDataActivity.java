@@ -111,7 +111,8 @@ public class EditUserDataActivity extends BaseActivity implements EditUserDataVi
     public void initData() {
         presenter = new EditUserDataPresenter(this, this);
 
-        if (presenter.getLocalPWD().equals("f32@ds*@&dsa")) {
+        //未连接外网时本地密码为null
+        if (presenter.getLocalPWD() != null && presenter.getLocalPWD().equals("f32@ds*@&dsa")) {
             etOldPWD.setText("f32@ds*@&dsa");
         }
 
@@ -206,17 +207,19 @@ public class EditUserDataActivity extends BaseActivity implements EditUserDataVi
                                             if (e == null) {
                                                 toast("使用邮箱可以登陆啦");
                                             } else {
-                                                toast(e.toString());
+                                                LogUtil.d("email", e.toString());
                                             }
                                         }
                                     });
                                 } else {
-                                    toast(e.toString());
+                                    toast("发送邮件失败");
+                                    LogUtil.d("email", e.toString());
                                 }
                             }
                         });
                     } else {
-                        toast(e.toString());
+                        toast("失败");
+                        LogUtil.d("email", e.toString());
                     }
                 }
             });
