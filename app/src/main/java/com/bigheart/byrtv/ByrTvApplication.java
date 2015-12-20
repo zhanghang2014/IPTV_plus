@@ -1,20 +1,10 @@
 package com.bigheart.byrtv;
 
 import android.app.Application;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.widget.Toast;
 
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.im.v2.AVIMClient;
-import com.avos.avoscloud.im.v2.AVIMConversation;
-import com.avos.avoscloud.im.v2.AVIMMessage;
-import com.avos.avoscloud.im.v2.AVIMMessageHandler;
-import com.avos.avoscloud.im.v2.AVIMMessageManager;
-import com.avos.avoscloud.im.v2.AVIMTypedMessage;
-import com.avos.avoscloud.im.v2.messages.AVIMTextMessage;
 import com.bigheart.byrtv.data.sqlite.SqlChannelManager;
-import com.bigheart.byrtv.ui.module.DanmuTextMessage;
 import com.bigheart.byrtv.util.ByrTvUtil;
 import com.bigheart.byrtv.util.LogUtil;
 
