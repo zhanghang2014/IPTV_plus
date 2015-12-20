@@ -15,11 +15,11 @@ public class SortByPeople implements Comparator {
         ChannelModule c1 = (ChannelModule) o;
         ChannelModule c2 = (ChannelModule) t1;
         if (c1.getPeopleNum() > c2.getPeopleNum()) {
-            return 1;
+            return -1;
         } else if (c1.getPeopleNum() == c2.getPeopleNum()) {
             return 0;
         } else {
-            return -1;
+            return 1;
         }
     }
 }

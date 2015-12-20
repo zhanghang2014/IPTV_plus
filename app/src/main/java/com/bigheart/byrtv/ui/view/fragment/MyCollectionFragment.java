@@ -194,7 +194,7 @@ public class MyCollectionFragment extends Fragment implements MyCollectionView {
             } else {
                 holder.tvChannelShort.setText(tmpChannel.getChannelName().charAt(0) + "");
             }
-
+            holder.tvPeopleNum.setText("在线人数:" + tmpChannel.getPeopleNum());
             return convertView;
         }
 

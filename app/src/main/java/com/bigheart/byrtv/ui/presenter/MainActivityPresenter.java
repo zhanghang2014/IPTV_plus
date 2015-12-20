@@ -36,6 +36,7 @@ import com.bigheart.byrtv.ui.view.MainActivityView;
 import com.bigheart.byrtv.ui.view.MyCollectionView;
 import com.bigheart.byrtv.util.ByrTvUtil;
 import com.bigheart.byrtv.util.LogUtil;
+import com.bigheart.byrtv.util.ObtainPeopNumPool;
 import com.bigheart.byrtv.util.SortByPinYin;
 import com.bigheart.byrtv.util.SqlUtil;
 
@@ -54,7 +55,7 @@ import java.util.Map;
  * <p/>
  * Created by BigHeart on 15/12/8.
  */
-public class MainActivityPresenter extends Presenter {
+public class MainActivityPresenter extends Presenter implements FinishObtainDataRsp {
     private Context context;
     private MainActivityView mainActivityView;
     private MyCollectionView collectionView;
@@ -78,6 +79,21 @@ public class MainActivityPresenter extends Presenter {
         mapChannels = new HashMap<>();
     }
 
+    @Override
+    public void finishObtainPeopNum(final boolean isSuccess) {
+        channelView.updateData(allChannels);
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (!isSuccess) {
+                    Toast.makeText(context, R.string.net_wrong, Toast.LENGTH_SHORT).show();
+                }
+                channelView.stopRefresh();
+                collectionView.stopRefresh();
+            }
+        });
+    }
+
     public void checkUpdate() {
         AVCloud.callFunctionInBackground("appUpdate", null, new FunctionCallback() {
             @Override
@@ -94,8 +110,13 @@ public class MainActivityPresenter extends Presenter {
     }
 
     public void pullData() {
-        collectionView.startRefresh();
-        channelView.startRefresh();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                collectionView.startRefresh();
+                channelView.startRefresh();
+            }
+        });
 
 
         new GetChannelList(new ChannelsRsp() {
@@ -143,9 +164,6 @@ public class MainActivityPresenter extends Presenter {
                     @Override
                     public void run() {
                         channelView.updateData(channels);
-                        channelView.stopRefresh();
-                        collectionView.stopRefresh();
-
                     }
                 });
             }
@@ -153,18 +171,13 @@ public class MainActivityPresenter extends Presenter {
             @Override
             public void getFromNetError(Exception e) {
                 e.printStackTrace();
+                ByrTvApplication.updateReadGetPeopleNumState(true, true, true, ByrTvApplication.updateWhat.updatePullChannelState);
                 LogUtil.d("getFromNetError", "getFromNetError");
                 upDateChatRoomNum(true);
-
 
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        channelView.stopRefresh();
-                        collectionView.stopRefresh();
-
-                        ByrTvApplication.updateReadGetPeopleNumState(true, true, true, ByrTvApplication.updateWhat.updatePullChannelState);
-
                         Toast.makeText(context, R.string.net_wrong, Toast.LENGTH_SHORT).show();
                         Log.i("MainActivityPresenter", "can not get channel from net");
                     }
@@ -281,24 +294,16 @@ public class MainActivityPresenter extends Presenter {
                                     if (isNeedToCreateRoom) {
                                         createChatRoom();
                                     }
-                                    // TODO: 15/12/16 一次把全部更新，开的线程过多
-//                                    cv.getMemberCount(new AVIMConversationMemberCountCallback() {
-//                                        @Override
-//                                        public void done(Integer count, AVIMException e) {
-//                                            if (e == null) {
-//                                                setPeopleNumToMap(cv.getName(), count);
-//                                                LogUtil.d(cv.getName(), "conversation got " + count + " members");
-//                                            } else {
-//                                                e.printStackTrace();
-//                                            }
-//                                        }
-//                                    });
+
+                                    ObtainPeopNumPool.getInstance(MainActivityPresenter.this).execute(cm);
                                 }
                             } else {
                                 LogUtil.d("upDateChatRoomNum", convs.size() + "");
                                 createChatRoom();
                             }
                         }
+                    } else {
+                        finishObtainPeopNum(false);
                     }
                 }
             });
@@ -400,6 +405,12 @@ public class MainActivityPresenter extends Presenter {
         } else {
             LogUtil.d("setPeopleNumToMap", "服务器存在，本地不存在的聊天室");
         }
+    }
+
+    public static void setChannelPeopleNum(String name, int count) {
+        ChannelModule c = mapChannels.get(name);
+        if (c != null)
+            c.setPeopleNum(count);
     }
 
     public Uri getIconUri() {

@@ -237,6 +237,8 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
                 holder.tvChannelShort.setText(tmpChannel.getChannelName().charAt(0) + "");
             }
 
+            holder.tvPeopleNum.setText("在线人数:" + tmpChannel.getPeopleNum());
+
             return convertView;
         }
 
