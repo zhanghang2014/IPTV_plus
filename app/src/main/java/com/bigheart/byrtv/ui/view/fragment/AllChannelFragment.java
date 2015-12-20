@@ -87,13 +87,14 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
         channels = new ArrayList<>();
         lvAllChannel.setAdapter(channelAdapter);
 
+
         refreshLayout = (SwipeRefreshLayout) layoutView.findViewById(R.id.srl_all_channel);
         refreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 //只刷新在线人数，不刷新频道列表
-                updateData(channels);
+//                updateData(channels);
                 stopRefresh();
             }
         });
@@ -153,7 +154,8 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
         int sortType = sp.getChannelSort();
 
         //拼音排序只需排一次
-        this.channels = presenter.channelSort(sp.getChannelSort(), channels);
+        //默认拼音排序
+        this.channels = presenter.channelSort(AppSettingOption.SORT_PINYIN, channels);
         channelAdapter.notifyDataSetChanged();
     }
 
@@ -237,8 +239,6 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
                 holder.tvChannelShort.setText(tmpChannel.getChannelName().charAt(0) + "");
             }
 
-            holder.tvPeopleNum.setText("在线人数:" + tmpChannel.getPeopleNum());
-
             return convertView;
         }
 
@@ -264,9 +264,9 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
             }
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_yellow_38dp, getActivity().getTheme()));
+                imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_yellow_36dp, getActivity().getTheme()));
             } else {
-                imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_yellow_38dp));
+                imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_star_yellow_36dp));
             }
         }
     }

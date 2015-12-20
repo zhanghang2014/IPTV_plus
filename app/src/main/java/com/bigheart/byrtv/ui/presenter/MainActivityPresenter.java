@@ -81,14 +81,15 @@ public class MainActivityPresenter extends Presenter implements FinishObtainData
 
     @Override
     public void finishObtainPeopNum(final boolean isSuccess) {
-        channelView.updateData(allChannels);
+//        channelView.updateData(allChannels);
+        collectionView.updateData(filterCollectionChannel(allChannels));
         handler.post(new Runnable() {
             @Override
             public void run() {
                 if (!isSuccess) {
                     Toast.makeText(context, R.string.net_wrong, Toast.LENGTH_SHORT).show();
                 }
-                channelView.stopRefresh();
+//                channelView.stopRefresh();
                 collectionView.stopRefresh();
             }
         });
@@ -99,7 +100,7 @@ public class MainActivityPresenter extends Presenter implements FinishObtainData
             @Override
             public void done(Object o, AVException e) {
                 if (e == null) {
-                    if (String.valueOf(ByrTvUtil.getVersionCode(context)) != ((List) o).get(0)) {
+                    if (!String.valueOf(ByrTvUtil.getVersionName(context)).equals(((List) o).get(0))) {
                         mainActivityView.showUpdateDialog(((List<String>) o).get(0), ((List<String>) o).get(1), ((List<String>) o).get(2));
                     }
                 } else {
@@ -114,7 +115,7 @@ public class MainActivityPresenter extends Presenter implements FinishObtainData
             @Override
             public void run() {
                 collectionView.startRefresh();
-                channelView.startRefresh();
+//                channelView.startRefresh();
             }
         });
 
@@ -295,14 +296,18 @@ public class MainActivityPresenter extends Presenter implements FinishObtainData
                                         createChatRoom();
                                     }
 
-                                    ObtainPeopNumPool.getInstance(MainActivityPresenter.this).execute(cm);
                                 }
+
+                                //获取 收藏频道 人数
+                                ObtainPeopNumPool.getInstance(MainActivityPresenter.this).execute(filterCollectionChannel(allChannels));
+
                             } else {
                                 LogUtil.d("upDateChatRoomNum", convs.size() + "");
                                 createChatRoom();
                             }
                         }
                     } else {
+                        //取消 获取人数
                         finishObtainPeopNum(false);
                     }
                 }

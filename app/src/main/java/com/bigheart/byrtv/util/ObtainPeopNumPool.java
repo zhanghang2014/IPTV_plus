@@ -5,6 +5,7 @@ import com.avos.avoscloud.im.v2.callback.AVIMConversationMemberCountCallback;
 import com.bigheart.byrtv.ui.module.ChannelModule;
 import com.bigheart.byrtv.ui.presenter.FinishObtainDataRsp;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -24,6 +25,12 @@ public class ObtainPeopNumPool {
         }
         rspo = rsp;
         return pool;
+    }
+
+    public void execute(ArrayList<ChannelModule> list) {
+        for (ChannelModule c : list) {
+            execute(c);
+        }
     }
 
     public void execute(ChannelModule c) {

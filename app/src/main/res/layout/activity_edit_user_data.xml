@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
             android:layout_marginRight="@dimen/activity_vertical_margin"
-            android:background="@drawable/round_rect"
+            android:background="@drawable/bg_round_rect_green"
             android:text="更改昵称"
             android:textColor="@android:color/white"
             android:textSize="@dimen/default_text_size" />
@@ -77,12 +77,12 @@
             android:textSize="@dimen/default_text_size" />
 
         <Button
-            android:background="@drawable/round_rect"
-            android:layout_marginLeft="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/activity_vertical_margin"
             android:id="@+id/btn_edit_user_data_ver_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:background="@drawable/bg_round_rect_green"
             android:text="验证邮箱地址"
             android:textColor="@android:color/white"
             android:textSize="@dimen/default_text_size" />
@@ -138,13 +138,13 @@
             android:textSize="@dimen/default_text_size" />
 
         <Button
-            android:layout_marginLeft="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/activity_vertical_margin"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:background="@drawable/round_rect"
             android:id="@+id/btn_edit_user_data_pwd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:background="@drawable/bg_round_rect_green"
             android:text="更改密码"
             android:textColor="@android:color/white"
             android:textSize="@dimen/default_text_size" />
@@ -194,6 +194,7 @@
             android:id="@+id/btn_edit_user_data_ver_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_round_rect_green"
             android:padding="@dimen/activity_vertical_margin"
             android:text="发送验证码"
             android:textColor="@android:color/black"
@@ -203,6 +204,7 @@
             android:id="@+id/btn_edit_user_data_ver_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_round_rect_green"
             android:padding="@dimen/activity_vertical_margin"
             android:text="完成"
             android:textColor="@android:color/black"
@@ -211,13 +213,13 @@
     </LinearLayout>
 
     <Button
-        android:layout_marginRight="@dimen/activity_vertical_margin"
-        android:layout_marginLeft="@dimen/activity_vertical_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:background="@drawable/round_rect"
         android:id="@+id/btn_edit_user_data_give_up"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:background="@drawable/bg_round_rect_red"
         android:text="放弃更改"
         android:textColor="@android:color/white"
         android:textSize="@dimen/default_text_size" />
