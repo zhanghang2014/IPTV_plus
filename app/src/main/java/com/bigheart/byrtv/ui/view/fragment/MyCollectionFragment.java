@@ -86,6 +86,7 @@ public class MyCollectionFragment extends Fragment implements MyCollectionView {
             @Override
             public void onRefresh() {
                 //只刷新在线人数，不刷新频道列表
+                presenter.upDateChannelPeopNum(collectionChannels);
                 updateData(collectionChannels);
                 stopRefresh();
             }
@@ -138,6 +139,8 @@ public class MyCollectionFragment extends Fragment implements MyCollectionView {
     public void updateData(ArrayList<ChannelModule> channels) {
         //拼音排序只需排一次
         this.collectionChannels = presenter.channelSort(sp.getChannelSort(), channels);
+
+        //处理视图
         if (collectionChannels.size() <= 0) {
             refreshLayout.setVisibility(View.GONE);
             tvNoCollection.setVisibility(View.VISIBLE);
@@ -150,6 +153,11 @@ public class MyCollectionFragment extends Fragment implements MyCollectionView {
             }
             collectionAdapter.notifyDataSetChanged();
         }
+    }
+
+    @Override
+    public void updateData() {
+        collectionAdapter.notifyDataSetChanged();
     }
 
     private class CollectionAdapter extends BaseAdapter {
@@ -205,7 +213,7 @@ public class MyCollectionFragment extends Fragment implements MyCollectionView {
                 tvChannelName = channelName;
                 tvPeopleNum = peopleNum;
                 tvChannelShort = channelShort;
-                collection.setVisibility(View.GONE);
+                collection.setVisibility(View.VISIBLE);
             }
         }
     }

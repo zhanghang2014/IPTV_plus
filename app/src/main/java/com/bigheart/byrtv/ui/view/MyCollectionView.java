@@ -13,4 +13,6 @@ public interface MyCollectionView {
     void stopRefresh();
 
     void updateData(ArrayList<ChannelModule> channels);
+
+    void updateData();
 }

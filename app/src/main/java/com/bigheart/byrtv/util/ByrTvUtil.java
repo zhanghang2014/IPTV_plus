@@ -79,7 +79,7 @@ public class ByrTvUtil {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        return pInfo.packageName == null ? null : pInfo.packageName;
+        return pInfo.versionName == null ? null : pInfo.versionName;
     }
 
     public static int getVersionCode(Context context) {
