@@ -35,9 +35,11 @@
             android:id="@+id/btn_edit_user_data_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:background="@drawable/round_rect"
             android:text="更改昵称"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textSize="@dimen/default_text_size" />
 
     </LinearLayout>
@@ -72,15 +74,17 @@
             android:padding="@dimen/activity_vertical_margin"
             android:text="需重启应用才能生效，之后可通过邮箱登陆"
             android:textColor="@color/default_gray_text"
-            android:textSize="@dimen/default_text_size"/>
+            android:textSize="@dimen/default_text_size" />
 
         <Button
+            android:background="@drawable/round_rect"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
             android:id="@+id/btn_edit_user_data_ver_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/activity_vertical_margin"
             android:text="验证邮箱地址"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textSize="@dimen/default_text_size" />
 
     </LinearLayout>
@@ -131,15 +135,18 @@
             android:padding="@dimen/activity_vertical_margin"
             android:text="若是第一次更改密码，原始密码留空即可"
             android:textColor="@color/default_gray_text"
-            android:textSize="@dimen/default_text_size"/>
+            android:textSize="@dimen/default_text_size" />
 
         <Button
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:background="@drawable/round_rect"
             android:id="@+id/btn_edit_user_data_pwd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/activity_vertical_margin"
             android:text="更改密码"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textSize="@dimen/default_text_size" />
 
     </LinearLayout>
@@ -204,12 +211,15 @@
     </LinearLayout>
 
     <Button
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:background="@drawable/round_rect"
         android:id="@+id/btn_edit_user_data_give_up"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/activity_vertical_margin"
         android:text="放弃更改"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="@dimen/default_text_size" />
 
 </LinearLayout>

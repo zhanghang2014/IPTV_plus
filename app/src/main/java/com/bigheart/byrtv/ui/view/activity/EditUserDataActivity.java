@@ -178,6 +178,7 @@ public class EditUserDataActivity extends BaseActivity implements EditUserDataVi
                         if (e == null) {
                             Toast.makeText(EditUserDataActivity.this, "修改密码成功", Toast.LENGTH_SHORT).show();
                             presenter.saveLocalPWD(newPWD);
+                            finish();
                         } else {
                             Toast.makeText(EditUserDataActivity.this, "修改密码失败", Toast.LENGTH_SHORT).show();
                             clearEditText();
@@ -206,6 +207,7 @@ public class EditUserDataActivity extends BaseActivity implements EditUserDataVi
                                         public void done(AVException e) {
                                             if (e == null) {
                                                 toast("使用邮箱可以登陆啦");
+                                                finish();
                                             } else {
                                                 LogUtil.d("email", e.toString());
                                             }
@@ -290,6 +292,7 @@ public class EditUserDataActivity extends BaseActivity implements EditUserDataVi
                 public void done(AVException e) {
                     if (e == null) {
                         Toast.makeText(EditUserDataActivity.this, "更改成功", Toast.LENGTH_SHORT).show();
+                        finish();
                     } else {
                         Snackbar.make(rootLayout, "更改失败，换一个试试？", Snackbar.LENGTH_SHORT).show();
                         LogUtil.d("username", e.toString());

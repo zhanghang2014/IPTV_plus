@@ -39,7 +39,7 @@ public class UserSettingActivity extends BaseActivity implements UserSettingView
     private static final int REQUEST_UPDATE_USER_DATA = 4;
 
     private UserSettingPresenter presenter;
-    private SimpleDraweeView icon,bg;
+    private SimpleDraweeView icon, bg;
     private TextView username, gender, friend;
     private Button logout, updatePWD, verPhone;
     private FrameLayout mLayout;
@@ -85,7 +85,7 @@ public class UserSettingActivity extends BaseActivity implements UserSettingView
         friend.setOnClickListener(this);
         gender.setOnClickListener(this);
 
-        bg= (SimpleDraweeView) findViewById(R.id.sdv_user_setting_background);
+        bg = (SimpleDraweeView) findViewById(R.id.sdv_user_setting_background);
     }
 
     private void initData() {
@@ -232,7 +232,7 @@ public class UserSettingActivity extends BaseActivity implements UserSettingView
     public void updateGender() {
         LogUtil.d("onclick", "updateGender");
 
-        final String[] gender = {""};
+        final String[] gender = {"男"};
         String[] strings = new String[]{"男", "女", "保密"};
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("选择性别：")
@@ -244,7 +244,7 @@ public class UserSettingActivity extends BaseActivity implements UserSettingView
                             gender[0] = "男";
                         } else if (i == 1) {
                             gender[0] = "女";
-                        } else {
+                        } else if (i == 2) {
                             gender[0] = "保密";
                         }
                     }

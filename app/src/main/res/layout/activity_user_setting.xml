@@ -9,151 +9,175 @@
 
     <include layout="@layout/toolbar_layout" />
 
-    <FrameLayout
-        android:id="@+id/layout_user_setting"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/sdv_user_setting_background"
+
+        <FrameLayout
+            android:id="@+id/layout_user_setting"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            fresco:placeholderImageScaleType="centerCrop"
-            fresco:actualImageScaleType="centerCrop"
-            fresco:placeholderImage="@drawable/pic_default"
-            fresco:failureImage="@drawable/pic_default"
-            fresco:failureImageScaleType="centerCrop"/>
+            android:layout_height="match_parent">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sdv_user_setting_background"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                fresco:actualImageScaleType="centerCrop"
+                fresco:failureImage="@drawable/pic_default"
+                fresco:failureImageScaleType="centerCrop"
+                fresco:placeholderImage="@drawable/pic_default"
+                fresco:placeholderImageScaleType="centerCrop" />
 
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:background="@color/colorPrimary_alpha"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:background="@color/color_bg_alpha" />
 
 
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/sdv_user_setting_icon"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="135dp"
-            fresco:actualImageScaleType="centerCrop"
-            fresco:placeholderImageScaleType="fitCenter"
-            fresco:placeholderImage="@drawable/pic_default"
-            fresco:roundAsCircle="true"
-            fresco:failureImage="@drawable/pic_default"
-            fresco:failureImageScaleType="centerCrop"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="250dp"
-            android:orientation="vertical">
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sdv_user_setting_icon"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="135dp"
+                fresco:actualImageScaleType="centerCrop"
+                fresco:failureImage="@drawable/pic_default"
+                fresco:failureImageScaleType="centerCrop"
+                fresco:placeholderImage="@drawable/pic_default"
+                fresco:placeholderImageScaleType="fitCenter"
+                fresco:roundAsCircle="true" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="5dp">
+                android:layout_marginTop="250dp"
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="用户名："
-                    android:textColor="@color/default_gray_text"
-                    android:textSize="@dimen/default_text_size" />
-
-                <TextView
-                    android:id="@+id/tv_user_setting_username"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:clickable="true"
-                    android:textColor="@color/default_black_text"
-                    android:textSize="@dimen/default_text_size" />
-            </LinearLayout>
+                    android:orientation="horizontal"
+                    android:padding="5dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:background="#ccc" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="用户名："
+                        android:textColor="@color/default_gray_text"
+                        android:textSize="@dimen/default_text_size" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="性别："
-                    android:textColor="@color/default_gray_text"
-                    android:textSize="@dimen/default_text_size" />
+                    <TextView
+                        android:id="@+id/tv_user_setting_username"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:clickable="true"
+                        android:textColor="@color/default_black_text"
+                        android:textSize="@dimen/default_text_size" />
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/tv_user_setting_gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#ccc" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:clickable="true"
-                    android:textColor="@color/default_black_text"
-                    android:textSize="@dimen/default_text_size" />
-            </LinearLayout>
+                    android:orientation="horizontal"
+                    android:padding="5dp">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:background="#ccc" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="性别："
+                        android:textColor="@color/default_gray_text"
+                        android:textSize="@dimen/default_text_size" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="友善度："
-                    android:textColor="@color/default_gray_text"
-                    android:textSize="@dimen/default_text_size" />
+                    <TextView
+                        android:id="@+id/tv_user_setting_gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:clickable="true"
+                        android:textColor="@color/default_black_text"
+                        android:textSize="@dimen/default_text_size" />
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/tv_user_setting_friend"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="#ccc" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:clickable="true"
-                    android:textColor="@color/default_black_text"
+                    android:orientation="horizontal"
+                    android:padding="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="友善度："
+                        android:textColor="@color/default_gray_text"
+                        android:textSize="@dimen/default_text_size" />
+
+                    <TextView
+                        android:id="@+id/tv_user_setting_friend"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                        android:clickable="true"
+                        android:textColor="@color/default_black_text"
+                        android:textSize="@dimen/default_text_size" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_user_setting_update_pwd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:background="@drawable/round_rect"
+                    android:padding="5dp"
+                    android:text="更改密码"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/default_text_size" />
+
+                <Button
+                    android:id="@+id/btn_user_setting_ver_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:background="@drawable/round_rect"
+                    android:padding="5dp"
+                    android:text="验证邮箱"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/default_text_size" />
+
+                <Button
+                    android:id="@+id/btn_user_setting_logout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_marginRight="@dimen/activity_vertical_margin"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:background="@drawable/round_rect"
+                    android:padding="5dp"
+                    android:text="切换用户"
+                    android:textColor="@android:color/white"
                     android:textSize="@dimen/default_text_size" />
             </LinearLayout>
-
-            <Button
-                android:id="@+id/btn_user_setting_update_pwd"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="更改密码" />
-
-            <Button
-                android:id="@+id/btn_user_setting_ver_phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="验证邮箱" />
-
-            <Button
-                android:id="@+id/btn_user_setting_logout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="切换用户" />
-        </LinearLayout>
-    </FrameLayout>
+        </FrameLayout>
+    </ScrollView>
 
 </LinearLayout>
