@@ -31,7 +31,10 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.avos.avoscloud.AVCloud;
+import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.FunctionCallback;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMConversationQuery;
@@ -52,9 +55,12 @@ import com.bigheart.byrtv.ui.presenter.TvLivePresenter;
 import com.bigheart.byrtv.ui.view.TvLiveActivityView;
 import com.bigheart.byrtv.util.ByrTvUtil;
 import com.bigheart.byrtv.util.LogUtil;
+import com.bigheart.byrtv.util.MinFriendValuePool;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -127,13 +133,27 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
     private ListView lvFilter;
     private FilterAdapter filterAdapter;
     private Button btFilter;
-    Queue<FilterItem> qFilter;
+    private Queue<FilterItem> qFilter;
+    private ArrayList<String> listFilterIds;
 
-    private class FilterItem {
+
+    public class FilterItem {
         FilterItem(String content, String senderId, boolean isCheck) {
             danmuContent = content;
             this.isCheck = isCheck;
             this.senderId = senderId;
+        }
+
+        public String getDanmuContent() {
+            return danmuContent;
+        }
+
+        public String getSenderId() {
+            return senderId;
+        }
+
+        public boolean isCheck() {
+            return isCheck;
         }
 
         String danmuContent, senderId;
@@ -184,7 +204,6 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
         if (danmakuView != null && danmakuView.isPrepared()) {
             danmakuView.pause();
         }
-//        AVIMMessageManager.unregisterMessageHandler(DanmuTextMessage.class, messageHandler);
         AVIMMessageManager.unregisterMessageHandler(AVIMTextMessage.class, messageHandler);
     }
 
@@ -198,7 +217,6 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
             danmakuView.resume();
         }
         AVIMMessageManager.registerMessageHandler(AVIMTextMessage.class, messageHandler);
-//        AVIMMessageManager.registerDefaultMessageHandler(messageHandler);
     }
 
 
@@ -278,6 +296,14 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
             //flow
             setBeSelected(ivDanmuFlow);
         }
+    }
+
+    @Override
+    public void setDanmuSBProgress(int textScale, int speed, int alpha, int destiny) {
+        sbSpeed.setProgress((int) (5 - speed / 23f + 0.2f));
+        sbTextScale.setProgress((int) (textScale / 28.6f + 0.5f));
+        sbAlpha.setProgress((int) (alpha * 2.5f + 5));
+        sbDestiny.setProgress(destiny / 2 + 3);
     }
 
     private void setBeSelected(ImageView iv) {
@@ -366,6 +392,7 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
             }
         });
 
+
         //弹幕过滤
         llFilterUser = (LinearLayout) findViewById(R.id.ll_vv_filter_user);
         btFilter = (Button) findViewById(R.id.bt_vv_fliter_users);
@@ -378,21 +405,34 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
 
                 Iterator<FilterItem> iterator = qFilter.iterator();
                 boolean hasRemove = false;
-                ArrayList<FilterItem> listFilter = new ArrayList<>();
+                Queue<FilterItem> qFilterItems = new LinkedList<>();
                 while (iterator.hasNext()) {
                     FilterItem f = iterator.next();
                     if (f.isCheck) {
-                        listFilter.add(f);
+                        qFilterItems.add(f);
                         hasRemove = true;
                     }
                 }
+
+
                 if (hasRemove) {
-                    Iterator<FilterItem> listIterator = listFilter.iterator();
+
+
+                    String strFilterIds = "";
+                    Iterator<FilterItem> listIterator = qFilterItems.iterator();
                     while (listIterator.hasNext()) {
                         FilterItem f2 = listIterator.next();
+                        strFilterIds = strFilterIds.concat(f2.senderId + ",");
                         qFilter.remove(f2);
+                        listFilterIds.add(f2.senderId);
                         danmakuContext.addUserHashBlackList(f2.senderId);
                     }
+
+                    //在服务器端做处理
+                    MinFriendValuePool.getInstance().execute(qFilterItems);
+
+                    danmuPreferences.setFilterUserIds(strFilterIds);
+                    LogUtil.d("setFilterUserIds", strFilterIds);
                     filterAdapter.notifyDataSetChanged();
                 }
             }
@@ -508,7 +548,7 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
         }
 
         initConv();
-
+        danmuPreferences = new DanmuPreferences(this);
 
         //先设置一次时间
         ((TextView) findViewById(R.id.tv_vv_time)).setText(new SimpleDateFormat("hh:mm").format(System.currentTimeMillis()));
@@ -516,11 +556,6 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
         IntentFilter updateIntent = new IntentFilter();
         updateIntent.addAction("android.intent.action.TIME_TICK");
         getApplicationContext().registerReceiver(minBroadcast, updateIntent);
-
-        danmuPreferences = new DanmuPreferences(this);
-        presenter = new TvLivePresenter(this, this);
-        presenter.init();
-
 
         tvChannelName.setText(channel.getChannelName());
 
@@ -633,9 +668,21 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
 
 
         //用户屏蔽
+        listFilterIds = new ArrayList<>();
         qFilter = new LinkedList<>();
         filterAdapter = new FilterAdapter(this);
         lvFilter.setAdapter(filterAdapter);
+        String filterIds = danmuPreferences.getFilterUserIds();
+        if (filterIds != null) {
+            String[] strIds = filterIds.split(",");
+            listFilterIds.addAll(Arrays.asList(strIds));
+            danmakuContext.addUserHashBlackList(strIds);
+//            LogUtil.d("danmuPreferences.getFilterUserIds().split(\",\")", danmuPreferences.getFilterUserIds().split(",").toString() + " " + danmuPreferences.getFilterUserIds().split(",").length);
+        }
+
+        presenter = new TvLivePresenter(this, this);
+        presenter.init();
+
     }
 
     private class FilterAdapter extends BaseAdapter {
@@ -924,21 +971,26 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
                 case R.id.sb_danmu_aphla:
                     //5~255
                     danmakuContext.setDanmakuTransparency(progress * 2.5f + 5);
+                    danmuPreferences.setDanmuAlpha(sbAlpha.getProgress());
                     LogUtil.d("setDanmakuTransparency ", progress * 2.5f + 5 + "");
+
                     break;
                 case R.id.sb_danmu_destiny:
                     //3~53
                     danmakuContext.setMaximumVisibleSizeInScreen(progress / 2 + 3);
+                    danmuPreferences.setDanmuDestiny(sbDestiny.getProgress());
                     LogUtil.d("setMaximumVisibleSizeInScreen ", progress / 2f + 3 + "");
                     break;
                 case R.id.sb_danmu_speed:
                     //0.2~5
-                    danmakuContext.setScrollSpeedFactor(progress / 23f + 0.2f);
-                    LogUtil.d("setScrollSpeedFactor ", progress / 23f + 0.2f + "");
+                    danmakuContext.setScrollSpeedFactor(5 - progress / 23f + 0.2f);
+                    danmuPreferences.setDanmuSpeed(sbSpeed.getProgress());
+                    LogUtil.d("setScrollSpeedFactor ", 100 - progress / 23f + 0.2f + "");
                     break;
                 case R.id.sb_text_scale:
                     //0.5~4
                     danmakuContext.setScaleTextSize(progress / 28.6f + 0.5f);
+                    danmuPreferences.setDanmuTextScale(sbTextScale.getProgress());
                     LogUtil.d("setScaleTextSize ", progress / 28.6f + 0.5f + "");
                     break;
                 default:
@@ -1131,6 +1183,13 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
             super.onMessage(message, conversation, client);
             if (message instanceof AVIMTextMessage) {
                 Map<String, Object> mapAttrs = ((AVIMTextMessage) message).getAttrs();
+                String strId = (String) mapAttrs.get(DanmuAttrs.DANMU_SENDER_ID);
+                for (String tmp : listFilterIds) {
+                    if (tmp.equals(strId)) {
+                        LogUtil.d("be filter", strId);
+                        return;
+                    }
+                }
                 addDanmu(((AVIMTextMessage) message).getText(),
                         new DanmuAttrs(((Integer) mapAttrs.get(DanmuAttrs.DANMU_SHOW_POS)).intValue(),
                                 ((Integer) mapAttrs.get(DanmuAttrs.DANMU_COLOR)).intValue(),

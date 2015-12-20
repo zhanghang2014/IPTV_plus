@@ -41,4 +41,6 @@ public class AppSettingPresenter extends Presenter {
     public int getDanMuSetting() {
         return sp.getDanMuSetting();
     }
+
+//    public void
 }

@@ -9,7 +9,8 @@ import android.content.SharedPreferences;
 public class DanmuPreferences {
     private final String PREFERENCE_NAME = "danmu_setting";
     private final String DANMU_COLOR_ET_POS = "danmu_color_et_pos", DANMU_TEXT_ET_SIZE = "danmu_text_et_size", DANMU_ET_POSITION = "danmu_et_position";
-    private final String DANMU_TEXT_SIZE = "danmu_text_size";
+    private final String DANMU_TEXT_SCALE = "danmu_text_size", DANMU_SPEED = "danmu_speed", DANMU_ALPHA = "danmu_alpha", DANMU_DESTINY = "danmu_destiny";
+    private final String DANMU_FILTER_USER_ID = "filter_id";
     private SharedPreferences pref;
 
     public DanmuPreferences(Context c) {
@@ -46,11 +47,50 @@ public class DanmuPreferences {
 
 
     //用户设置弹幕的属性
-    public int getDanmuTextSize() {
-        return pref.getInt(DANMU_TEXT_SIZE, 0);
+    public int getDanmuTextScale() {
+        return pref.getInt(DANMU_TEXT_SCALE, 60);
     }
 
-    public void setDanmuTextSize(int danmuTextSize) {
-        pref.edit().putInt(DANMU_TEXT_SIZE, danmuTextSize).commit();
+    public void setDanmuTextScale(int danmuTextSize) {
+        pref.edit().putInt(DANMU_TEXT_SCALE, danmuTextSize).commit();
+    }
+
+    public int getDanmuSpeed() {
+        return pref.getInt(DANMU_SPEED, 35);
+    }
+
+    public void setDanmuSpeed(int danmuSpeed) {
+        pref.edit().putInt(DANMU_SPEED, danmuSpeed).commit();
+    }
+
+    public int getDanmuAlpha() {
+        return pref.getInt(DANMU_ALPHA, 0);
+    }
+
+    public void setDanmuAlpha(int danmuAlpha) {
+        pref.edit().putInt(DANMU_ALPHA, danmuAlpha).commit();
+    }
+
+    public int getDanmuDestiny() {
+        return pref.getInt(DANMU_DESTINY, 90);
+    }
+
+    public void setDanmuDestiny(int danmuDestiny) {
+        pref.edit().putInt(DANMU_DESTINY, danmuDestiny).commit();
+    }
+
+    public String getFilterUserIds() {
+        return pref.getString(DANMU_FILTER_USER_ID, null);
+    }
+
+    public void resetFilterUserIds(String ids) {
+        pref.edit().putString(DANMU_FILTER_USER_ID, ids).commit();
+    }
+
+    public void setFilterUserIds(String ids) {
+        if (getFilterUserIds() != null)
+            pref.edit().putString(DANMU_FILTER_USER_ID, getFilterUserIds() + ids).commit();
+        else
+            pref.edit().putString(DANMU_FILTER_USER_ID, ids).commit();
     }
 }

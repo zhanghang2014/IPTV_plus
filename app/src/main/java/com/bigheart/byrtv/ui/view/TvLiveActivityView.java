@@ -34,4 +34,14 @@ public interface TvLiveActivityView {
      * @param pos
      */
     void setDanmuEtPos(int pos);
+
+    /**
+     * 设置 seekBar 的长度
+     *
+     * @param textScale
+     * @param speed
+     * @param alpha
+     * @param destiny
+     */
+    void setDanmuSBProgress(int textScale, int speed, int alpha, int destiny);
 }

@@ -33,10 +33,12 @@ import com.bigheart.byrtv.ui.view.AllChannelView;
 import com.bigheart.byrtv.ui.view.MainActivityView;
 import com.bigheart.byrtv.ui.view.MyCollectionView;
 import com.bigheart.byrtv.util.LogUtil;
+import com.bigheart.byrtv.util.SortByPinYin;
 import com.bigheart.byrtv.util.SqlUtil;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -45,8 +47,8 @@ import java.util.Map;
 
 /**
  * * 控制AllChannelFragment,MyCollectionFragment
- * <p>
- * <p>
+ * <p/>
+ * <p/>
  * Created by BigHeart on 15/12/8.
  */
 public class MainActivityPresenter extends Presenter {
@@ -163,6 +165,7 @@ public class MainActivityPresenter extends Presenter {
 
     public void upDateMyCollectionFrg() {
         final ArrayList<ChannelModule> newCollectionChannels = filterCollectionChannel(allChannels);
+        Collections.sort(newCollectionChannels, new SortByPinYin());
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -247,7 +250,7 @@ public class MainActivityPresenter extends Presenter {
                             if (serverRoomCount > 0) {
                                 for (int roomIndex = 0; roomIndex < convs.size(); roomIndex++) {
                                     final AVIMConversation cv = convs.get(roomIndex);
-                                    LogUtil.d(cv.getName()+" Members().size()", cv.getMembers().size() + "");
+                                    LogUtil.d(cv.getName() + " Members().size()", cv.getMembers().size() + "");
                                     //update channel
                                     ChannelModule cm = mapChannels.get(cv.getName());
                                     if (cm != null) {
@@ -381,30 +384,30 @@ public class MainActivityPresenter extends Presenter {
         }
     }
 
-    public Uri getIconUri(){
-        Uri uri=null;
-        AVUser user=AVUser.getCurrentUser();
-        if (user!=null){
+    public Uri getIconUri() {
+        Uri uri = null;
+        AVUser user = AVUser.getCurrentUser();
+        if (user != null) {
             AVFile file = user.getAVFile("avator");
-            if(file!=null){
+            if (file != null) {
                 uri = Uri.parse(file.getUrl());
             }
         }
         return uri;
     }
 
-    public String getNickname(){
-        AVUser user=AVUser.getCurrentUser();
-        if (user!=null){
-           return user.getString("nickname");
-        }else{
+    public String getNickname() {
+        AVUser user = AVUser.getCurrentUser();
+        if (user != null) {
+            return user.getString("nickname");
+        } else {
             return null;
         }
     }
 
-    public void reLogin(LogInCallback callback){
-        AccountPreferences sp =new AccountPreferences(context);
-        AVUser.logInInBackground(sp.getUserAccount(),sp.getUserPsw(),callback);
+    public void reLogin(LogInCallback callback) {
+        AccountPreferences sp = new AccountPreferences(context);
+        AVUser.logInInBackground(sp.getUserAccount(), sp.getUserPsw(), callback);
     }
 
 }

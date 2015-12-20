@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bigheart.byrtv.R;
+import com.bigheart.byrtv.data.sharedpreferences.AppSettingOption;
 import com.bigheart.byrtv.data.sharedpreferences.AppSettingPreferences;
 import com.bigheart.byrtv.ui.module.ChannelModule;
 import com.bigheart.byrtv.ui.presenter.MyCollectionPresenter;
@@ -81,7 +82,6 @@ public class MyCollectionFragment extends Fragment implements MyCollectionView {
             @Override
             public void onRefresh() {
                 //只刷新在线人数，不刷新频道列表
-                collectionChannels = presenter.channelSort(sp.getChannelSort(), collectionChannels);
                 updateData(collectionChannels);
                 stopRefresh();
             }
@@ -132,7 +132,8 @@ public class MyCollectionFragment extends Fragment implements MyCollectionView {
 
     @Override
     public void updateData(ArrayList<ChannelModule> channels) {
-        this.collectionChannels = channels;
+        //拼音排序只需排一次
+        this.collectionChannels = presenter.channelSort(sp.getChannelSort(), channels);
         collectionAdapter.notifyDataSetChanged();
     }
 
