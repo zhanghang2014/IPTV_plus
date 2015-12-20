@@ -1,16 +1,21 @@
 package com.bigheart.byrtv.ui.view.activity;
 
+import android.app.Application;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -58,7 +63,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     private SimpleDraweeView icon, bg;
     private TextView nickname;
 
-    private LinearLayout collectionC, allC, profile, setting,navHeadMain;
+    private LinearLayout collectionC, allC, profile, setting, navHeadMain;
 
 
     @Override
@@ -154,7 +159,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         allC = (LinearLayout) findViewById(R.id.all_of_channels);
         profile = (LinearLayout) findViewById(R.id.user_setting);
         setting = (LinearLayout) findViewById(R.id.app_setting);
-        navHeadMain= (LinearLayout) findViewById(R.id.nav_head_main);
+        navHeadMain = (LinearLayout) findViewById(R.id.nav_head_main);
         initDrawerUI();
     }
 
@@ -197,6 +202,8 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     private void initData() {
         if (presenter == null)
             presenter = new MainActivityPresenter(this, this, myCollectionFragment, channelFragment);
+
+        presenter.checkUpdate();
         presenter.login();
     }
 
@@ -302,5 +309,27 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     protected void onResume() {
         super.onResume();
         refreshIcon();
+    }
+
+    @Override
+    public void showUpdateDialog(String newVersionName, String updateInfo, final String downloadUrl) {
+        if (!MainActivity.this.isFinishing()) {
+            new AlertDialog.Builder(MainActivity.this)
+                    .setTitle(getResources().getString(R.string.app_name) + " " + newVersionName)
+                    .setMessage(Html.fromHtml(updateInfo))
+                    .setPositiveButton("现在更新", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            Intent intent = new Intent();
+                            intent.setAction("android.intent.action.VIEW");
+                            intent.setData(Uri.parse("http://" + downloadUrl));
+                            startActivity(intent);
+                        }
+                    })
+                    .setNegativeButton("暂不更新", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+
+                        }
+                    }).show();
+        }
     }
 }

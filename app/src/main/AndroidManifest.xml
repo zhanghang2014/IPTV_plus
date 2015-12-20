@@ -27,6 +27,8 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.view" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -60,8 +62,6 @@
         <activity
             android:name=".ui.view.activity.AppSettingActivity"
             android:launchMode="singleTask" />
-
-        <activity android:name="com.avos.avoscloud.feedback.ThreadActivity"></activity>
 
         <!-- leancloud 实时通信声明  !-->
         <service android:name="com.avos.avoscloud.PushService" />

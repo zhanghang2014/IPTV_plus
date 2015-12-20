@@ -8,10 +8,12 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.avos.avoscloud.AVCloud;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.FunctionCallback;
 import com.avos.avoscloud.LogInCallback;
 import com.avos.avoscloud.SignUpCallback;
 import com.avos.avoscloud.im.v2.AVIMClient;
@@ -32,6 +34,7 @@ import com.bigheart.byrtv.ui.module.ChannelModule;
 import com.bigheart.byrtv.ui.view.AllChannelView;
 import com.bigheart.byrtv.ui.view.MainActivityView;
 import com.bigheart.byrtv.ui.view.MyCollectionView;
+import com.bigheart.byrtv.util.ByrTvUtil;
 import com.bigheart.byrtv.util.LogUtil;
 import com.bigheart.byrtv.util.SortByPinYin;
 import com.bigheart.byrtv.util.SqlUtil;
@@ -73,6 +76,21 @@ public class MainActivityPresenter extends Presenter {
         handler = new Handler();
         allChannels = new ArrayList<>();
         mapChannels = new HashMap<>();
+    }
+
+    public void checkUpdate() {
+        AVCloud.callFunctionInBackground("appUpdate", null, new FunctionCallback() {
+            @Override
+            public void done(Object o, AVException e) {
+                if (e == null) {
+                    if (String.valueOf(ByrTvUtil.getVersionCode(context)) != ((List) o).get(0)) {
+                        mainActivityView.showUpdateDialog(((List<String>) o).get(0), ((List<String>) o).get(1), ((List<String>) o).get(2));
+                    }
+                } else {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     public void pullData() {
@@ -250,7 +268,7 @@ public class MainActivityPresenter extends Presenter {
                             if (serverRoomCount > 0) {
                                 for (int roomIndex = 0; roomIndex < convs.size(); roomIndex++) {
                                     final AVIMConversation cv = convs.get(roomIndex);
-                                    LogUtil.d(cv.getName() + " Members().size()", cv.getMembers().size() + "");
+//                                    LogUtil.d(cv.getName() + " Members().size()", cv.getMembers().size() + "");
                                     //update channel
                                     ChannelModule cm = mapChannels.get(cv.getName());
                                     if (cm != null) {

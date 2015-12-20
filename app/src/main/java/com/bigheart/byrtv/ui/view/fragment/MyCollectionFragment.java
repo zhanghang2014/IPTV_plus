@@ -24,6 +24,8 @@ import com.bigheart.byrtv.ui.view.MyCollectionView;
 import com.bigheart.byrtv.util.ChannelSortType;
 import com.bigheart.byrtv.util.LogUtil;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 /**
@@ -36,6 +38,7 @@ public class MyCollectionFragment extends Fragment implements MyCollectionView {
     private int sortType = ChannelSortType.SORT_BY_ALPHA.ordinal();//默认在线人数排序
 
     private ListView lvCollection;
+    private TextView tvNoCollection;
     private SwipeRefreshLayout refreshLayout;
 
     private ArrayList<ChannelModule> collectionChannels = new ArrayList<>();
@@ -75,6 +78,7 @@ public class MyCollectionFragment extends Fragment implements MyCollectionView {
         lvCollection = (ListView) layoutView.findViewById(R.id.lv_all_channel);
         collectionChannels = new ArrayList<>();
         lvCollection.setAdapter(collectionAdapter);
+        tvNoCollection = (TextView) layoutView.findViewById(R.id.tv_no_collection);
 
         refreshLayout = (SwipeRefreshLayout) layoutView.findViewById(R.id.srl_all_channel);
         refreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
@@ -134,7 +138,18 @@ public class MyCollectionFragment extends Fragment implements MyCollectionView {
     public void updateData(ArrayList<ChannelModule> channels) {
         //拼音排序只需排一次
         this.collectionChannels = presenter.channelSort(sp.getChannelSort(), channels);
-        collectionAdapter.notifyDataSetChanged();
+        if (collectionChannels.size() <= 0) {
+            refreshLayout.setVisibility(View.GONE);
+            tvNoCollection.setVisibility(View.VISIBLE);
+        } else {
+            if (!refreshLayout.isShown()) {
+                refreshLayout.setVisibility(View.VISIBLE);
+            }
+            if (tvNoCollection.isShown()) {
+                tvNoCollection.setVisibility(View.GONE);
+            }
+            collectionAdapter.notifyDataSetChanged();
+        }
     }
 
     private class CollectionAdapter extends BaseAdapter {

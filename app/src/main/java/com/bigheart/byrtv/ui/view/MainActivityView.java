@@ -9,4 +9,6 @@ import java.util.ArrayList;
  */
 public interface MainActivityView {
     void login(Exception e);
+
+    void showUpdateDialog(String newVersionName, String updateInfo, String downloadUrl);
 }

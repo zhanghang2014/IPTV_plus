@@ -1,10 +1,20 @@
 package com.bigheart.byrtv.util;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.os.Build;
 import android.view.Display;
 import android.view.WindowManager;
+
+import com.avos.avoscloud.AVCloud;
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.FunctionCallback;
+import com.bigheart.byrtv.ByrTvApplication;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by BigHeart on 15/12/10.
@@ -58,5 +68,29 @@ public class ByrTvUtil {
 
     public static int px2dip(float pxValue) {
         return (int) (pxValue / scale + 0.5f);
+    }
+
+
+    public static String getVersionName(Context context) {
+        PackageManager manager = context.getPackageManager();
+        PackageInfo pInfo = new PackageInfo();
+        try {
+            pInfo = manager.getPackageInfo(context.getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return pInfo.packageName == null ? null : pInfo.packageName;
+    }
+
+    public static int getVersionCode(Context context) {
+        PackageManager manager = context.getPackageManager();
+        PackageInfo pInfo = new PackageInfo();
+        try {
+            pInfo = manager.getPackageInfo(context.getPackageName(), 0);
+            return pInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 }

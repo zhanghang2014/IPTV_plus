@@ -590,7 +590,7 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
                     Log.i("TvLiveActivity change", videoH + " " + videoW);
                 }
                 mVideoView.setBufferSize(512 * 1024);
-                ivPlayOrPause.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause_circle_fill_white_24dp));
+                ivPlayOrPause.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause_circle_fill_white_36dp));
             }
         });
 
@@ -598,12 +598,11 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
             @Override
             public boolean onError(MediaPlayer mp, int what, int extra) {
                 // extra : https://github.com/yixia/VitamioBundle/wiki/ErrorCode
-                // TODO: 15/12/11 加弹窗
                 new AlertDialog.Builder(TvLiveActivity.this).setMessage("视频播放错误").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         finish();
                     }
-                }).setCancelable(false).show();
+                }).show();
                 return false;
             }
         });
@@ -815,11 +814,11 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
                     if (mVideoView.isPlaying()) {
 //                    LogUtil.d("TvLiveActivity", "pause");
                         mVideoView.pause();
-                        ivPlayOrPause.setImageDrawable(getResources().getDrawable(R.drawable.ic_play_circle_fill_white_24dp));
+                        ivPlayOrPause.setImageDrawable(getResources().getDrawable(R.drawable.ic_play_circle_fill_white_36dp));
                     } else {
 //                    LogUtil.d("TvLiveActivity", "play");
                         mVideoView.start();
-                        ivPlayOrPause.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause_circle_fill_white_24dp));
+                        ivPlayOrPause.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause_circle_fill_white_36dp));
                     }
                     break;
                 case R.id.iv_vv_back:
