@@ -58,7 +58,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     private SimpleDraweeView icon, bg;
     private TextView nickname;
 
-    private LinearLayout collectionC, allC, profile, setting;
+    private LinearLayout collectionC, allC, profile, setting,navHeadMain;
 
 
     @Override
@@ -154,6 +154,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         allC = (LinearLayout) findViewById(R.id.all_of_channels);
         profile = (LinearLayout) findViewById(R.id.user_setting);
         setting = (LinearLayout) findViewById(R.id.app_setting);
+        navHeadMain= (LinearLayout) findViewById(R.id.nav_head_main);
         initDrawerUI();
     }
 
@@ -163,6 +164,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         collectionC.setOnClickListener(this);
         profile.setOnClickListener(this);
         setting.setOnClickListener(this);
+        navHeadMain.setOnClickListener(this);
 //        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 //            @Override
 //            public boolean onNavigationItemSelected(MenuItem menuItem) {
@@ -201,6 +203,9 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            //防止点击下方页面
+            case R.id.nav_head_main:
+                break;
             case R.id.collection_of_channels:
                 viewPager.setCurrentItem(POS_MY_COLLECTION);
                 break;
@@ -261,8 +266,8 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         if (presenter.getIconUri() != null) {
             icon.setImageURI(presenter.getIconUri());
             bg.setImageURI(presenter.getIconUri());
-            nickname.setText(presenter.getNickname());
         }
+        nickname.setText(presenter.getNickname());
     }
 
 
