@@ -141,22 +141,30 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_marginLeft="@dimen/activity_vertical_margin"
                 android:layout_marginRight="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:text="@string/app_about_dev_support"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/default_text_size" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="19023393@qq.com"
-                android:layout_marginTop="3dp"
                 android:layout_marginLeft="@dimen/activity_vertical_margin"
                 android:layout_marginRight="@dimen/activity_vertical_margin"
-                android:textIsSelectable="true"
+                android:layout_marginTop="3dp"
+                android:text="19023393@qq.com"
                 android:textColor="@android:color/black"
+                android:textIsSelectable="true"
                 android:textSize="@dimen/default_text_size" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:background="#ccc" />
 
         </LinearLayout>
 

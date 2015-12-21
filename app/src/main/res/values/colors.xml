@@ -7,4 +7,5 @@
     <color name="default_black_text">#000000</color>
 
     <color name="color_bg_alpha">#88000000</color>
+    <color name="channel_bg">#F06292</color>
 </resources>

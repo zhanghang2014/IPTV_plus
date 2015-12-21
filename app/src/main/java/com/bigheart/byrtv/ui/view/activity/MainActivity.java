@@ -170,6 +170,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
         profile.setOnClickListener(this);
         setting.setOnClickListener(this);
         navHeadMain.setOnClickListener(this);
+        icon.setOnClickListener(this);
 //        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 //            @Override
 //            public boolean onNavigationItemSelected(MenuItem menuItem) {
@@ -213,24 +214,38 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
             //防止点击下方页面
             case R.id.nav_head_main:
                 break;
+
+            case R.id.sdv_user_icon:
+                drawer.closeDrawer(GravityCompat.START);
+                Intent intent2UserSetting = new Intent(MainActivity.this, UserSettingActivity.class);
+                startActivity(intent2UserSetting);
+
             case R.id.collection_of_channels:
+                drawer.closeDrawer(GravityCompat.START);
                 viewPager.setCurrentItem(POS_MY_COLLECTION);
                 break;
+
             case R.id.all_of_channels:
+                drawer.closeDrawer(GravityCompat.START);
                 viewPager.setCurrentItem(POS_ALL_CHANNEL);
                 break;
+
             case R.id.user_setting:
+                drawer.closeDrawer(GravityCompat.START);
                 Intent intent = new Intent(MainActivity.this, UserSettingActivity.class);
                 startActivity(intent);
                 break;
+
             case R.id.app_setting:
-                Intent intent1 = new Intent(MainActivity.this, AppSettingActivity.class);
-                startActivity(intent1);
+                drawer.closeDrawer(GravityCompat.START);
+                Intent intent2AppSetting = new Intent(MainActivity.this, AppSettingActivity.class);
+                startActivity(intent2AppSetting);
                 break;
+
             default:
                 break;
         }
-        drawer.closeDrawer(GravityCompat.START);
+//        drawer.closeDrawer(GravityCompat.START);
     }
 
     private class PagerAdapter extends FragmentPagerAdapter {
