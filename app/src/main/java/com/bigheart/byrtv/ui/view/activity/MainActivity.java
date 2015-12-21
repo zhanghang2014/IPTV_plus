@@ -259,12 +259,12 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     @Override
     public void login(Exception e) {
         if (e == null) {
-            this.toast("login success!" + AVUser.getCurrentUser().getUsername());
+//            this.toast("login success!" + AVUser.getCurrentUser().getUsername());
             ByrTvApplication.updateReadGetPeopleNumState(true, true, true, ByrTvApplication.updateWhat.upDateLoginState);
             presenter.instanceAVIMClient();
 
         } else {
-            this.toast("login fail");
+//            this.toast("login fail");
             e.printStackTrace();
         }
     }

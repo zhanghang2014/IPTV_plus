@@ -6,8 +6,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +31,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.im.v2.AVIMClient;
@@ -861,12 +864,14 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
                     break;
                 case R.id.ib_launch_danmu:
                     // TODO: 15/12/17 判断 join 是否成功，作相应处理
-                    String content = etWriteDanmu.getText().toString().trim();
-                    addDanmuToServer(content);
-                    etWriteDanmu.setText("");
-                    InputMethodManager imm = (InputMethodManager)getSystemService(TvLiveActivity.this.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(etWriteDanmu.getWindowToken(), 0);
-                    llDanmuEdit.setVisibility(View.GONE);
+                    if (canLaunchDanmu()) {
+                        String content = etWriteDanmu.getText().toString().trim();
+                        addDanmuToServer(content);
+                        etWriteDanmu.setText("");
+                        InputMethodManager imm = (InputMethodManager) getSystemService(TvLiveActivity.this.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(etWriteDanmu.getWindowToken(), 0);
+                        llDanmuEdit.setVisibility(View.GONE);
+                    }
                     break;
                 case R.id.iv_vv_big_text:
                     TvLiveActivity.this.setDanmuEtTextSize(TvLiveActivity.this.DANMU_ET_BIG_SIZE_TEXT);
@@ -901,6 +906,60 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
             }
         }
     };
+
+
+    /**
+     * 用户是否有权限发弹幕
+     *
+     * @return
+     */
+    private boolean canLaunchDanmu() {
+        if (AVUser.getCurrentUser() != null) {
+            if (AVUser.getCurrentUser().getInt("friend") < 60) {
+                new AlertDialog.Builder(TvLiveActivity.this)
+                        .setMessage("您的账号友善度过低，不能发弹幕！详情见 ”系统设置->关于“。")
+                        .setPositiveButton("明白", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                            }
+                        }).show();
+                return false;
+            } else {
+                if (danmuEtColorPos != 0 && !canUserColorDanmu()) {//选中了彩色，但是没有权限
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        } else {
+            toast("您还未登录");
+            return false;
+        }
+    }
+
+
+    /**
+     * 用户是否有权限使用彩色弹幕
+     *
+     * @return
+     */
+    private boolean canUserColorDanmu() {
+        if (AVUser.getCurrentUser() != null) {
+            if (AVUser.getCurrentUser().getBoolean("emailVerified") == false) {
+                new AlertDialog.Builder(TvLiveActivity.this)
+                        .setMessage("您的账号还未进行邮箱验证，验证通过才可使用彩色弹幕。请在”个人信息“中进行验证邮箱认证。")
+                        .setPositiveButton("明白", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                            }
+                        }).show();
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            toast("您还未登录");
+            return false;
+        }
+    }
 
 
     /**
