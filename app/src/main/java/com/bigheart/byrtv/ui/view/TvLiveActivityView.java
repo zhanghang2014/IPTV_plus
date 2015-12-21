@@ -44,4 +44,5 @@ public interface TvLiveActivityView {
      * @param destiny
      */
     void setDanmuSBProgress(int textScale, int speed, int alpha, int destiny);
+
 }

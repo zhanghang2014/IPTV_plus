@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/black"
     android:orientation="horizontal">
@@ -17,6 +17,7 @@
         android:id="@+id/tv_vv_danmu_filter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:singleLine="true"
         android:textColor="@android:color/white"
         tools:text="阿拉拉拉" />
 </LinearLayout>

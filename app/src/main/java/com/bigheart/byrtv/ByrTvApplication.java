@@ -28,8 +28,6 @@ public class ByrTvApplication extends Application {
         //lancloud debug log
 //        AVOSCloud.setDebugLogEnabled(true);
         AVAnalytics.enableCrashReport(this, true);
-        //注册 弹幕 消息
-//        AVIMMessageManager.registerAVIMMessageType(DanmuTextMessage.class);
     }
 
 

@@ -153,7 +153,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:paddingRight="15dp"
-                android:src="@drawable/ic_pause_circle_fill_white_36dp" />
+                tools:src="@drawable/ic_pause_circle_fill_white_36dp" />
         </RelativeLayout>
 
     </RelativeLayout>

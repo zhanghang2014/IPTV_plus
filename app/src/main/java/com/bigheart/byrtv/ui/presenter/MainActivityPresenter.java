@@ -50,8 +50,7 @@ import java.util.Map;
 
 
 /**
- * * 控制AllChannelFragment,MyCollectionFragment
- * <p/>
+ * 控制AllChannelFragment,MyCollectionFragment
  * <p/>
  * Created by BigHeart on 15/12/8.
  */
@@ -111,11 +110,12 @@ public class MainActivityPresenter extends Presenter implements FinishObtainData
     }
 
     public void pullData() {
+
         handler.post(new Runnable() {
             @Override
             public void run() {
                 collectionView.startRefresh();
-//                channelView.startRefresh();
+                channelView.startRefresh();
             }
         });
 
@@ -127,13 +127,13 @@ public class MainActivityPresenter extends Presenter implements FinishObtainData
                     allChannels = channels;
                     shoveChannelsToMap(mapChannels, allChannels);
 
-                    if (!hadSetDataFromNet) {
+                    if (!hadSetDataFromNet) {       //如果 网络 已加载到数据，则不用更新 UI
                         final ArrayList<ChannelModule> collectionChannels = filterCollectionChannel(channels);
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-                                Log.i("all Channels sql", channels.size() + " group");
-                                Log.i("collection Channels sql", collectionChannels.size() + " group");
+                                LogUtil.i("all Channels sql", channels.size() + " group");
+                                LogUtil.i("collection Channels sql", collectionChannels.size() + " group");
                                 channelView.updateData(channels);
                                 collectionView.updateData(collectionChannels);
                             }
@@ -150,6 +150,7 @@ public class MainActivityPresenter extends Presenter implements FinishObtainData
             @Override
             public void getFromNetSuccess(final ArrayList<ChannelModule> channels) {
                 hadSetDataFromNet = true;
+
                 //只需更新全部列表
                 allChannels = channels;
                 updateSqlChannel(channels);
@@ -157,13 +158,15 @@ public class MainActivityPresenter extends Presenter implements FinishObtainData
 
                 ByrTvApplication.updateReadGetPeopleNumState(true, true, true, ByrTvApplication.updateWhat.updatePullChannelState);
                 LogUtil.d("getFromNetSuccess", "getFromNetSuccess");
-                upDateChatRoomNum(true);
+                upChannelConversation(true);
 
 
                 LogUtil.i("All Channel net", channels.size() + " group");
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+                        collectionView.stopRefresh();//虽然还未获得人数
+                        channelView.stopRefresh();
                         channelView.updateData(channels);
                     }
                 });
@@ -172,15 +175,18 @@ public class MainActivityPresenter extends Presenter implements FinishObtainData
             @Override
             public void getFromNetError(Exception e) {
                 e.printStackTrace();
+
                 ByrTvApplication.updateReadGetPeopleNumState(true, true, true, ByrTvApplication.updateWhat.updatePullChannelState);
                 LogUtil.d("getFromNetError", "getFromNetError");
-                upDateChatRoomNum(true);
+                upChannelConversation(true);
 
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+                        channelView.stopRefresh();
+                        collectionView.stopRefresh();
                         Toast.makeText(context, R.string.net_wrong, Toast.LENGTH_SHORT).show();
-                        Log.i("MainActivityPresenter", "can not get channel from net");
+                        LogUtil.i("MainActivityPresenter", "can not get channel from net");
                     }
                 });
             }
@@ -194,7 +200,6 @@ public class MainActivityPresenter extends Presenter implements FinishObtainData
     /**
      * 更新MyCollectionFrg中的数据
      */
-
     public void upDateMyCollectionFrg() {
         final ArrayList<ChannelModule> newCollectionChannels = filterCollectionChannel(allChannels);
         Collections.sort(newCollectionChannels, new SortByPinYin());
@@ -202,7 +207,7 @@ public class MainActivityPresenter extends Presenter implements FinishObtainData
             @Override
             public void run() {
                 collectionView.updateData(newCollectionChannels);
-                Log.i("MainActivityPresenter update", newCollectionChannels.size() + " group");
+                LogUtil.i("MainActivityPresenter update", newCollectionChannels.size() + " group");
             }
         });
     }
@@ -236,11 +241,8 @@ public class MainActivityPresenter extends Presenter implements FinishObtainData
         }
     }
 
-    private int serverRoomCount, hadServerRoomUpdateCount;
-
-
     /**
-     * 实例化 AVIMClient
+     * 实例化 AVIMClient,尝试获取
      */
     public void instanceAVIMClient() {
         ByrTvApplication.avimClient = AVIMClient.getInstance(AVUser.getCurrentUser().getObjectId());
@@ -251,36 +253,35 @@ public class MainActivityPresenter extends Presenter implements FinishObtainData
                     ByrTvApplication.avimClient = avimClient;
                     ByrTvApplication.updateReadGetPeopleNumState(true, true, true, ByrTvApplication.updateWhat.updateAVIMClientState);
                     LogUtil.d("instanceAVIMClient", "instanceAVIMClient");
-                    upDateChatRoomNum(true);
+                    upChannelConversation(true);
 
                 }
             }
         });
     }
 
+
     /**
-     * 更新聊天室人数
+     * 获取 聊天室的  Conversation
      *
      * @param isNeedToCreateRoom 是否需要建立 chat room
      */
-    private synchronized void upDateChatRoomNum(final boolean isNeedToCreateRoom) {
+    private synchronized void upChannelConversation(final boolean isNeedToCreateRoom) {
 
-        if (ByrTvApplication.isReadGetPeopleNum()) {
+        if (ByrTvApplication.isReadGetPeopleNum()) {        //仅当 登录 且 尝试请求频道数据 后才执行
             LogUtil.d("isReadGetPeopleNum", "isReadGetPeopleNum");
-            //仅当 登录 且 尝试请求频道数据 后才执行
+
             AVIMConversationQuery query = ByrTvApplication.avimClient.getQuery();
             query.whereGreaterThan("name", "");//查询全部
-            query.setQueryPolicy(AVQuery.CachePolicy.NETWORK_ONLY);
+            query.setQueryPolicy(AVQuery.CachePolicy.NETWORK_ONLY);//取消缓存
             query.setLimit(100000000);
             query.findInBackground(new AVIMConversationQueryCallback() {
                 @Override
                 public void done(List<AVIMConversation> convs, AVIMException e) {
                     if (e == null) {
                         if (convs != null) {
-                            LogUtil.d("upDateChatRoomNum", convs.size() + "");
-                            serverRoomCount = convs.size();
-                            hadServerRoomUpdateCount = 0;
-                            if (serverRoomCount > 0) {
+                            LogUtil.d("upChannelConversation", convs.size() + "");
+                            if (convs.size() > 0) {
                                 for (int roomIndex = 0; roomIndex < convs.size(); roomIndex++) {
                                     final AVIMConversation cv = convs.get(roomIndex);
 //                                    LogUtil.d(cv.getName() + " Members().size()", cv.getMembers().size() + "");
@@ -292,21 +293,25 @@ public class MainActivityPresenter extends Presenter implements FinishObtainData
                                     } else {
                                         LogUtil.d("setPeopleNumToMap", "惊现服务器存在，本地不存在的聊天室");
                                     }
+                                }
 
-                                    if (isNeedToCreateRoom) {
-                                        createChatRoom();
-                                    }
-
+                                if (isNeedToCreateRoom) {
+                                    createChatRoom();
                                 }
 
                                 //获取 收藏频道 人数
                                 ObtainPeopNumPool.getInstance(MainActivityPresenter.this).execute(filterCollectionChannel(allChannels));
 
                             } else {
-                                LogUtil.d("upDateChatRoomNum", convs.size() + "");
+                                LogUtil.d("upChannelConversation", convs.size() + "");
                                 finishObtainPeopNum(false);
-                                createChatRoom();
+                                if (isNeedToCreateRoom) {
+                                    createChatRoom();
+                                }
                             }
+                        } else {
+                            finishObtainPeopNum(false);
+                            LogUtil.e("upChannelConversation", "返回 cv == null");
                         }
                     } else {
                         //取消 获取人数
@@ -319,34 +324,30 @@ public class MainActivityPresenter extends Presenter implements FinishObtainData
 
 
     private void createChatRoom() {
-        hadServerRoomUpdateCount++;
+//        hadServerRoomUpdateCount++;
 //        LogUtil.d("hadServerRoomUpdateCount", hadServerRoomUpdateCount + "");
-        if (hadServerRoomUpdateCount >= serverRoomCount) {//已有的聊天室的人数均已加载完毕
-            Iterator createI = mapChannels.entrySet().iterator();
-            int i = 0;
-            while (createI.hasNext()) {
-                ChannelModule c = (ChannelModule) ((Map.Entry) createI.next()).getValue();
-                if (c != null && !c.isExistInServer()) {
-                    i++;
+//        if (hadServerRoomUpdateCount >= serverRoomCount) {//已有的聊天室的人数均已加载完毕
+        Iterator createI = mapChannels.entrySet().iterator();
+        int i = 0;
+        while (createI.hasNext()) {
+            ChannelModule c = (ChannelModule) ((Map.Entry) createI.next()).getValue();
+            if (c != null && !c.isExistInServer()) {
+                i++;
 //                    LogUtil.d("ExistInServer", c.getChannelName());
-                    ByrTvApplication.avimClient.createConversation(new ArrayList<String>(), c.getServerName(), null, true, true,
-                            new AVIMConversationCreatedCallback() {
-                                @Override
-                                public void done(AVIMConversation conv, AVIMException e) {
-                                    if (e == null) {
-                                        LogUtil.d("createChatRoom", conv.getName());
-                                    } else {
-                                        e.printStackTrace();
-                                    }
+                ByrTvApplication.avimClient.createConversation(new ArrayList<String>(), c.getServerName(), null, true, true,
+                        new AVIMConversationCreatedCallback() {
+                            @Override
+                            public void done(AVIMConversation conv, AVIMException e) {
+                                if (e == null) {
+                                    LogUtil.d("createChatRoom", conv.getName());
+                                } else {
+                                    e.printStackTrace();
                                 }
-                            });
-//                    if (i > 20) {
-//                        break;
-//                    }
-                }
+                            }
+                        });
             }
-            LogUtil.d("createChatRoomNum", i + "");
         }
+        LogUtil.d("createChatRoomNum", i + "");
 
     }
 
@@ -357,9 +358,9 @@ public class MainActivityPresenter extends Presenter implements FinishObtainData
      * @param channels
      * @return
      */
-    private ArrayList<ChannelModule> filterCollectionChannel
-    (ArrayList<ChannelModule> channels) {
+    private ArrayList<ChannelModule> filterCollectionChannel(ArrayList<ChannelModule> channels) {
         ArrayList<ChannelModule> collectionChannels = new ArrayList<>();
+
         for (ChannelModule c : channels) {
             if (c.isCollected()) {
                 collectionChannels.add(c);
@@ -368,6 +369,12 @@ public class MainActivityPresenter extends Presenter implements FinishObtainData
         return collectionChannels;
     }
 
+
+    /**
+     * 根据最新获取到的频道，更新本地数据库
+     *
+     * @param channels
+     */
     private void updateSqlChannel(ArrayList<ChannelModule> channels) {
         ArrayList<ChannelModule> tmpChannels;
         for (ChannelModule c : channels) {
@@ -403,21 +410,6 @@ public class MainActivityPresenter extends Presenter implements FinishObtainData
             c.setServerName(uri.substring(uri.lastIndexOf('/') + 1, uri.length() - 5));
             map.put(c.getServerName(), c);
         }
-    }
-
-    private synchronized void setPeopleNumToMap(String roomName, int num) {
-        ChannelModule cm = mapChannels.get(roomName);
-        if (cm != null) {
-            cm.setPeopleNum(num);
-        } else {
-            LogUtil.d("setPeopleNumToMap", "服务器存在，本地不存在的聊天室");
-        }
-    }
-
-    public static void setChannelPeopleNum(String name, int count) {
-        ChannelModule c = mapChannels.get(name);
-        if (c != null)
-            c.setPeopleNum(count);
     }
 
     public Uri getIconUri() {

@@ -291,7 +291,7 @@ public class MainActivity extends BaseActivity implements MainActivityView, Frag
     @Override
     public void fragmentInitOk() {
         okFragCount++;
-        Log.i("MainActivity", "get ok msg " + okFragCount);
+        LogUtil.i("MainActivity", "get ok msg " + okFragCount);
         if (okFragCount == 2) {
             if (presenter == null)
                 presenter = new MainActivityPresenter(this, this, myCollectionFragment, channelFragment);

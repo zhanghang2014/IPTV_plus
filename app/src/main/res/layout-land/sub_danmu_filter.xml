@@ -10,12 +10,15 @@
     android:minWidth="180dp"
     android:orientation="vertical"
     android:visibility="gone"
-    tools:visibility="gone">
+    tools:visibility="visible">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_gravity="left"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="8dp"
+        android:paddingLeft="5dp"
         android:text="@string/danmu_filter"
         android:textColor="@android:color/white"
         android:textSize="20sp" />
@@ -23,6 +26,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="15dp"
         android:text="@string/danmu_filter_by_pos"
         android:textColor="@android:color/white" />
 
@@ -38,6 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
             android:layout_marginRight="8dp"
             android:background="@drawable/ic_danmu_position_top_white_block_36dp"
             android:text="@string/danmu_top" />
@@ -75,12 +81,21 @@
         android:id="@+id/bt_vv_fliter_users"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
         android:gravity="center_vertical"
         android:text="@string/filter_selected_users" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="注：屏蔽不可撤销"
+        android:textColor="@android:color/white" />
 
     <ListView
         android:id="@+id/lv_vv_danmu_users"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ListView>
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"></ListView>
 </LinearLayout>
