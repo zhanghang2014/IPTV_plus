@@ -29,12 +29,8 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.avos.avoscloud.AVCloud;
-import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
-import com.avos.avoscloud.FunctionCallback;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.avos.avoscloud.im.v2.AVIMConversation;
 import com.avos.avoscloud.im.v2.AVIMConversationQuery;
@@ -57,7 +53,6 @@ import com.bigheart.byrtv.util.ByrTvUtil;
 import com.bigheart.byrtv.util.LogUtil;
 import com.bigheart.byrtv.util.MinFriendValuePool;
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -300,10 +295,15 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
 
     @Override
     public void setDanmuSBProgress(int textScale, int speed, int alpha, int destiny) {
-        sbSpeed.setProgress((int) (5 - speed / 23f + 0.2f));
-        sbTextScale.setProgress((int) (textScale / 28.6f + 0.5f));
-        sbAlpha.setProgress((int) (alpha * 2.5f + 5));
-        sbDestiny.setProgress(destiny / 2 + 3);
+        sbSpeed.setProgress(speed);
+        sbTextScale.setProgress(textScale);
+        sbAlpha.setProgress(alpha);
+        sbDestiny.setProgress(destiny);
+
+        danmakuContext.setDanmakuTransparency(alpha * 2.0f + 5);
+        danmakuContext.setMaximumVisibleSizeInScreen(destiny / 2 + 3);
+        danmakuContext.setScrollSpeedFactor(3 - speed / 33f + 0.2f);
+        danmakuContext.setScaleTextSize(textScale / 28.6f + 0.5f);
     }
 
     private void setBeSelected(ImageView iv) {
@@ -864,6 +864,8 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
                     String content = etWriteDanmu.getText().toString().trim();
                     addDanmuToServer(content);
                     etWriteDanmu.setText("");
+                    InputMethodManager imm = (InputMethodManager)getSystemService(TvLiveActivity.this.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(etWriteDanmu.getWindowToken(), 0);
                     llDanmuEdit.setVisibility(View.GONE);
                     break;
                 case R.id.iv_vv_big_text:
@@ -981,10 +983,10 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
                     LogUtil.d("setMaximumVisibleSizeInScreen ", progress / 2f + 3 + "");
                     break;
                 case R.id.sb_danmu_speed:
-                    //0.2~5
-                    danmakuContext.setScrollSpeedFactor(5 - progress / 23f + 0.2f);
+                    //0.2~3
+                    danmakuContext.setScrollSpeedFactor(3 - progress / 33f + 0.2f);
                     danmuPreferences.setDanmuSpeed(sbSpeed.getProgress());
-                    LogUtil.d("setScrollSpeedFactor ", 100 - progress / 23f + 0.2f + "");
+                    LogUtil.d("setScrollSpeedFactor ", 3 - progress / 33f + 0.2f + "");
                     break;
                 case R.id.sb_text_scale:
                     //0.5~4
@@ -1194,7 +1196,7 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
                                 ((Integer) mapAttrs.get(DanmuAttrs.DANMU_COLOR)).intValue(),
                                 ((Integer) mapAttrs.get(DanmuAttrs.DANMU_TEXT_SIZE)).intValue(),
                                 ((String) mapAttrs.get(DanmuAttrs.DANMU_SENDER_ID))), false);
-                Toast.makeText(TvLiveActivity.this, ((AVIMTextMessage) message).getText(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(TvLiveActivity.this, ((AVIMTextMessage) message).getText(), Toast.LENGTH_SHORT).show();
                 addDanmuToQFilter(new FilterItem(((AVIMTextMessage) message).getText(), ((String) mapAttrs.get(DanmuAttrs.DANMU_SENDER_ID)), false));
             } else {
                 LogUtil.d("CustomMessageHandler", "收到未声明的消息" + message.getClass());

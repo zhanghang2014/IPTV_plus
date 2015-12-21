@@ -2,6 +2,7 @@ package com.bigheart.byrtv;
 
 import android.app.Application;
 
+import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.im.v2.AVIMClient;
 import com.bigheart.byrtv.data.sqlite.SqlChannelManager;
@@ -25,8 +26,8 @@ public class ByrTvApplication extends Application {
         ByrTvUtil.init(getApplicationContext());
         LogUtil.d("ByrTvApplication", "onCreate");
         //lancloud debug log
-        AVOSCloud.setDebugLogEnabled(true);
-
+//        AVOSCloud.setDebugLogEnabled(true);
+        AVAnalytics.enableCrashReport(this, true);
         //注册 弹幕 消息
 //        AVIMMessageManager.registerAVIMMessageType(DanmuTextMessage.class);
     }

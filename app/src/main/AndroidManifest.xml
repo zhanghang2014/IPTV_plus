@@ -50,18 +50,22 @@
 
         <activity
             android:name=".ui.view.activity.UserSettingActivity"
-            android:label="@string/title_activity_user_settings"></activity>
+            android:label="@string/title_activity_user_settings"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".ui.view.activity.EditUserDataActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".ui.view.activity.LoginActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".ui.view.activity.AppSettingActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
 
         <!-- leancloud 实时通信声明  !-->
         <service android:name="com.avos.avoscloud.PushService" />
@@ -79,7 +83,8 @@
 
         <activity
             android:name=".ui.view.activity.AppAboutActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
 
     </application>
 

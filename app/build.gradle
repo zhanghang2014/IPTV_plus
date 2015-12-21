@@ -13,8 +13,8 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            minifyEnabled true
-            shrinkResources true
+//            minifyEnabled true
+//            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -47,6 +47,8 @@ dependencies {
     compile 'cn.leancloud.android:Java-WebSocket:1.3.1-leancloud'
     //avoscloud-feedback 为 LeanCloud 用户反馈包
     compile 'cn.leancloud.android:avoscloud-feedback:v3.+@aar'
+    //avoscloud-statistics 为 LeanCloud 统计包
+    compile 'cn.leancloud.android:avoscloud-statistics:v3.+'
     //视频播放包
     compile project(':vitamio')
     //弹幕库

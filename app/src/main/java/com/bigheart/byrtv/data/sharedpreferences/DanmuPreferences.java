@@ -48,7 +48,7 @@ public class DanmuPreferences {
 
     //用户设置弹幕的属性
     public int getDanmuTextScale() {
-        return pref.getInt(DANMU_TEXT_SCALE, 60);
+        return pref.getInt(DANMU_TEXT_SCALE, 32);
     }
 
     public void setDanmuTextScale(int danmuTextSize) {
@@ -56,7 +56,7 @@ public class DanmuPreferences {
     }
 
     public int getDanmuSpeed() {
-        return pref.getInt(DANMU_SPEED, 35);
+        return pref.getInt(DANMU_SPEED, 65);
     }
 
     public void setDanmuSpeed(int danmuSpeed) {
