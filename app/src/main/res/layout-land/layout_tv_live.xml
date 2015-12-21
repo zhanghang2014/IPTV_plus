@@ -38,6 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:alpha="0.75"
             android:background="@android:color/black">
 
             <ImageView
@@ -99,8 +100,11 @@
             android:id="@+id/tv_vv_buffer_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:alpha="0.75"
+            android:background="#000000"
+            android:padding="5dp"
             android:textColor="@android:color/white"
             android:visibility="visible"
             tools:text="1.13kb/s" />
@@ -110,14 +114,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:alpha="0.75"
             android:background="@android:color/black"
-            android:gravity="bottom">
+            android:gravity="bottom"
+            android:padding="2dp">
 
             <Button
                 android:id="@+id/bt_vv_lock_screen"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
                 android:background="@null"
                 android:drawableTop="@drawable/ic_lock_white_24dp"
                 android:text="@string/lock_screen"
@@ -146,6 +153,15 @@
                 android:text="@string/danmu_switch"
                 android:textColor="@android:color/white" />
 
+            <android.support.v4.widget.ContentLoadingProgressBar
+                android:id="@+id/clpb_vv_load_video"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="108px"
+                android:layout_height="108px"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:paddingRight="15dp" />
+
             <ImageView
                 android:id="@+id/iv_vv_play_pause"
                 android:layout_width="wrap_content"
@@ -153,6 +169,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:paddingRight="15dp"
+                android:visibility="gone"
                 tools:src="@drawable/ic_pause_circle_fill_white_36dp" />
         </RelativeLayout>
 

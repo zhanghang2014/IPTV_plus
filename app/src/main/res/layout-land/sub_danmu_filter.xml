@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:layout_alignParentRight="true"
     android:layout_gravity="right"
+    android:alpha="0.75"
     android:background="@android:color/black"
     android:minWidth="180dp"
     android:orientation="vertical"

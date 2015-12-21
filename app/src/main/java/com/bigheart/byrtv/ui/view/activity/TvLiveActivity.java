@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.widget.ContentLoadingProgressBar;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
@@ -84,7 +85,7 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
     public static final String TV_SERVER_NAME = "tv_server_name";
 
     private final int OPTION_VOLUME = 0, OPTION_BRIGHTNESS = 1, OPTION_NOTHING = 2;
-    private final float THRESHOLD = ByrTvUtil.dip2px(5f);
+    private final float THRESHOLD = ByrTvUtil.dip2px(10f);
     private float adjustY = 0;
     private int adjustOption = OPTION_VOLUME;
     private ChannelModule channel;
@@ -162,7 +163,6 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
      * 监听分钟量级的变化，更新时间
      */
     private BroadcastReceiver minBroadcast = new BroadcastReceiver() {
-
         @Override
         public void onReceive(Context context, Intent intent) {
             //update time every minute
@@ -460,7 +460,8 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
                     Log.i("TvLiveActivity change", videoH + " " + videoW);
                 }
                 mVideoView.setBufferSize(512 * 1024);
-                ivPlayOrPause.setImageDrawable(getResources().getDrawable(R.drawable.ic_pause_circle_fill_white_36dp));
+                findViewById(R.id.clpb_vv_load_video).setVisibility(View.GONE);
+                ivPlayOrPause.setVisibility(View.VISIBLE);
             }
         });
 
@@ -468,6 +469,7 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
             @Override
             public boolean onError(MediaPlayer mp, int what, int extra) {
                 // extra : https://github.com/yixia/VitamioBundle/wiki/ErrorCode
+                findViewById(R.id.clpb_vv_load_video).setVisibility(View.GONE);
                 new AlertDialog.Builder(TvLiveActivity.this).setTitle("错误").setMessage("视频播放错误").setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         finish();
