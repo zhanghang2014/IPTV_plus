@@ -18,14 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bigheart.byrtv.R;
-import com.bigheart.byrtv.data.sharedpreferences.AppSettingOption;
-import com.bigheart.byrtv.domain.interactor.ChannelsRsp;
-import com.bigheart.byrtv.domain.interactor.GetChannelList;
 import com.bigheart.byrtv.ui.module.ChannelModule;
 import com.bigheart.byrtv.ui.presenter.AllChannelPresenter;
 import com.bigheart.byrtv.ui.view.AllChannelView;
 import com.bigheart.byrtv.ui.view.FragContactToAct;
-import com.bigheart.byrtv.util.ChannelSortType;
 
 import java.util.ArrayList;
 
@@ -42,22 +38,16 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
     private ListView lvAllChannel;
     private SwipeRefreshLayout refreshLayout;
 
-    private int sortType = ChannelSortType.SORT_BY_PEOPLE_NUM.ordinal();//列表排序类型，默认在线人数排序
     private ChannelAdapter channelAdapter;
     private ArrayList<ChannelModule> channels;
 
     private static FragContactToAct allChannelFragContactToAct;
     private static AllChannelPresenter presenter;
 
-    private Handler handler;
 
-
-    public static AllChannelFragment newInstance(ChannelSortType itemSortType, FragContactToAct contactToAct) {
+    public static AllChannelFragment newInstance(FragContactToAct contactToAct) {
         AllChannelFragment fragment = new AllChannelFragment();
         allChannelFragContactToAct = contactToAct;
-        Bundle args = new Bundle();
-        args.putInt(ITEM_SORT_TYPE, itemSortType.ordinal());
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -69,11 +59,6 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new AllChannelPresenter(getActivity(), this);
-        handler = new Handler();
-
-        if (getArguments() != null) {
-            sortType = getArguments().getInt(ITEM_SORT_TYPE);
-        }
 
 //        Log.i("AllChannelFragment","onCreate");
     }
@@ -93,7 +78,6 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                //只刷新在线人数，不刷新频道列表
                 stopRefresh();
             }
         });
@@ -151,7 +135,7 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
     @Override
     public void updateData(ArrayList<ChannelModule> channels) {
         //默认拼音排序
-        this.channels = presenter.channelSort(AppSettingOption.SORT_PINYIN, channels);
+        this.channels = presenter.channelSort(channels);
         channelAdapter.notifyDataSetChanged();
     }
 

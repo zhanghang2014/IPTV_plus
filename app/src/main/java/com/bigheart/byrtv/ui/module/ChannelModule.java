@@ -1,6 +1,5 @@
 package com.bigheart.byrtv.ui.module;
 
-import com.avos.avoscloud.im.v2.AVIMConversation;
 
 /**
  * 频道
@@ -15,7 +14,6 @@ public class ChannelModule {
     private int peopleNum = 0;
     private long sqlId;
     private boolean isExistInServer = false;
-    private AVIMConversation conversation;
 
     public ChannelModule() {
 
@@ -83,14 +81,6 @@ public class ChannelModule {
 
     public void setIsExistInServer(boolean isExistInServer) {
         this.isExistInServer = isExistInServer;
-    }
-
-    public AVIMConversation getConversation() {
-        return conversation;
-    }
-
-    public void setConversation(AVIMConversation conversation) {
-        this.conversation = conversation;
     }
 
 }

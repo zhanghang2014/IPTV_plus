@@ -34,19 +34,9 @@
     <!-- 提示语-->
     <string name="net_wrong">网络出错了哦</string>
 
-    <string name="title_activity_user_settings">UserSettings</string>
-
-    <!-- 默认显示文字-->
-    <string name="defualt">TEST</string>
 
 
     <string name="has_no_collection">你还未收藏任何频道～\n右滑点击星号即可收藏 --></string>
     <!-- 提示语-->
 
-    <!-- 应用介绍-->
-    <string name="app_about"> IPTV+\n北邮人的IPTV\n可以发弹幕讨(b)论(b)的IPTV</string>
-    <string name="app_about_dev_mem">BigHeart
-        \n InG</string>
-    <string name="app_about_faq_frend">友善度：初始值为100分，若您在弹幕中发表了不恰当言论导致其他用户屏蔽你时，将减1分友善度，低于60时将不能发送弹幕且只能通过联系开发者申请恢复友善度</string>
-    <string name="app_about_dev_support">支付宝接受小额赞助，所得资金将用于支付服务器费用，支付宝账户(长按可复制)：</string>
 </resources>

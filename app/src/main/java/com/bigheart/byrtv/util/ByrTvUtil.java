@@ -8,14 +8,6 @@ import android.os.Build;
 import android.view.Display;
 import android.view.WindowManager;
 
-import com.avos.avoscloud.AVCloud;
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.FunctionCallback;
-import com.bigheart.byrtv.ByrTvApplication;
-
-import java.util.HashMap;
-import java.util.List;
-
 /**
  * Created by BigHeart on 15/12/10.
  */

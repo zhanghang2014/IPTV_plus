@@ -15,16 +15,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bigheart.byrtv.R;
-import com.bigheart.byrtv.data.sharedpreferences.AppSettingOption;
-import com.bigheart.byrtv.data.sharedpreferences.AppSettingPreferences;
 import com.bigheart.byrtv.ui.module.ChannelModule;
 import com.bigheart.byrtv.ui.presenter.MyCollectionPresenter;
 import com.bigheart.byrtv.ui.view.FragContactToAct;
 import com.bigheart.byrtv.ui.view.MyCollectionView;
-import com.bigheart.byrtv.util.ChannelSortType;
-import com.bigheart.byrtv.util.LogUtil;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -35,7 +29,6 @@ import java.util.ArrayList;
 public class MyCollectionFragment extends Fragment implements MyCollectionView {
 
     private static final String ITEM_SORT_TYPE = "itemSortType";
-    private int sortType = ChannelSortType.SORT_BY_ALPHA.ordinal();//默认在线人数排序
 
     private ListView lvCollection;
     private TextView tvNoCollection;
@@ -46,14 +39,9 @@ public class MyCollectionFragment extends Fragment implements MyCollectionView {
     private MyCollectionPresenter presenter;
     private static FragContactToAct collectionFragContactToAct;
 
-    private AppSettingPreferences sp;
-
-    public static MyCollectionFragment newInstance(ChannelSortType itemSortType, FragContactToAct contactToAct) {
+    public static MyCollectionFragment newInstance(FragContactToAct contactToAct) {
         MyCollectionFragment fragment = new MyCollectionFragment();
         collectionFragContactToAct = contactToAct;
-        Bundle args = new Bundle();
-        args.putInt(ITEM_SORT_TYPE, itemSortType.ordinal());
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -65,10 +53,6 @@ public class MyCollectionFragment extends Fragment implements MyCollectionView {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new MyCollectionPresenter(getActivity(), this);
-        sp = new AppSettingPreferences(this.getActivity());
-        if (getArguments() != null) {
-            sortType = getArguments().getInt(ITEM_SORT_TYPE);
-        }
     }
 
     @Override
@@ -86,8 +70,7 @@ public class MyCollectionFragment extends Fragment implements MyCollectionView {
             @Override
             public void onRefresh() {
                 //只刷新在线人数，不刷新频道列表
-                presenter.upDateChannelPeopNum(collectionChannels);
-                updateData(collectionChannels);
+//                updateData(collectionChannels);
                 stopRefresh();
             }
         });
@@ -138,7 +121,7 @@ public class MyCollectionFragment extends Fragment implements MyCollectionView {
     @Override
     public void updateData(ArrayList<ChannelModule> channels) {
         //拼音排序只需排一次
-        this.collectionChannels = presenter.channelSort(sp.getChannelSort(), channels);
+        this.collectionChannels = presenter.channelSort(channels);
 
         //处理视图
         if (collectionChannels.size() <= 0) {
@@ -202,7 +185,6 @@ public class MyCollectionFragment extends Fragment implements MyCollectionView {
             } else {
                 holder.tvChannelShort.setText(tmpChannel.getChannelName().charAt(0) + "");
             }
-            holder.tvPeopleNum.setText("在线人数:" + tmpChannel.getPeopleNum());
             return convertView;
         }
 

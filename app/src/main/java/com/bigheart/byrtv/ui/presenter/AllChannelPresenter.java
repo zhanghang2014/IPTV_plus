@@ -3,23 +3,18 @@ package com.bigheart.byrtv.ui.presenter;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.util.Log;
 
 import com.bigheart.byrtv.ByrTvApplication;
-import com.bigheart.byrtv.data.sharedpreferences.AppSettingOption;
 import com.bigheart.byrtv.data.sqlite.ChannelColumn;
 import com.bigheart.byrtv.data.sqlite.SqlChannelManager;
 import com.bigheart.byrtv.ui.module.ChannelModule;
 import com.bigheart.byrtv.ui.view.AllChannelView;
 import com.bigheart.byrtv.ui.view.activity.TvLiveActivity;
-import com.bigheart.byrtv.util.LogUtil;
-import com.bigheart.byrtv.util.SortByPeople;
 import com.bigheart.byrtv.util.SortByPinYin;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
 /**
  * Created by BigHeart on 15/12/7.
@@ -65,9 +60,8 @@ public class AllChannelPresenter extends Presenter {
         context.startActivity(intent);
     }
 
-    public ArrayList<ChannelModule> channelSort(int settingOption, ArrayList<ChannelModule> channels) {
+    public ArrayList<ChannelModule> channelSort(ArrayList<ChannelModule> channels) {
 
-        if (settingOption == AppSettingOption.SORT_PINYIN) {
             if (!ByrTvApplication.isTryPullChannelFromNet()) {
                 //此次为从 数据库 中获取
                 Collections.sort(channels, new SortByPinYin());
@@ -77,10 +71,6 @@ public class AllChannelPresenter extends Presenter {
                 Collections.sort(channels, new SortByPinYin());
             }
             return channels;
-        } else {
-            Collections.sort(channels, new SortByPeople());
-            return channels;
-        }
     }
 
 

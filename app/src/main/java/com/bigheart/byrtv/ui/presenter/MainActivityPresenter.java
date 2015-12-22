@@ -5,27 +5,10 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.avos.avoscloud.AVCloud;
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVFile;
-import com.avos.avoscloud.AVQuery;
-import com.avos.avoscloud.AVUser;
-import com.avos.avoscloud.FunctionCallback;
-import com.avos.avoscloud.LogInCallback;
-import com.avos.avoscloud.SignUpCallback;
-import com.avos.avoscloud.im.v2.AVIMClient;
-import com.avos.avoscloud.im.v2.AVIMConversation;
-import com.avos.avoscloud.im.v2.AVIMConversationQuery;
-import com.avos.avoscloud.im.v2.AVIMException;
-import com.avos.avoscloud.im.v2.callback.AVIMClientCallback;
-import com.avos.avoscloud.im.v2.callback.AVIMConversationCreatedCallback;
-import com.avos.avoscloud.im.v2.callback.AVIMConversationQueryCallback;
 import com.bigheart.byrtv.ByrTvApplication;
 import com.bigheart.byrtv.R;
-import com.bigheart.byrtv.data.sharedpreferences.AccountPreferences;
 import com.bigheart.byrtv.data.sqlite.ChannelColumn;
 import com.bigheart.byrtv.data.sqlite.SqlChannelManager;
 import com.bigheart.byrtv.domain.interactor.ChannelsRsp;
@@ -36,7 +19,6 @@ import com.bigheart.byrtv.ui.view.MainActivityView;
 import com.bigheart.byrtv.ui.view.MyCollectionView;
 import com.bigheart.byrtv.util.ByrTvUtil;
 import com.bigheart.byrtv.util.LogUtil;
-import com.bigheart.byrtv.util.ObtainPeopNumPool;
 import com.bigheart.byrtv.util.SortByPinYin;
 import com.bigheart.byrtv.util.SqlUtil;
 
@@ -54,7 +36,7 @@ import java.util.Map;
  * <p/>
  * Created by BigHeart on 15/12/8.
  */
-public class MainActivityPresenter extends Presenter implements FinishObtainDataRsp {
+public class MainActivityPresenter extends Presenter {
     private Context context;
     private MainActivityView mainActivityView;
     private MyCollectionView collectionView;
@@ -71,43 +53,12 @@ public class MainActivityPresenter extends Presenter implements FinishObtainData
         collectionView = myCollectionView;
         channelView = allChannelView;
 
-        ByrTvApplication.resetGetPeopleNumState();
 
         handler = new Handler();
         allChannels = new ArrayList<>();
         mapChannels = new HashMap<>();
     }
 
-    @Override
-    public void finishObtainPeopNum(final boolean isSuccess) {
-//        channelView.updateData(allChannels);
-        collectionView.updateData(filterCollectionChannel(allChannels));
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                if (!isSuccess) {
-                    Toast.makeText(context, R.string.net_wrong, Toast.LENGTH_SHORT).show();
-                }
-//                channelView.stopRefresh();
-                collectionView.stopRefresh();
-            }
-        });
-    }
-
-    public void checkUpdate() {
-        AVCloud.callFunctionInBackground("appUpdate", null, new FunctionCallback() {
-            @Override
-            public void done(Object o, AVException e) {
-                if (e == null) {
-                    if (!String.valueOf(ByrTvUtil.getVersionName(context)).equals(((List) o).get(0))) {
-                        mainActivityView.showUpdateDialog(((List<String>) o).get(0), ((List<String>) o).get(1), ((List<String>) o).get(2));
-                    }
-                } else {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
 
     public void pullData() {
 
@@ -156,11 +107,6 @@ public class MainActivityPresenter extends Presenter implements FinishObtainData
                 updateSqlChannel(channels);
                 shoveChannelsToMap(mapChannels, allChannels);
 
-                ByrTvApplication.updateReadGetPeopleNumState(true, true, true, ByrTvApplication.updateWhat.updatePullChannelState);
-                LogUtil.d("getFromNetSuccess", "getFromNetSuccess");
-                upChannelConversation(true);
-
-
                 LogUtil.i("All Channel net", channels.size() + " group");
                 handler.post(new Runnable() {
                     @Override
@@ -175,10 +121,6 @@ public class MainActivityPresenter extends Presenter implements FinishObtainData
             @Override
             public void getFromNetError(Exception e) {
                 e.printStackTrace();
-
-                ByrTvApplication.updateReadGetPeopleNumState(true, true, true, ByrTvApplication.updateWhat.updatePullChannelState);
-                LogUtil.d("getFromNetError", "getFromNetError");
-                upChannelConversation(true);
 
                 handler.post(new Runnable() {
                     @Override
@@ -210,145 +152,6 @@ public class MainActivityPresenter extends Presenter implements FinishObtainData
                 LogUtil.i("MainActivityPresenter update", newCollectionChannels.size() + " group");
             }
         });
-    }
-
-
-    public void login() {
-        final AccountPreferences accountSp = new AccountPreferences(context);
-        if (!TextUtils.isEmpty(accountSp.getUserAccount()) && !TextUtils.isEmpty(accountSp.getUserPsw())) {
-            AVUser.logInInBackground(accountSp.getUserAccount(), accountSp.getUserPsw(), new LogInCallback() {
-                public void done(AVUser user, AVException e) {
-                    mainActivityView.login(e);
-                }
-            });
-        } else {        //账号未缓存，重新为其创建一个
-            final AVUser user = new AVUser();
-            final String strPsw = "f32@ds*@&dsa";
-            user.setUsername("乔布斯" + Calendar.getInstance().getTimeInMillis());
-            user.setPassword(strPsw);
-
-//        Log.i("MainActivityPresenter", (AVUser.getCurrentUser() == null) + "");
-
-            user.signUpInBackground(new SignUpCallback() {
-                public void done(AVException e) {
-                    mainActivityView.login(e);
-                    if (e == null) {
-                        accountSp.setUserAccount(AVUser.getCurrentUser().getUsername());
-                        accountSp.setUserPsw(strPsw);
-                    }
-                }
-            });
-        }
-    }
-
-    /**
-     * 实例化 AVIMClient,尝试获取
-     */
-    public void instanceAVIMClient() {
-        ByrTvApplication.avimClient = AVIMClient.getInstance(AVUser.getCurrentUser().getObjectId());
-        ByrTvApplication.avimClient.open(new AVIMClientCallback() {
-            @Override
-            public void done(AVIMClient avimClient, AVIMException e) {
-                if (e == null) {
-                    ByrTvApplication.avimClient = avimClient;
-                    ByrTvApplication.updateReadGetPeopleNumState(true, true, true, ByrTvApplication.updateWhat.updateAVIMClientState);
-                    LogUtil.d("instanceAVIMClient", "instanceAVIMClient");
-                    upChannelConversation(true);
-
-                }
-            }
-        });
-    }
-
-
-    /**
-     * 获取 聊天室的  Conversation
-     *
-     * @param isNeedToCreateRoom 是否需要建立 chat room
-     */
-    private synchronized void upChannelConversation(final boolean isNeedToCreateRoom) {
-
-        if (ByrTvApplication.isReadGetPeopleNum()) {        //仅当 登录 且 尝试请求频道数据 后才执行
-            LogUtil.d("isReadGetPeopleNum", "isReadGetPeopleNum");
-
-            AVIMConversationQuery query = ByrTvApplication.avimClient.getQuery();
-            query.whereGreaterThan("name", "");//查询全部
-            query.setQueryPolicy(AVQuery.CachePolicy.NETWORK_ONLY);//取消缓存
-            query.setLimit(100000000);
-            query.findInBackground(new AVIMConversationQueryCallback() {
-                @Override
-                public void done(List<AVIMConversation> convs, AVIMException e) {
-                    if (e == null) {
-                        if (convs != null) {
-                            LogUtil.d("upChannelConversation", convs.size() + "");
-                            if (convs.size() > 0) {
-                                for (int roomIndex = 0; roomIndex < convs.size(); roomIndex++) {
-                                    final AVIMConversation cv = convs.get(roomIndex);
-//                                    LogUtil.d(cv.getName() + " Members().size()", cv.getMembers().size() + "");
-                                    //update channel
-                                    ChannelModule cm = mapChannels.get(cv.getName());
-                                    if (cm != null) {
-                                        cm.setIsExistInServer(true);
-                                        cm.setConversation(cv);
-                                    } else {
-                                        LogUtil.d("setPeopleNumToMap", "惊现服务器存在，本地不存在的聊天室");
-                                    }
-                                }
-
-                                if (isNeedToCreateRoom) {
-                                    createChatRoom();
-                                }
-
-                                //获取 收藏频道 人数
-                                ObtainPeopNumPool.getInstance(MainActivityPresenter.this).execute(filterCollectionChannel(allChannels));
-
-                            } else {
-                                LogUtil.d("upChannelConversation", convs.size() + "");
-                                finishObtainPeopNum(false);
-                                if (isNeedToCreateRoom) {
-                                    createChatRoom();
-                                }
-                            }
-                        } else {
-                            finishObtainPeopNum(false);
-                            LogUtil.e("upChannelConversation", "返回 cv == null");
-                        }
-                    } else {
-                        //取消 获取人数
-                        finishObtainPeopNum(false);
-                    }
-                }
-            });
-        }
-    }
-
-
-    private void createChatRoom() {
-//        hadServerRoomUpdateCount++;
-//        LogUtil.d("hadServerRoomUpdateCount", hadServerRoomUpdateCount + "");
-//        if (hadServerRoomUpdateCount >= serverRoomCount) {//已有的聊天室的人数均已加载完毕
-        Iterator createI = mapChannels.entrySet().iterator();
-        int i = 0;
-        while (createI.hasNext()) {
-            ChannelModule c = (ChannelModule) ((Map.Entry) createI.next()).getValue();
-            if (c != null && !c.isExistInServer()) {
-                i++;
-//                    LogUtil.d("ExistInServer", c.getChannelName());
-                ByrTvApplication.avimClient.createConversation(new ArrayList<String>(), c.getServerName(), null, true, true,
-                        new AVIMConversationCreatedCallback() {
-                            @Override
-                            public void done(AVIMConversation conv, AVIMException e) {
-                                if (e == null) {
-                                    LogUtil.d("createChatRoom", conv.getName());
-                                } else {
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
-            }
-        }
-        LogUtil.d("createChatRoomNum", i + "");
-
     }
 
 
@@ -412,30 +215,5 @@ public class MainActivityPresenter extends Presenter implements FinishObtainData
         }
     }
 
-    public Uri getIconUri() {
-        Uri uri = null;
-        AVUser user = AVUser.getCurrentUser();
-        if (user != null) {
-            AVFile file = user.getAVFile("avator");
-            if (file != null) {
-                uri = Uri.parse(file.getUrl());
-            }
-        }
-        return uri;
-    }
-
-    public String getNickname() {
-        AVUser user = AVUser.getCurrentUser();
-        if (user != null) {
-            return user.getString("nickname");
-        } else {
-            return null;
-        }
-    }
-
-    public void reLogin(LogInCallback callback) {
-        AccountPreferences sp = new AccountPreferences(context);
-        AVUser.logInInBackground(sp.getUserAccount(), sp.getUserPsw(), callback);
-    }
 
 }

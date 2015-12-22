@@ -78,25 +78,4 @@
     </LinearLayout>
 
 
-    <Button
-        android:id="@+id/bt_vv_fliter_users"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:gravity="center_vertical"
-        android:text="@string/filter_selected_users" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:text="注：屏蔽不可撤销"
-        android:textColor="@android:color/white" />
-
-    <ListView
-        android:id="@+id/lv_vv_danmu_users"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"></ListView>
 </LinearLayout>
