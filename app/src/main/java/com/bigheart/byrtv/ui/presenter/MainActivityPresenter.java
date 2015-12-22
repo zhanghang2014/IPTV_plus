@@ -190,7 +190,7 @@ public class MainActivityPresenter extends Presenter implements FinishObtainData
                     }
                 });
             }
-        }).getChannels();
+        }).getChannels(true, true);
     }
 
     public static ChannelModule getAllChannelByName(String channelName) {

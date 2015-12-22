@@ -1,6 +1,7 @@
 package com.bigheart.byrtv.data.net;
 
 import com.bigheart.byrtv.ui.module.ChannelModule;
+import com.bigheart.byrtv.util.LogUtil;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -51,7 +52,7 @@ public class GetChannelTask extends Thread {
                 rst += tmpRst;
             }
             netWorkRsp.onSuccess(parseStr2Channels(rst));
-            System.out.print(rst);
+            LogUtil.d("GetChannelTask", rst);
         } catch (Exception e) {
             netWorkRsp.onError(e);
         } finally {
@@ -67,7 +68,7 @@ public class GetChannelTask extends Thread {
     private ArrayList<ChannelModule> parseStr2Channels(String str) {
         ArrayList<ChannelModule> channels = new ArrayList<>();
 
-        String obtainAllChannel = "<a href=\"http://.*?</a>";
+        String obtainAllChannel = "href=\"http://.*?</a>";
         HashSet<String> hashSet = new HashSet<>();
         Pattern pattern = Pattern.compile(obtainAllChannel);
         Matcher m = pattern.matcher(str);

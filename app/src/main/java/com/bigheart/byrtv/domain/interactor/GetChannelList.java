@@ -20,20 +20,29 @@ public class GetChannelList {
         rsp = channelsRsp;
     }
 
-    public void getChannels() {
 
-        rsp.getFromSqLiteSuccess(SqlChannelManager.getInstance().queryChannel(null, null, null, null, null, null));
-        //
-        new GetChannelTask(new NetWorkRsp<ArrayList<ChannelModule>, Exception>() {
-            @Override
-            public void onSuccess(ArrayList<ChannelModule> channels) {
-                rsp.getFromNetSuccess(channels);
-            }
+    /**
+     * @param isFromSql 从数据库中加载
+     * @param isFromNet 从网络加载
+     */
+    public void getChannels(boolean isFromSql, boolean isFromNet) {
 
-            @Override
-            public void onError(Exception e) {
-                rsp.getFromNetError(e);
-            }
-        }).start();
+        if (isFromSql) {
+            rsp.getFromSqLiteSuccess(SqlChannelManager.getInstance().queryChannel(null, null, null, null, null, null));
+        }
+
+        if (isFromNet) {
+            new GetChannelTask(new NetWorkRsp<ArrayList<ChannelModule>, Exception>() {
+                @Override
+                public void onSuccess(ArrayList<ChannelModule> channels) {
+                    rsp.getFromNetSuccess(channels);
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    rsp.getFromNetError(e);
+                }
+            }).start();
+        }
     }
 }

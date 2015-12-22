@@ -170,7 +170,7 @@
                 android:layout_centerVertical="true"
                 android:paddingRight="15dp"
                 android:visibility="gone"
-                tools:src="@drawable/ic_pause_circle_fill_white_36dp" />
+                android:src="@drawable/ic_pause_circle_fill_white_36dp" />
         </RelativeLayout>
 
     </RelativeLayout>

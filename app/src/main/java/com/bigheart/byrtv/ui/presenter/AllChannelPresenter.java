@@ -29,8 +29,6 @@ public class AllChannelPresenter extends Presenter {
     private AllChannelView allChannelView;
     private Context context;
     private boolean HadUpdateData;
-    private Handler handler = new Handler();
-    private boolean hadSetDataFromNet = false;
 
 
     public AllChannelPresenter(Context c, AllChannelView view) {

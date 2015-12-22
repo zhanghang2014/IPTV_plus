@@ -62,6 +62,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Random;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import io.vov.vitamio.MediaPlayer;
 import io.vov.vitamio.Vitamio;
@@ -182,13 +185,15 @@ public class TvLiveActivity extends BaseActivity implements TvLiveActivityView {
         initData();
 
 
+//        final String[] danmuMsg = {"四不四洒！！！", "66666666...", "感觉药丸~", "在座的各位都是辣鸡 ~~~^_^~~~ ", "咕~~(╯﹏╰)b 好饿~", "shen me gui ~"};
 //        ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(1);
 //        exec.scheduleAtFixedRate(new Runnable() {
 //            public void run() {
-//                addDanmu("四不四洒！！！", false);
+//                double a = Math.random() * 10; //0~9
+//                a = Math.ceil(a);
+//                addDanmu(danmuMsg[(new Double(a)).intValue() % 6], new DanmuAttrs((new Double(a)).intValue() % 3, (new Double(a)).intValue() % 4, (new Double(a)).intValue() % 2, AVUser.getCurrentUser().getObjectId()), false);
 //            }
-//        }, 0, 800, TimeUnit.MILLISECONDS);
-
+//        }, 0, (new Double(Math.random() * 3 + 3)).intValue() * 100, TimeUnit.MILLISECONDS);
     }
 
 

@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,14 +19,13 @@ import android.widget.Toast;
 
 import com.bigheart.byrtv.R;
 import com.bigheart.byrtv.data.sharedpreferences.AppSettingOption;
-import com.bigheart.byrtv.data.sharedpreferences.AppSettingPreferences;
+import com.bigheart.byrtv.domain.interactor.ChannelsRsp;
+import com.bigheart.byrtv.domain.interactor.GetChannelList;
 import com.bigheart.byrtv.ui.module.ChannelModule;
 import com.bigheart.byrtv.ui.presenter.AllChannelPresenter;
 import com.bigheart.byrtv.ui.view.AllChannelView;
 import com.bigheart.byrtv.ui.view.FragContactToAct;
 import com.bigheart.byrtv.util.ChannelSortType;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -36,7 +36,7 @@ import java.util.ArrayList;
 public class AllChannelFragment extends Fragment implements AllChannelView {
 
     private static final String ITEM_SORT_TYPE = "itemSortType";
-    private final int ItemTypeCount = 2;
+    private final int ItemTypeCount = 1;
 
 
     private ListView lvAllChannel;
@@ -49,7 +49,7 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
     private static FragContactToAct allChannelFragContactToAct;
     private static AllChannelPresenter presenter;
 
-    private AppSettingPreferences sp;
+    private Handler handler;
 
 
     public static AllChannelFragment newInstance(ChannelSortType itemSortType, FragContactToAct contactToAct) {
@@ -69,7 +69,7 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new AllChannelPresenter(getActivity(), this);
-        sp = new AppSettingPreferences(this.getActivity());
+        handler = new Handler();
 
         if (getArguments() != null) {
             sortType = getArguments().getInt(ITEM_SORT_TYPE);
@@ -94,7 +94,6 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
             @Override
             public void onRefresh() {
                 //只刷新在线人数，不刷新频道列表
-//                updateData(channels);
                 stopRefresh();
             }
         });
@@ -151,9 +150,6 @@ public class AllChannelFragment extends Fragment implements AllChannelView {
 
     @Override
     public void updateData(ArrayList<ChannelModule> channels) {
-        int sortType = sp.getChannelSort();
-
-        //拼音排序只需排一次
         //默认拼音排序
         this.channels = presenter.channelSort(AppSettingOption.SORT_PINYIN, channels);
         channelAdapter.notifyDataSetChanged();
